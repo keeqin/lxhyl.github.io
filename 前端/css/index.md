@@ -1,6 +1,6 @@
 
 # css
-```html
+```js
 
 console.log('test')
 ```
