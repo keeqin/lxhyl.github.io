@@ -1,8 +1,10 @@
 #auther lxhyl
-#desp 部署至github
+#desp 靠靠github
+time=$(date "+%Y-%m-%d %H:%M:%S")
+
 
 git add .
-git commit -m "自动部署"
+git commit -m "$time"
 git remote add origin git@github.com:zpfnb/zpfnb.github.io
 git pull origin master
 git push -u origin master
