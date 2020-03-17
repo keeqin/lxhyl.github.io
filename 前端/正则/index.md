@@ -131,3 +131,12 @@ str.match(reg)
 
 ```
 月份前两位是0-3，是3的时候第二位只能是0，1
+> 匹配id  
+```js
+let str = `<div id="container" class="main"></div><div id="111"></div>`;
+let reg = /id="[\w]+"/g
+str.match(reg)
+// ["id="container"", "id="111""]
+```
+
+# 二.正则表达式位置匹配攻略
