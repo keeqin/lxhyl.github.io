@@ -1,5 +1,5 @@
 #auther lxhyl
-#desp ×Ô¶¯½¨Á¢±¾µØ·þÎñÆ÷Ô¤ÀÀdocsify
+#desp ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½docsify
 
-cd d:/clic/zpfnb.github.io
+cd d:/clic/lxhyl.github.io
 docsify serve ./

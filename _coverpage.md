@@ -3,7 +3,6 @@
 
 
 
-[GitHub](https://github.com/zpfnb)
-[MUSIC](http://zhangpengfan.xyz)
-[TODO](http://zhangpengfan.xyz/todo)
+[GitHub](https://github.com/lxhyl)
+[MUSIC](http://music.zhangpengfan.xyz)
 [Get Started](README.md)
