@@ -12,4 +12,5 @@
 * 算法
  * [LeetCode腾讯50题](算法/LeetCode腾讯50题/index.md)
 
-* [记录](diary/index.md)
+* 记录
+ * [日记](diary/index.md)
