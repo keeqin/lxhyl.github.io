@@ -550,3 +550,328 @@ const threeSum = (nums) => {
 const sortNums =[0,0,0,0];
 console.log(threeSum(sortNums));
 ```
+
+#  16最接近的三数之和
+
+给定一个包括 n 个整数的数组 nums 和 一个目标值 target。
+找出 nums 中的三个整数，使得它们的和与 target 最接近。
+返回这三个数的和。假定每组输入只存在唯一答案。
+
+ 
+示例：  
+输入：nums = [-1,2,1,-4], target = 1  
+输出：2  
+解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2) 。  
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/3sum-closest
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+
+
+
+```js
+const threeSumClosest = (nums, target) => {
+    let sortNums = nums.sort((a, b) => a - b);
+    let best = 99999999;
+    for (let index = 0; index < sortNums.length; index++) {
+        let i = index + 1;
+        let j = sortNums.length - 1;
+        while (i < j) {
+            let sum = sortNums[index] + sortNums[i] + sortNums[j];
+            if (sum === target) {
+                return target;
+            }
+            //如果新差小于 原来的差 就更新
+            if (Math.abs(best - target) > Math.abs(sum - target)) {
+                best = sum;
+            }
+            if(sum > target){
+                j--;
+                while(sortNums[j] === sortNums[j+1]){
+                    j--;
+                }
+            }else{
+                i++;
+                while(sortNums[i] === sortNums[i-1]){
+                    i++;
+                }
+            }
+        }
+    }
+    return best;
+}
+
+let nums = [-1, 2, 1, -4];
+let target = 1;
+console.log(threeSumClosest(nums, target));
+```
+
+# 20有效的括号
+给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，
+判断字符串是否有效。
+
+有效字符串需满足：  
+左括号必须用相同类型的右括号闭合。  
+左括号必须以正确的顺序闭合。  
+注意空字符串可被认为是有效字符串。  
+
+示例 1:  
+输入: "()"  
+输出: true  
+
+示例 2:   
+输入: "()[]{}"   
+输出: true   
+
+示例 3:  
+输入: "(]"  
+输出: false  
+
+示例 4:  
+输入: "([)]"  
+输出: false  
+
+示例 5:  
+输入: "{[]}"  
+输出: true  
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/valid-parentheses
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+
+```js
+const isValid = (s) => {
+    let len = s.length;
+    if(s === ''){
+        return true;
+    }
+    if(len === 1){
+        return false;
+    }
+    // 建立括号到数字的映射
+    const ys = {
+        "(":-1,
+        ")":1,
+        "[":-2,
+        "]":2,
+        "{":-3,
+        "}":3
+    }
+    //初始化栈
+    let arr = [ys[s[0]]];
+    for(let i =1;i<len;i++){
+      // 如果新的 和栈顶的之和为1，说明匹配
+     //  反之，则入栈  
+      if(ys[s[i]] + arr[arr.length-1] === 0){
+          arr.pop()
+      }else{
+          arr.push(ys[s[i]]);
+      }
+    }
+    //如果栈中没有元素 说明匹配完了
+    if(arr.length === 0){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+let s1 = "{[]}"
+console.log(isValid(s1));
+```
+
+# 21合并两个有序链表
+
+将两个升序链表合并为一个新的 升序 链表并返回。
+新链表是通过拼接给定的两个链表的所有节点组成的。 
+
+示例：  
+输入：1->2->4, 1->3->4  
+输出：1->1->2->3->4->4  
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/merge-two-sorted-lists
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+
+```js
+function ListNode(val, next) {
+    this.val = (val === undefined ? 0 : val)
+    this.next = (next === undefined ? null : next)
+}
+
+
+// 递归直至其中一个为空
+const mergeTwoLists = (l1, l2) => {
+    if (l1 === null) {
+        return l2
+    }
+    if (l2 === null) {
+        return l1
+    }
+    if (l1.val < l2.val) {
+        l1.next = mergeTwoLists(l1.next, l2)
+        return l1
+    } else {
+        l2.next = mergeTwoLists(l1, l2.next)
+        return l2
+    }
+}
+
+let l1 = {
+    val: 1,
+    next: {
+        val: 2,
+        next: {
+            val: 4,
+            next: null
+        }
+    }
+}
+let l2 = {
+    val: 1,
+    next: {
+        val: 2,
+        next: {
+            val: 4,
+            next: null
+        }
+    }
+}
+console.log(mergeTwoLists(l1, l2))
+```
+
+
+# 23合并k个有序链表
+
+
+合并 k 个排序链表，返回合并后的排序链表。
+请分析和描述算法的复杂度。
+
+示例:  
+输入:  
+[  
+  1->4->5,  
+  1->3->4,  
+  2->6  
+]    
+输出: 1->1->2->3->4->4->5->6  
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/merge-k-sorted-lists
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+// 暴力求解
+const mergeKLists = (lists) => {
+    if (lists.length == 0) {
+        return null;
+    }
+    let arr = [];
+    for (let i = 0; i < lists.length; i++) {
+        if (lists[i] === null) {
+            continue;
+        } else {
+            arr.push(lists[i].val)
+            let tempList = lists[i].next;
+            while (tempList) {
+                arr.push(tempList.val);
+                tempList = tempList.next;
+            }
+        }
+    }
+    if (arr.length === 0) {
+        return null;
+    }
+    arr = arr.sort((a, b) => a - b)
+    let result = {
+        val: arr[arr.length - 1],
+        next: null
+    }
+    for (let i = arr.length - 2; i >= 0; i--) {
+        let temp = {
+            val: arr[i],
+            next: result
+        }
+        result = temp;
+    }
+    return result;
+}
+
+
+
+let lists = [
+
+    {
+        val: 1,
+        next: {
+            val: 2,
+            next: {
+                val: 4,
+                next: null
+            }
+        }
+    },
+    {
+        val: 1,
+        next: {
+            val: 2,
+            next: {
+                val: 4,
+                next: null
+            }
+        }
+    },
+    {
+        val: 1,
+        next: {
+            val: 2,
+            next: {
+                val: 4,
+                next: null
+            }
+        }
+    },
+]
+let lists2 = [[], []]
+console.log(mergeKLists(lists2))
+```
+
+
+# 26删除排序数组中的重复项
+
+给定一个排序数组，你需要在 原地 删除重复出现的元素，
+使得每个元素只出现一次，返回移除后数组的新长度。
+不要使用额外的数组空间，
+你必须在 原地 修改输入数组并在使用 O(1)额外空间的条件下完成。
+
+ 
+
+示例 1:  
+给定数组 nums = [1,1,2],   
+函数应该返回新的长度 2,   
+并且原数组 nums 的前两个元素被修改为 1, 2。   
+你不需要考虑数组中超出新长度后面的元素。  
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+const removeDuplicates = (nums) => {
+     if(nums.length === 0 ){
+         return 0
+     }
+     let i = 0
+     for(let j = 1;j<nums.length;j++){
+         if(nums[j] != nums[i]){
+             i++
+             nums[i] = nums[j]
+         }
+     }
+     return i+1
+}
+let nums = [0,0,1,1,1,2,2,3,3,4]
+console.log(removeDuplicates(nums))
+```
