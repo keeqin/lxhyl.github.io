@@ -1,4 +1,4 @@
-![logo](./img/logo.svg)
+![logo](/img/logo.svg)
 # LXHYL
 
 

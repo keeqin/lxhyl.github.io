@@ -21,16 +21,7 @@ function curry(fn) {
 const add = (a,b,c) => {
     return a + b + c;
 }
-let curryAdd = curry(add);
+let curryAdd = curry(add); 
+// curryAdd 返回的是一个函数
 console.log(curryAdd(1)(2)(3));
 
-
-let obj = {
-    name:'aaa',
-    age:10
-}
-function test(a,b,c){
-  console.log(this.name);
-  return this.age + a + b + c;
-}
-console.log(test.bind(obj));
