@@ -13,7 +13,7 @@ function myNew() {
     }
     //fun绑定到新创建的对象上
     let result =  fun.call(tempName,...arguments);
-    return  typeof result === 'object' ? result : tempName;
+    return  result instanceof Object ? result : tempName;
 }
 
 
