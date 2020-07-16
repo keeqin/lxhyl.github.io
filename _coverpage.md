@@ -4,5 +4,6 @@
 
 
 [GitHub](https://github.com/lxhyl)
-[MUSIC](http://music.zhangpengfan.xyz)
+[Music](http://music.zhangpengfan.xyz)
+[生命游戏](http://zhangpengfan.xyz/lifegame)
 [Get Started](README.md)
