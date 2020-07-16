@@ -26,6 +26,7 @@ let test = {
     num: 0,
     str: '',
     boolean: true,
+    sym:Symbol(),
     unf: undefined,
     nul: null,
     obj: {
@@ -44,3 +45,4 @@ let obj2 = deepCopy(test);
 console.log(obj2);
 console.log(Object.prototype.toString.call([]))
 
+let obj3 =JSON.parse(JSON.stringify(test));

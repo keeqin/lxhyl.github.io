@@ -1,6 +1,9 @@
+# [Array](前端/js/Array/index.md)
+
+
+
 
 # 代码片段
-
 ## [实现call,bind,apply](前端/js/代码片段/callBindApply.md)
    代码路径`/Code/js/手写/callBindApply.js`
 

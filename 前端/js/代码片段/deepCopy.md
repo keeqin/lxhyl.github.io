@@ -10,6 +10,7 @@ function deepCopy(obj){
    let result = Array.isArray(obj) ? [] : {};
    for(let i in obj){
        if(obj[i] === obj){
+           
            continue;
        }
        result[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i];
@@ -18,3 +19,5 @@ function deepCopy(obj){
 }
 ```
 
+## 序列化
+`JSON.parse(JSON.stringify(obj))`
