@@ -78,4 +78,22 @@ arr.copyWithin(3);
 
 {
    console.log([1,2,[3,4]].flat(-1))
+// [ 1, 2, [ 3, 4 ] ]
+   let a = [1,[2,3,[4,5]]]
+   const myFlat = (arr) => {
+     const result = []
+     const getItem = arr => {
+          arr.forEach(item => {
+             if(Array.isArray(item)){
+                 getItem(item)
+             }else{
+                 result.push(item)
+             }              
+          })
+     }
+     getItem(arr)
+     return result;
+   }
+   console.log(myFlat(a));
+ 
 }
