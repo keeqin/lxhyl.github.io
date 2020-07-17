@@ -1,8 +1,12 @@
+{
 let arr = [];
-
 console.log(arr[Symbol.unscopables]);
+}
 
 
+
+
+{
 // Array.from()
 console.log(Array.from.length === 1);
 
@@ -18,3 +22,60 @@ function getArr(len,fillValue){
 }
 console.log(getArr(5,0));
 // [ 0, 0, 0, 0, 0 ]
+}
+
+
+
+
+
+
+{
+// Array.isArray()
+Array.isArray();
+// false
+Array.myisArray = e => Object.prototype.toString.call(e) === '[object Array]'
+console.log(Array.myisArray(''))
+}
+
+
+{
+// Array.of()
+console.log(Array.of([],1,true,{},Symbol()))
+console.log(Array(3)) //[ <3 empty items> ]
+console.log(Array.of(3)) // [ 3 ]
+console.log([].of(3)) //报错
+}
+
+
+
+{
+    //Array.prototype.concat()
+    console.log([1,2,3].concat());
+}
+
+
+
+{
+//Array.prototype.copyWithin()
+let arr = [0,1,2,3,4];
+arr.copyWithin(3);
+}
+
+{
+    //Array.prototype.entries()
+    let arr = [1,2,3];
+    let arrEntries = arr.entries();
+    for(let i of arr){
+        console.log(i);
+    }
+
+}
+
+{
+[{name:'x'},{name:'y'},{name:'y'},{name:'z'}].find(item => item.name === 'y')
+}
+
+
+{
+   console.log([1,2,[3,4]].flat(-1))
+}

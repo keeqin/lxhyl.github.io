@@ -1,6 +1,6 @@
 * 前端
  * [CSS](前端/css/index.md)
- * [JS](前端/js/index.md)
+ * [JS](前端/js/README.md)
  * [VUE](前端/vue/index.md)
 
 * Node
