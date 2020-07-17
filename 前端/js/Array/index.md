@@ -387,5 +387,25 @@ arr.flat(depth)
 ```
 * 替代方案
 ```js
-  
+let a = [1,2,[3,[4,[5]]]]
+const myFlat = (arr) => {
+     let result = []
+     const getItem = arr => {
+          arr.forEach(item => {
+             if(Array.isArray(item)){
+                 getItem(item)
+             }else{
+                 result.push(item)
+             }              
+          })
+     }
+     getItem(arr)
+     return result
+}
+myFlat(a) // [1, 2, 3, 4, 5]
 ```
+
+
+## Array.prototype.flatMap()
+?> 首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 连着深度值为1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。
+
