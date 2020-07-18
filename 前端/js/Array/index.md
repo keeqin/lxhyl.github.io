@@ -31,6 +31,7 @@ values: true
 ## Array.from()
 ?> Array.from() 方法从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例。
 > 只要部署了Iterator接口的数据结构，都能将其转换为数组  
+
 **属性**
 ```js
 Array.from.length === 1 // true
@@ -83,7 +84,8 @@ getArr(5,0)
 */
 Array.isArray(e)
 ```
-!> `Array.isArray(new Uint8Array(4))`为`false`
+!> `Array.isArray(new Uint8Array(4))`为`false`  
+
 **示例**  
 ```js
 Array.isArray()  //false
@@ -94,6 +96,7 @@ Array.isArray()  //false
 
 ## Array.of()
 ?> 创建一个具有可变数量参数的新数组实例，而不考虑参数的数量或类型
+
 **语法**
 ```js
 /*
@@ -409,3 +412,145 @@ myFlat(a) // [1, 2, 3, 4, 5]
 ## Array.prototype.flatMap()
 ?> 首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 连着深度值为1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。
 
+**语法**
+```js
+/*
+* @param {Function} callback 
+* ----------------- @param {*} item 所处理的元素
+* ----------------- @param {number} index 所处理的元素的索引
+* ----------------- @param {Array} array 调用的数组
+* @param {Object}  thisArg 执行callback函数时用作this的对象
+* @return {Array} 一个新数组
+*/
+  arr.flatMap(callback(item[,index[,array]])[,thisArg])
+```
+
+**示例**
+```js
+ let arr1 = [1,2,3]
+ arr1.map(item => [item * 2]) //[[2],[4],[6]]
+ arr1.flatMap(item => [item * 2]) // [ 2, 4, 6 ]
+ // flatMap会callback的所有返回值合并为一个数组，深度为1,相当于(arr.flat(1))
+```
+
+> 分割字符串数组
+```js
+let arr1 = ["it's Sunny in", "", "California"]
+arr1.map(item => item.split(' '))  
+// [ [ "it's", 'Sunny', 'in' ], [ '' ], [ 'California' ] ]
+arr1.flatMap(item => item.split(' '))
+// [ "it's", 'Sunny', 'in', '', 'California' ]
+```
+
+
+## Array.prototype.forEach()
+?> 数组的每个元素执行一次给定的函数 不会改变原数组
+
+**语法**
+```js
+/*
+* @param {Function} callback 
+* ----------------- @param {*} item 所处理的元素
+* ----------------- @param {number} index 所处理的元素的索引
+* ----------------- @param {Array} array 调用的数组
+* @param {Object}  thisArg 执行callback函数时用作this的对象
+* @return {undefind} 无返回值
+*/
+arr.forEach(callback(item[,index[,array]])[,thisArg])
+```
+
+!> 除了抛出错误，没有办法中止forEach循环
+
+**示例**
+```js
+ let arr = ['a','b','c','d']
+ arr.forEach((item,index,array) => {
+        console.log(index + ':' + item)
+        if(index === 1){
+           array.shift();
+        }
+ })
+ /*
+0:a
+1:b
+2:d
+当运行到索引为1时，将数组第一个元素删除，删除后index===2 处的元素变为了'd'
+ */
+```
+
+
+## Array.prototype.includes()
+?> 判断一个数组是否包含一个指定的值,如果包含则返回 true，否则返回false。
+
+**语法**
+```js
+/*
+*  @param {*} value 要查找的值
+*  @param {number} fromIndex||0 开始查找的索引
+*  @return {boolean} 查找到了则返回true 
+*/
+arr.includes(value[,fromIndex])
+```
+
+
+**示例**
+```js
+ let obj = {key:100}
+ let arr = [{a:1},{b:{c:'c'}},3,obj]
+ arr.includes(3) // true
+ arr.includes('3')  // false  使用的严格等于
+ arr.includes({a:1}) // false  {a:1}是一个新对象了，所以为false
+ arr.includes(obj)  // true  可以找到
+```
+
+
+## Array.prototype.indexOf()
+?> 返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。
+
+**语法**
+```js
+/*
+*  @param {*} value 要查找的值
+*  @param {number} fromIndex 开始查找的索引
+*  @return {number} 首个被找到的元素的索引，没有找到则返回 -1
+*/
+arr.indexOf(value[,fromIndex])
+```
+
+**示例**
+> 找出指定元素出现的所有位置
+```js
+ const findAllItem = (arr,item) => {
+        let indexs = []
+        let index = arr.indexOf(item)
+        while(index !== -1){
+            indexs.push(index)
+            index = arr.indexOf(item,index + 1)
+        }
+        return indexs
+ }
+ let testArr = [1,3,4,5,6,1]
+ findAllItem(testArr,1) // [ 0, 5 ]
+```
+
+
+## Array.prototype.join()
+?> 一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。如果数组只有一个元素，那么将返回该元素
+
+**语法**
+```js
+/*
+* @param {string} str||','  指定str作为连接符连接数组所有元素,默认为','
+* @return {string}  如果arr.length === 0 则返回空字符串 
+*/
+arr.join([str])
+```
+
+**示例**
+```js
+function testFun(){}
+let arr = [1,{a:1},()=>{},testFun,testFun(),null,true]
+arr.join()
+// '1,[object Object],()=>{},function testFun(){},,,true'
+// 会调用对应的toString方法
+```

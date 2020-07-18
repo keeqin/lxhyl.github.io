@@ -97,3 +97,62 @@ arr.copyWithin(3);
    console.log(myFlat(a));
  
 }
+
+
+{
+    //Array.prototype.flatMap()
+    let arr1 = [1,2,3]
+ arr1.map(item => [item * 2]) //[[2],[4],[6]]
+console.log(arr1.flatMap(item => [item * 2])) //
+
+let arr2 = ["it's Sunny in", "", "California"]
+console.log(arr2.map(item => item.split(' ')))
+console.log(arr2.flatMap(item => item.split(' ')))
+}
+
+
+{
+    //Array.prototype.forEach()
+    let arr = ['a','b','c','d']
+    arr.forEach((item,index,array) => {
+        console.log(index + ':' + item)
+        if(index === 1){
+           array.shift();
+        }
+    })
+}
+
+
+{
+    // Array.prototype.includes()
+    let obj = {key:100}
+    let arr = [{a:1},{b:{c:'c'}},3,obj]
+    console.log(arr.includes(3))
+    console.log(arr.includes('3'))
+    console.log(arr.includes({a:1}))
+    console.log(arr.includes(obj))
+}
+
+
+{
+    //Array.prototype.indexOf()
+    const findAllItem = (arr,item) => {
+        let indexs = []
+        let index = arr.indexOf(item)
+        while(index !== -1){
+            indexs.push(index)
+            index = arr.indexOf(item,index + 1)
+        }
+        return indexs
+    }
+    let testArr = [1,3,4,5,6,1]
+    console.log(findAllItem(testArr,1))
+}
+
+{
+    //Array.prototype.join()
+    function testFun(){}
+    let arr = [1,{a:1},()=>{},testFun,testFun(),null,true]
+    console.log(arr.join());
+    console.log(Array.prototype.join.call({a:1})
+}
