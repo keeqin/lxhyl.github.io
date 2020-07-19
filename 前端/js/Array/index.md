@@ -175,11 +175,13 @@ length: 11
 ## Array.prototype.copyWithin()
 ?> 浅复制数组的一部分到同一数组中的另一个位置，并返回它，不会改变原数组的长度。  
 
+!> 该方法具有通用性  
+
 **语法**
 ```js
 /*
-* @param  {number} target||0    目标处(目标起始索引)
-* @param {number} startIndex||0  开始复制元素的起始索引
+* @param(可选)  {number} target||0    目标处(目标起始索引)
+* @param(可选) {number} startIndex||0  开始复制元素的起始索引
 * 如果startIndex为负值，那么相当于 startIndex = arr.length  +  startIndex
 * 如果还为负值,那么startIndex = 0
 * endIndex 同理
@@ -239,10 +241,10 @@ for(let i of x){
 /*
 * @param {Function} callback
 * ----------------- @param {*} item 测试的当前值
-* ----------------- @param {number} index 当前值的索引
-* ----------------- @param {Array} array 调用every的数组
-* ----------------- @param {boolean} item是否满足条件
-* @param {Object} arg 执行callback的this值
+* ----------------- @param(可选) {number} index 当前值的索引
+* ----------------- @param(可选) {Array} array 调用every的数组
+* ----------------- @return {boolean} item是否满足条件
+* @param(可选) {Object} arg 执行callback的this值
 * @return {boolean} 每次callback都返回truthy，则返回true，否则返回false
 */
 arr.every(callback(item[,index[,array]])[,arg])
@@ -262,9 +264,9 @@ arr.every(callback(item[,index[,array]])[,arg])
 ```js
 /*
 * @param {*} value 要填充的值
-* @param {number} start||0 起始索引
+* @param(可选) {number} start||0 起始索引
 * start如果小于0 则start=arr.length+start
-* @param {number} end||arr.length 中止索引
+* @param(可选) {number} end||arr.length 中止索引
 * @return {Array} 修改后的数组
 */
 arr.fill(value[,start[,end]])
@@ -301,9 +303,9 @@ console.log(arr)
 /*
 * @param {Function} callback 
 * ----------------- @param {*} item 所处理的元素
-* ----------------- @param {number} index 所处理的元素的索引
-* ----------------- @param {Array} array 调用filter的数组
-* @param {Object}  thisArg 执行callback函数时用作this的对象
+* ----------------- @param(可选) {number} index 所处理的元素的索引
+* ----------------- @param(可选){Array} array 调用filter的数组
+* @param(可选) {Object}  thisArg 执行callback函数时用作this的对象
 * @return {Array} 满足callback的所有元素
 */
 arr.filter(callback(item[,index[,array]])[,thisArg])
@@ -324,9 +326,9 @@ arr1 // [2, 3, 4, 5]
 /*
 * @param {Function} callback 
 * ----------------- @param {*} item 所处理的元素
-* ----------------- @param {number} index 所处理的元素的索引
-* ----------------- @param {Array} array 调用filter的数组
-* @param {Object}  thisArg 执行callback函数时用作this的对象
+* ----------------- @param(可选) {number} index 所处理的元素的索引
+* ----------------- @param(可选) {Array} array 调用filter的数组
+* @param(可选) {Object}  thisArg 执行callback函数时用作this的对象
 * @return {*} item 数组中满足callback的第一个元素的值  
 */
 arr.find(callback(item[,index[,array]])[,thisArg])
@@ -344,9 +346,9 @@ arr.find(callback(item[,index[,array]])[,thisArg])
 /*
 * @param {Function} callback 
 * ----------------- @param {*} item 所处理的元素
-* ----------------- @param {number} index 所处理的元素的索引
-* ----------------- @param {Array} array 调用filter的数组
-* @param {Object}  thisArg 执行callback函数时用作this的对象
+* ----------------- @param(可选) {number} index 所处理的元素的索引
+* ----------------- @param(可选) {Array} array 调用filter的数组
+* @param(可选) {Object}  thisArg 执行callback函数时用作this的对象
 * @return {*} item  数组中满足callback的第一个元素的索引,无满足的元素则返回 -1
 */
 arr.findIndex(callback(item[,index[,array]])[,thisArg])
@@ -364,7 +366,7 @@ arr.findIndex(callback(item[,index[,array]])[,thisArg])
 **语法**
 ```js
 /*
-* @param {number} depth||1 嵌套数组的深度
+* @param(可选) {number} depth||1 嵌套数组的深度
 * @return {Array} 包含数组与子数组中所有元素的新数组。
 */
 arr.flat(depth)
@@ -417,9 +419,9 @@ myFlat(a) // [1, 2, 3, 4, 5]
 /*
 * @param {Function} callback 
 * ----------------- @param {*} item 所处理的元素
-* ----------------- @param {number} index 所处理的元素的索引
-* ----------------- @param {Array} array 调用的数组
-* @param {Object}  thisArg 执行callback函数时用作this的对象
+* ----------------- @param(可选) {number} index 所处理的元素的索引
+* ----------------- @param(可选) {Array} array 调用的数组
+* @param(可选) {Object}  thisArg 执行callback函数时用作this的对象
 * @return {Array} 一个新数组
 */
   arr.flatMap(callback(item[,index[,array]])[,thisArg])
@@ -451,9 +453,9 @@ arr1.flatMap(item => item.split(' '))
 /*
 * @param {Function} callback 
 * ----------------- @param {*} item 所处理的元素
-* ----------------- @param {number} index 所处理的元素的索引
-* ----------------- @param {Array} array 调用的数组
-* @param {Object}  thisArg 执行callback函数时用作this的对象
+* ----------------- @param(可选) {number} index 所处理的元素的索引
+* ----------------- @param(可选) {Array} array 调用的数组
+* @param(可选) {Object}  thisArg 执行callback函数时用作this的对象
 * @return {undefind} 无返回值
 */
 arr.forEach(callback(item[,index[,array]])[,thisArg])
@@ -486,7 +488,7 @@ arr.forEach(callback(item[,index[,array]])[,thisArg])
 ```js
 /*
 *  @param {*} value 要查找的值
-*  @param {number} fromIndex||0 开始查找的索引
+*  @param(可选) {number} fromIndex||0 开始查找的索引
 *  @return {boolean} 查找到了则返回true 
 */
 arr.includes(value[,fromIndex])
@@ -511,7 +513,7 @@ arr.includes(value[,fromIndex])
 ```js
 /*
 *  @param {*} value 要查找的值
-*  @param {number} fromIndex 开始查找的索引
+*  @param(可选) {number} fromIndex 开始查找的索引
 *  @return {number} 首个被找到的元素的索引，没有找到则返回 -1
 */
 arr.indexOf(value[,fromIndex])
@@ -546,6 +548,8 @@ arr.indexOf(value[,fromIndex])
 arr.join([str])
 ```
 
+!> `null,undefind`会被转为空字符串  
+
 **示例**
 ```js
 function testFun(){}
@@ -553,4 +557,140 @@ let arr = [1,{a:1},()=>{},testFun,testFun(),null,true]
 arr.join()
 // '1,[object Object],()=>{},function testFun(){},,,true'
 // 会调用对应的toString方法
+```
+
+
+## Array.prototype.keys()
+?> 返回一个包含数组中每个索引键的`Array Iterator`对象
+
+**语法**
+```js
+/*
+ 所有参数都会被忽略
+ @return {Object} 一个新的Array迭代器对象
+*/
+arr.keys()
+```
+
+**示例**
+```js
+ 
+let arr1 = ['a',,'c',Symbol()]
+[...arr1.keys()] // [0,1,2,3]
+[...Object.keys(arr1)] // ['0','2','3']
+/*
+*  arr.keys()的返回会包含哪些没有对应元素的索引
+*/
+```
+
+## Array.prototype.lastIndexOf()
+?> 返回指定元素在数组中的最后一个的索引，如果不存在则返回 -1。从数组的后面向前查找，从 fromIndex 处开始。
+
+**语法**
+> 使用的是严格相等来判断是否相同
+```js
+/*
+*  @param {*} item 要查找的元素
+*  @param(可选) {number} fromIndex||arr.length-1 默认为最后一个元素,从fromIndex处逆向查找,如果大于数组长度，则查找整个数组，如果为负值，相当于fromIndex = fromIndex + arr.length,如果还小于等于0，则直接返回-1,不会进行查找
+*/
+arr.lastIndexOf(item[,fromIndex])
+```
+
+**示例**
+```js
+  let arr = [1,2,3,4,5]
+  arr.lastIndexOf(2,5) // 1
+  arr.lastIndexOf(2,-5) // -1
+  arr.lastIndexOf(2,-4) // 1
+  arr.lastIndexOf(2,0) // -1
+```
+
+
+## Array.prototype.map()
+?> 创建一个新数组，其结果是该数组中的每个元素是调用一次提供的函数后的返回值。
+
+**语法**
+```js
+/*
+* @param {Function} callback
+* ----------------- @param {*} item 当前元素
+* ----------------- @param(可选) {number} index 当前元素索引
+* ----------------- @param(可选) {Array} array 调用map的数组
+* @param(可选) {Object} thisArg||undefind 执行callback时的this
+* @return {Array} 由原数组每个元素执行callback的结果组成的新数组
+*/
+arr.map(callback(item[,index[,array]])[,thisArg])
+```
+
+**示例**
+
+```js
+let arr1 = [1,2,3,4,5];
+arr1.map(item => item*2) // [2, 4, 6, 8, 10]
+```
+
+
+## Array.prototype.pop()
+?> 数组中删除最后一个元素，并返回该元素的值。会改变原数组
+
+!> 该方法具有通用性  
+
+
+**语法**
+```js
+/*
+* @return {*} 被删除的元素,数组为空时返回undefind
+*/
+arr.pop()
+```
+
+**示例**
+```js
+let arr1 = [0,'',,null]
+arr1.pop(1111) // null
+arr1 // [0, "", empty]
+```
+
+> 类数组对象只要部署了length,或length的值可以被转为number，并且length大于0,那么会将length减一，但不会删除类数组对象中的元素
+```js
+let obj1 = {
+    a:'a',
+    b:'b',
+    length:'2'
+}
+Array.prototype.pop.call(obj1)
+obj1 // {a: "a", b: "b", length: 1}
+Array.prototype.pop.call(obj1)
+obj1 // {a: "a", b: "b", length: 0}
+Array.prototype.pop.call(obj1)
+obj1 // {a: "a", b: "b", length: 0}
+```
+
+
+## Array.prototype.push()
+?> 将一个或多个元素添加到数组的末尾，并返回该数组的新长度
+
+!> 该方法具有通用性  
+
+**语法**
+```js
+/*
+* @param {*} item,...itemN 要添加到数组末尾的元素
+* @return {number} 添加完成后数组的长度
+*/
+arr.push(item1,...,itemN)
+```
+
+**示例**
+
+```js
+let arr1 = []
+arr1.push(Object,Array,null) // 3
+arr1 
+/*
+0: ƒ Object()
+1: ƒ Array()
+2: null
+length: 3
+*/
 ```

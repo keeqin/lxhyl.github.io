@@ -154,5 +154,18 @@ console.log(arr2.flatMap(item => item.split(' ')))
     function testFun(){}
     let arr = [1,{a:1},()=>{},testFun,testFun(),null,true]
     console.log(arr.join());
-    console.log(Array.prototype.join.call({a:1})
+}
+
+{
+       //Array.prototype.keys()
+       let arr1 = ['a',,'c',Symbol()]
+       console.log([...arr1.keys()]) // [0,1,2,3]
+       console.log([...Object.keys(arr1)]) // ['0','2','3']
+}
+
+{
+    //Array.prototype.pop()
+    let arr1 = [0,null,,,]
+    console.log(arr1.pop())
+    console.log(arr1)
 }

@@ -22,3 +22,4 @@ let testMyNew = myNew(Test,'C');
 
 
 
+

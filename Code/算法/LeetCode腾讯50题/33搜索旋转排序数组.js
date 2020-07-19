@@ -31,27 +31,31 @@ const search = (nums, target) => {
         if (nums[mid] === target) {
             return mid;
         }
-        // 说明 0-mid 之间一定有一段是升序的
+
+        /**
+        相比于普通排序数组二分查找
+        旋转排序数组多了一层判断
+        即选取的中点和 arr[0] 的比较
+        **/
+
         if (nums[mid] >= nums[0]) {
             // 如果在 0-mid 之间
             if (target < nums[mid] && target >= nums[0]) {
                 // 改变边界
                 right = mid - 1;
             } else {
-                left = mid+1;
+                left = mid + 1;
             }
-        } 
-        // 反之 mid-right之间一定有段是升序
-        else { 
+        } else {
             if (target > nums[mid] && target <= nums[len - 1]) {
-                left = mid+1;
+                left = mid + 1;
             } else {
-                right = mid-1;
+                right = mid - 1;
             }
         }
     }
     return -1;
 }
 
-const nums = [3,1], target = 1;
+const nums = [3, 1], target = 1;
 console.log(search(nums, target));

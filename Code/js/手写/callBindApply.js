@@ -46,22 +46,6 @@ Function.prototype.myBind = function(context,...args1){
     }
 }
 
-function curry(fn) {
-    const len = fn.length;
-    return function bindfn() {
-        if(arguments.length < len) {
-            return bindfn.bind(null, ...arguments); 
-            // 关键：保存参数，并在调用时和后面的参数一起传入 bindfn
-        } else {
-            return fn.call(null, ...arguments);
-        }
-    }
-}
-const add = (a,b,c) => {
-    return a + b + c;
-}
-let curryAdd = curry(add);
-console.log(curryAdd(1)(2)(3));
 
 let obj = {
     name:'zzz',

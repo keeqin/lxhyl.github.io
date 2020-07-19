@@ -21,3 +21,4 @@ function deepCopy(obj){
 
 ## 序列化
 `JSON.parse(JSON.stringify(obj))`
+
