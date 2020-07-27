@@ -61,7 +61,7 @@ const isValid = (s) => {
           arr.push(ys[s[i]]);
       }
     }
-    //如果栈中没用元素 说明匹配完了
+    //如果栈中没有元素 说明匹配完了
     if(arr.length === 0){
         return true;
     }else{

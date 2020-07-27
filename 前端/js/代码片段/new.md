@@ -17,7 +17,9 @@ Test.prototype.age = 10
 function myNew() {
     let tempName = Symbol();
     // 获取并删除第一个参数
+    // 第一个参数为调用new的函数
     let fun = Array.prototype.shift.call(arguments);
+    // 将__proto__指向构造函数的原型上
     tempName = {
         __proto__: fun.prototype
     }

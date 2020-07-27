@@ -175,7 +175,7 @@ length: 11
 ## Array.prototype.copyWithin()
 ?> 浅复制数组的一部分到同一数组中的另一个位置，并返回它，不会改变原数组的长度。  
 
-!> 该方法具有通用性  
+!> 该方法具有通用性  (可以call,apply,bind到类数组对象上调用)
 
 **语法**
 ```js
@@ -694,3 +694,308 @@ arr1
 length: 3
 */
 ```
+
+
+## Array.prototype.reduce()
+?> 对数组中的每个元素执行一个reducer函数(升序执行)，将其结果汇总为单个返回值。
+
+
+**语法**
+```js
+/*
+* @param {Function} callback
+* ----------------- @param {*} sum 累加器，上一次回调函数的返回值
+* ----------------- @param {*} nowItem 回调函数正在处理的元素
+* ----------------- @param {number} index 处理的元素的索引
+* ----------------- @param {Array} array 调用reduce的数组
+* ----------------- @return {*} 返回一个值作为下一次执行函数的sum
+* @param {*} firstItem||array[0] 第一次执行callback的sum值，如果没有提供，则默认为数组中第一个元素,然后进入第二次循环
+* @return {*} 函数累计处理的结果
+*/
+arr.reduce(callback(sum,nowItem[,index[,array]])[,firstItem])
+```
+
+!> 每次都提供firstItem会更好一点
+
+**示例**
+
+>数组求和
+```js
+const sumFun = arr => {
+    return arr.reduce((sum,nowItem) => sum + nowItem,0);
+}
+sumFun([]) //0
+sumFun([1,2,3]) //6
+```
+> 计算每个元素在数组中出现的次数
+```js
+const arr1 = [1,1,2,3,44,44,1,1];
+const itemNum = arr => {
+        return arr.reduce((itemNumsObj, nowItem) => {
+            if (nowItem in itemNumsObj) {
+                itemNumsObj[nowItem]++;
+            } else {
+                itemNumsObj[nowItem] = 1;
+            }
+            return itemNumsObj
+        }, {})
+}
+itemNum(arr1); // { '1': 4, '2': 1, '3': 1, '44': 2 }
+```
+
+<!-- 
+2020-07-26 15:15
+没有学习欲望啊
+女朋友给我发性感照片，又撤回搞得我很难受
+ -->
+
+
+## Array.prototype.reduceRight()
+?> 接收一个函数作为累加器（accumulator）和数组的每个值（从右到左）将其减少为单个值。
+> 和reduce同理，只不过reduceRight从数组最右边开始循环
+
+## Array.prototype.reverse()
+?> 将数组中元素的位置颠倒，并返回该数组。数组的第一个元素会变成最后一个，数组的最后一个元素变成第一个。该方法会改变原数组。
+
+**语法**
+```js
+/*
+* @return arr反转后的数组
+*/
+ arr.reverse()
+```
+!> 具有通用性
+
+**示例**
+> 是通过改变索引来颠倒元素的
+```js
+ const a = {2:2,1:1,'0':0,3:3,'a': 1, 'b': 2, 'c': 3, length: 7};
+ Array.prototype.reverse.apply(a);
+ a;//{ '3': 3, '4': 2, '5': 1, '6': 0, a: 1, b: 2, c: 3, length: 7 }
+
+ /*
+ * 可以看出只有索引能被转换为num的才会被颠倒
+ * 且是通过改变索引来进行的
+ /
+```
+
+
+## Array.prototype.shift()
+?> 从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度
+
+!> 具有通用性
+
+**语法**
+```js
+/*
+* @return 从数组中所删除的元素，也就是第一个元素，如果数组为空，返回undefind
+*/
+arr.shift()
+```
+
+**示例**
+```js
+let obj1 = {0:'a',1:'b',length:0};
+Array.prototype.shift.call(obj1); // undefind
+obj1;//{0: "a", 1: "b", length: 0}
+
+let obj2 = {'0':'a',1:'b',length:1};
+Array.prototype.shift.call(obj2); // "a"
+obj2; //{1: "b", length: 0}
+
+let obj3 = {'a':1,'b':2,length:1};
+Array.prototype.shift.call(obj3); // undefind
+obj3; // {a: 1, b: 2, length: 0}
+```
+* 可以看出是根据length来判断元素的  
+* 且只能删除索引为number或可以转换为number的
+
+
+## Array.prototype.slice()
+?> 返回一个新的数组对象，这一对象是一个由 begin 和 end 决定的原数组的浅拷贝（包括 begin，不包括end）。原始数组不会被改变。
+
+**语法**
+```js
+/*
+* @param {number} begin||0 开始的索引
+* @param {number} end||arr.length-1 结束的索引
+* @return 从begin到end（不包含end处）的新数组
+*/
+arr.slice(begin[,end])
+```
+!> 具有通用性
+**示例**
+```js
+let arr1 = [1,2,3,4,5];
+arr1.slice(2,4); //  [3, 4]
+```
+
+## Array.prototype.some()
+?> 测试数组中是不是至少有1个元素通过了被提供的函数测试。它返回的是一个Boolean类型的值。
+
+**语法**
+```js
+/*
+* @param {Function} callback 测试元素的函数
+* ----------------- @param {*} item 正在处理的元素
+* ----------------- @param {number} index 正在处理的元素的索引
+* ----------------- @param {Array} array 调用callback的数组
+* @param {Object} thisArg 调用callback时的this值
+* @return {boolean} 有满足callback的元素就返回true，所有元素都不满足则返回false
+*/
+arr.some(callback(item[,index[,array]])[,thisArg])
+```
+
+**示例**
+```js
+let arr = [1,2,3,4,5];
+arr.some(item => item >= 3); //true
+```
+
+## Array.prototype.sort()
+?> 对数组的元素进行排序，并返回数组。默认排序顺序是在将元素转换为字符串，然后比较它们的UTF-16代码单元值序列时构建的  
+
+**语法**
+```js
+/*
+* @param {Function} callback 可选 指定按某种循序进行排列的函数
+* ----------------- @param first 用于比较的第一个元素
+* ----------------- @param second 用于比较的第二个元素
+* ----------------- @return 如果小于零，则first排到second之前
+* @return {Array} 排序好的原数组
+*/
+arr.sort([callback(first,second)])
+```
+
+**示例**
+
+>偶然发现了个可以反转数字数组的新方法,玩玩而已，实际不能使用！
+```js
+let arr1 = [5,4,3,1,6,0];
+arr1.sort((a,b) => {
+   return -1;
+}); // [0, 6, 1, 3, 4, 5]
+```
+
+## Array.prototype.splice()
+?> 通过删除或替换现有元素或者原地添加新的元素来修改数组,并以数组形式返回被修改的内容。此方法会改变原数组。
+
+**语法**
+```js
+/*
+* @param {number} start||0 起始索引，默认为0，如果大于数组长度，则从末尾开始，如果(start + arr.length - 1)<0,那么从0开始。
+* @param {number} deleteCount 要移除的元素的个数，如果省略，那么start后面的元素都会被删除
+* @param {*} item1,item2,... 从start开始，添加到数组中
+* @return {Array} 被删除的元素的集合
+*/
+arr.splice(start[,deleteCount[,item1[,item2[,...]]]])
+```
+
+**示例**
+```js
+let arr1 = [1,2,3,4];
+arr1.splice(-2,1,'a'); //[3]
+arr1; // [1, 2, "a", 4]
+```
+
+
+## Array.prototype.toLocaleString()
+?> 一个字符串表示数组中的元素。数组中的元素将使用各自的 toLocaleString 方法转成字符串
+
+**语法**
+```js
+/*
+* @param {string,Array} locales 带有BCP 47语言标记的字符串或字符串数组。
+* @param {Object} options 一个可配置属性的对象
+*/
+arr.toLocaleString([locales[,options]])
+```
+
+**示例**
+> 数字转货币
+```js
+let arr1 = [100,1000,223444];
+arr1.toLocaleString('zh-CN',{style:'currency',currency: 'CNY'})
+// "¥100.00,¥1,000.00,¥223,444.00"
+```
+[了解更多](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
+
+
+## Array.prototype.toString()
+?> 返回一个字符串，表示指定的数组及其元素。
+
+**语法**
+```js
+/*
+* @return {string} 
+*/
+arr.toString()
+```
+**示例** 
+```js
+let arr1 = [Object,Array,Function,1,true,null]
+arr1.toString();
+// function Object() { [native code] },function Array() { [native code] },function Function() { [native code] },1,true,"
+```
+
+## Array.prototype.unshift()
+?> 将一个或多个元素添加到数组的开头，并返回该数组的新长度(该方法会修改原有数组)。
+
+**语法**
+```js
+/*
+* @param {*} item1,item2,...,itemN 要加到数组开头的元素
+* @return {number} arr.length 返回添加后的arr的长度
+*/
+arr.unshift(item1,item2,...,itemN)
+```
+
+**示例**
+```js
+let arr1 = [1,2,3];
+arr1.unshift('a',Object); //5
+arr1; //  ["a", ƒ, 1, 2, 3]
+```
+
+## Array.prototype.values()
+?> 返回一个新的 Array Iterator 对象，该对象包含数组每个索引的值
+
+**语法**
+```js
+/*
+* @return 新的Array迭代器对象
+*/
+arr.values()
+```
+> `Array.prototype.values` 是 `Array.prototype[Symbol.iterator]` 的默认实现。
+```js
+Array.prototype.values === Array.prototype[Symbol.iterator]  // true 
+```
+
+> 
+
+**示例**
+```js
+let arr1 = ['a','b','c'];
+let eArr1 = arr1.values();
+for(let i of eArr1){
+    console.log(i);
+}
+// a b c
+arr1[0] = 'aaa';
+for(let i of eArr1){
+      console.log(i);
+}
+// 无输出 迭代器是一次性的,遍历后就不能再访问了
+let eArr2 = arr1.values();
+arr1[0] = 'aaa';
+for(let i of eArr2){
+    console.log(i)
+}
+// aaa b c
+// 先生成迭代器，再改变原数组的值，可以看到迭代器也随之改变，说明迭代器中存储的是指向原数组值的指针
+```
+* 迭代器是一次性的
+* 迭代器中存储的是指向原数组的指针
+
+
