@@ -999,3 +999,57 @@ for(let i of eArr2){
 * 迭代器中存储的是指向原数组的指针
 
 
+## Array.prototype[@@iterator]()
+?> @@iterator 属性和 Array.prototype.values() 属性的初始值是同一个函数对象。
+
+**语法**
+```js
+/*
+* @return 与values()的返回值相同，一个迭代器对象
+*/
+arr[Symbol.iterator]()
+```
+
+**示例**
+```js
+let arr1 = ['a','b','c'];
+let eArr1 = arr1[Symbol.iterator]();
+for(let i of eArr1){
+    console.log(i);
+}
+
+```
+
+## get Array[@@species]
+?> Array[@@species]访问器属性返回 Array 的构造函数。
+
+**语法**
+```js
+/*
+*  @return Array的构造函数
+*/
+Array[Symbol.species]
+```
+
+
+
+          ┌─┐       ┌─┐
+       ┌──┘ ┴───────┘ ┴──┐
+       │                 │             Array
+       │       ───       │             搞
+       │  ─┬┘       └┬─  │             完
+       │                 │             了！
+       │       ─┴─       │             “牌坊:”
+       │                 │             有时间将这些方法
+       └───┐         ┌───┘             自己实现下！！！
+           │         │
+           │         │
+           │         │
+           │         └──────────────┐
+           │                        │
+           │                        ├─┐
+           │                        ┌─┘    
+           │                        │
+           └─┐  ┐  ┌───────┬──┐  ┌──┘         
+            │ ─┤ ─┤       │ ─┤ ─┤         
+             └──┴──┘       └──┴──┘  
