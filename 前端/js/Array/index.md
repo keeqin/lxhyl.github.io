@@ -999,7 +999,9 @@ for(let i of eArr2){
 * 迭代器中存储的是指向原数组的指针
 
 
-## Array.prototype[@@iterator]()
+## `Array.prototype[@@iterator]()`
+markdown会将`[]()`识别为链接，所以此处将其作为代码防止转换  
+
 ?> @@iterator 属性和 Array.prototype.values() 属性的初始值是同一个函数对象。
 
 **语法**
