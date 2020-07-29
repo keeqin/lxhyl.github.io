@@ -19,7 +19,7 @@ class Tree {
     /**
      * 插入
      *
-     * @param {*} value 要插入的值
+     * @param {Object} value 要插入的值
      * @memberof Tree
      */
     insert(value) {
@@ -36,9 +36,9 @@ class Tree {
                 if (oldNode.left) {
                     //并且左节点的值小于要插入的值
                     if (oldNode.left.value < newNode.value) {
-                        let tempNode = oldNode.left;
+                        let tempNodeLeft = oldNode.left;
                         oldNode.left = newNode;
-                        newNode.left = tempNode;
+                        newNode.left = tempNodeLeft;
                     } else {
                         // 要插入比较小，那就继续递归
                         insertHelpFun(newNode, oldNode.left);
@@ -47,20 +47,20 @@ class Tree {
                     // 没有就插入
                     oldNode.left = newNode;
                 }
-            } else {
-                if (oldNode.right) {
-                    if (oldNode.right >= newNode.value) {
-                        let tempNode = oldNode.right;
-                        oldNode.right = newNode;
-                        newNode.right = tempNode;
-                    } else {
-                        insertHelpFun(newNode, oldNode.right);
-                    }
-
-                } else {
-                    oldNode.right = newNode;
-                }
+            }else{
+               if(oldNode.right){
+                   if(newNode.value === oldNode.value){
+                       let tempNodeRight = oldNode.right;
+                       oldNode.right = newNode;
+                       newNode.right = tempNodeRight;
+                   }else{
+                       insertHelpFun(newNode,oldNode.right)
+                   }
+               }else{
+                   oldNode.right = newNode;
+               }
             }
+           
         }
         //调用函数
         insertHelpFun(newNode, this.tree);
@@ -194,10 +194,33 @@ class Tree {
             }
         }
     }
+    /**
+     * 查找给定值
+     * 二分查找加递归
+     * @param {*} value
+     * @memberof Tree
+     */
+    find(value){
+       const findHelpFun = (value,nowNode) => {
+             if(value === nowNode.value){
+                 return nowNode;
+             }
+             if(value < nowNode.value){
+               return  findHelpFun(value,nowNode.left);
+             }
+             if(value > nowNode.value){
+                return findHelpFun(value,nowNode.right);
+             }
+
+       }
+       let result = findHelpFun(value,this.tree);
+       return result ? result : '未找到'
+    }
 }
 
 
 
 let myTree = new Tree(100);
-myTree.insertMore([99, 101, 98, 99, 100, 101]);
-console.log(myTree.max(myTree.tree));
+myTree.insertMore([99, 101, 98, 99, 100, 101,100,100,101]);
+myTree.inOrder(myTree.tree);
+// console.log(myTree.find(101));
