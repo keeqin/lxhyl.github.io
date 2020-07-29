@@ -132,37 +132,72 @@ class Tree {
      * 层序遍历 
      * BFC 广度优先搜索  从顶层开始
      * @param {*} node
+     * @return {Array} 由每层元素组成的二维数组
      * @memberof Tree
      */
     levelOrder(node) {
-      let result = []; // 结果数组
-      let fatherArr = [node]; // 当前遍历的那一层节点
-      while(fatherArr.length > 0){
-          let tempArr = []; // 临时存值的节点
-          let childNodeArr = [];
-          for(let i=0;i<fatherArr.length;i++){
-              //把每个值都push进tempArr
-             tempArr.push(fatherArr[i].value);
-             // 找到所有子节点，并push进childNodeArr;
-             if(fatherArr[i].left){
-                 childNodeArr.push(fatherArr[i].left);
-             } 
-             if(fatherArr[i].right){
-                 childNodeArr.push(fatherArr[i].right);
-             }
-          }
-          //找到所有值push进结果数组
-          result.push(tempArr);
-          //进入下一层
-          fatherArr = childNodeArr;
-      }
-      return result;
+        let result = []; // 结果数组
+        let fatherArr = [node]; // 当前遍历的那一层节点
+        while (fatherArr.length > 0) {
+            let tempArr = []; // 临时存值的节点
+            let childNodeArr = [];
+            for (let i = 0; i < fatherArr.length; i++) {
+                //把每个值都push进tempArr
+                tempArr.push(fatherArr[i].value);
+                // 找到所有子节点，并push进childNodeArr;
+                if (fatherArr[i].left) {
+                    childNodeArr.push(fatherArr[i].left);
+                }
+                if (fatherArr[i].right) {
+                    childNodeArr.push(fatherArr[i].right);
+                }
+            }
+            //找到所有值push进结果数组
+            result.push(tempArr);
+            //进入下一层
+            fatherArr = childNodeArr;
+        }
+        return result;
+    }
+    /**
+     *  返回最小值
+     *
+     * @param {*} node
+     * @return {number} 最小值
+     * @memberof Tree
+     */
+    min(node) {
+        // 二叉搜索树的特点最小值为左下角，
+        let tempNode = node;
+        while (tempNode) {
+            if (tempNode.left === null) {
+                return tempNode.value;
+            } else {
+                tempNode = tempNode.left;
+            }
+        }
+    }
+    /**
+     * 返回最大值
+     * 
+     * @param {*} node
+     * @memberof Tree
+     */
+    max(node) {
+        // 二叉搜索树的特点最小值为右下角，
+        let tempNode = node;
+        while (tempNode) {
+            if (tempNode.left === null) {
+                return tempNode.value;
+            } else {
+                tempNode = tempNode.right;
+            }
+        }
     }
 }
 
 
 
 let myTree = new Tree(100);
-myTree.insertMore([99,101,98,99,100,101]);
-myTree.inOrder(myTree.tree);
-console.log(myTree.levelOrder(myTree.tree));
+myTree.insertMore([99, 101, 98, 99, 100, 101]);
+console.log(myTree.max(myTree.tree));
