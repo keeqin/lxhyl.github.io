@@ -43,4 +43,9 @@ Math.lxhyl('Math调用') // 'Math调用'
 
 `({}).constructor === Object; // true`
 
-**示例**
+
+
+**示例**  
+
+
+

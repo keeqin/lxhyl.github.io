@@ -47,20 +47,20 @@ class Tree {
                     // 没有就插入
                     oldNode.left = newNode;
                 }
-            }else{
-               if(oldNode.right){
-                   if(newNode.value === oldNode.value){
-                       let tempNodeRight = oldNode.right;
-                       oldNode.right = newNode;
-                       newNode.right = tempNodeRight;
-                   }else{
-                       insertHelpFun(newNode,oldNode.right)
-                   }
-               }else{
-                   oldNode.right = newNode;
-               }
+            } else {
+                if (oldNode.right) {
+                    if (newNode.value === oldNode.value) {
+                        let tempNodeRight = oldNode.right;
+                        oldNode.right = newNode;
+                        newNode.right = tempNodeRight;
+                    } else {
+                        insertHelpFun(newNode, oldNode.right)
+                    }
+                } else {
+                    oldNode.right = newNode;
+                }
             }
-           
+
         }
         //调用函数
         insertHelpFun(newNode, this.tree);
@@ -160,7 +160,7 @@ class Tree {
         return result;
     }
     /**
-     *  返回最小值
+     *  返回最小值节点
      *
      * @param {*} node
      * @return {number} 最小值
@@ -171,14 +171,14 @@ class Tree {
         let tempNode = node;
         while (tempNode) {
             if (tempNode.left === null) {
-                return tempNode.value;
+                return tempNode;
             } else {
                 tempNode = tempNode.left;
             }
         }
     }
     /**
-     * 返回最大值
+     * 返回最大值节点
      * 
      * @param {*} node
      * @memberof Tree
@@ -188,39 +188,106 @@ class Tree {
         let tempNode = node;
         while (tempNode) {
             if (tempNode.left === null) {
-                return tempNode.value;
+                return tempNode;
             } else {
                 tempNode = tempNode.right;
             }
         }
     }
     /**
-     * 查找给定值
+     * 查找给定值并执行callback函数
      * 二分查找加递归
      * @param {*} value
+     * @return {Object} 查找到的给定值所在的节点
      * @memberof Tree
      */
-    find(value){
-       const findHelpFun = (value,nowNode) => {
-             if(value === nowNode.value){
+    find(value,node) {
+        const findHelpFun = (value, nowNode) => {
+            if(!nowNode){
+              return;
+            }
+            if (value === nowNode.value) {
                  return nowNode;
+            }
+            if (value < nowNode.value) {
+                return findHelpFun(value, nowNode.left);
+            }
+            if (value > nowNode.value) {
+                return findHelpFun(value, nowNode.right);
+            }
+
+        }
+       return findHelpFun(value,node);
+    }
+    /**
+     * 查找此值的父节点
+     *
+     * @param {*} value 
+     * @param {*} node
+     * @returns
+     * @memberof Tree
+     */
+    findFatherNode(value,node){
+        if(value === node.value){
+            return null;
+        }
+        const findFatherNodeHelpFun = (value,nowNode) =>{
+             if((nowNode.left&&nowNode.left.value === value)
+                 ||
+               (nowNode.right&&nowNode.right.value === value))
+             {
+
+               return nowNode
              }
              if(value < nowNode.value){
-               return  findHelpFun(value,nowNode.left);
+                 return findFatherNodeHelpFun(value,nowNode.left);
              }
              if(value > nowNode.value){
-                return findHelpFun(value,nowNode.right);
+                 return findFatherNodeHelpFun(value,nowNode.right);
              }
-
+        }
+        return findFatherNodeHelpFun(value,node);
+    }
+    /**
+     * 删除节点
+     *
+     * @param {*} value
+     * @param {object} node 
+     * @memberof Tree
+     */
+    remove(value,node){
+       //查找到father节点，如果没有father节点，说明要删除的是跟节点
+       //只需要把右节点上的最小值的左节点指向根节点的左节点 
+       let fatherNode = this.findFatherNode(value,node);
+       let thisNode = this.find(value,node);
+       if(!fatherNode){
+           this.min(thisNode.right).left = thisNode.left;
+           return thisNode.right;
+       }else{
+           // 判断要删除的是左节点还是右节点
+           // 删除的是右节点
+           //  让父节点的rigth指向待删除节点的右子节点   
+           // 让右子节点的最小值的左节点指向待删除节点的左子节点    
+           if(fatherNode.right && fatherNode.right.value === value){
+              this.min(thisNode.right).left = thisNode.left; 
+              fatherNode.right = thisNode.right;
+           }
+           //如果删除的是左节点
+           // 让父节点left指向待删除节点的right
+           // 让待删除节点的rigth的最小值指向待删除节点的left
+           if(fatherNode.left && fatherNode.left.value === value){
+              fatherNode.left = thisNode.right;
+              this.min(thisNode.right).left = thisNode.left;
+           }
        }
-       let result = findHelpFun(value,this.tree);
-       return result ? result : '未找到'
+       return node;
     }
 }
 
 
 
 let myTree = new Tree(100);
-myTree.insertMore([99, 101, 98, 99, 100, 101,100,100,101]);
-myTree.inOrder(myTree.tree);
-// console.log(myTree.find(101));
+myTree.insertMore([97,98,98,99,100,101,102]);
+// console.log(myTree.findFatherNode(98,myTree.tree));
+console.log(myTree.find(102,myTree.tree));
+// console.log(myTree.remove(98,myTree.tree));
