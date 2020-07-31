@@ -13,7 +13,7 @@
 * @param {Function} reviver 转换器, 可以用来修改解析生成的原始值，调用时机在 parse 函数返回之前。
 * ---------------- @param key 当前键
 * ---------------- @param value 当前值
-* ---------------- @return 如果返回undefind，那么从当前对象删除此键值对，如果是其他值，则会把此值作为key的value
+* ---------------- @return 如果返回undefined，那么从当前对象删除此键值对，如果是其他值，则会把此值作为key的value
 * @return {Object}
 */
 JSON.parse(test[,reviver(key,value)])
@@ -39,11 +39,11 @@ let parseStr = JSON.parse(str,function(k,v){
         return v + 100;
     }
 })
-parseStr; // undefind;
+parseStr; // undefined;
 ```
-此处为undefind的原因:  
+此处为undefined的原因:  
 
-!> parse方法会把`key:"",value:""`当作顶层对象，也就是说遍历到最外层的`{}`了，这时候`k != 'a'`，而此时函数没有返回值，所以就会删除掉这个键值对，也就是整个对象都被删除了，所以为undefind。
+!> parse方法会把`key:"",value:""`当作顶层对象，也就是说遍历到最外层的`{}`了，这时候`k != 'a'`，而此时函数没有返回值，所以就会删除掉这个键值对，也就是整个对象都被删除了，所以为undefined。
 
 !> 所以提供reviver函数时一定得注意
 > 下面做出改进
@@ -78,7 +78,7 @@ JSON.stringify(value[,replacer[,space]])
 ```
 
 * 要转换的值如果有`toJSON`方法，那么就将`toJSON`的返回值作为此对象序列化后的值
-* `undefind,Function,Symbol`会被忽略、
+* `undefined,Function,Symbol`会被忽略、
 * 循环引用会报错
 * `NaN,Infinity,null`都会被转为null  
 
@@ -149,7 +149,7 @@ JSON.stringify(obj,replacerFun);
 JSON.stringify(obj,['a','b','c']);
 // {"a":null}
 ```
-只会序列化`a,b,c`三个属性,a的结果为null;b的值是undefind会被忽略,c的值为函数会被忽略,所以结果为`{"a":null}`
+只会序列化`a,b,c`三个属性,a的结果为null;b的值是undefined会被忽略,c的值为函数会被忽略,所以结果为`{"a":null}`
 
 > 可以加上第三个参数（space）来美化    
 

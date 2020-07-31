@@ -456,7 +456,7 @@ arr1.flatMap(item => item.split(' '))
 * ----------------- @param(可选) {number} index 所处理的元素的索引
 * ----------------- @param(可选) {Array} array 调用的数组
 * @param(可选) {Object}  thisArg 执行callback函数时用作this的对象
-* @return {undefind} 无返回值
+* @return {undefined} 无返回值
 */
 arr.forEach(callback(item[,index[,array]])[,thisArg])
 ```
@@ -548,7 +548,7 @@ arr.indexOf(value[,fromIndex])
 arr.join([str])
 ```
 
-!> `null,undefind`会被转为空字符串  
+!> `null,undefined`会被转为空字符串  
 
 **示例**
 ```js
@@ -616,7 +616,7 @@ arr.lastIndexOf(item[,fromIndex])
 * ----------------- @param {*} item 当前元素
 * ----------------- @param(可选) {number} index 当前元素索引
 * ----------------- @param(可选) {Array} array 调用map的数组
-* @param(可选) {Object} thisArg||undefind 执行callback时的this
+* @param(可选) {Object} thisArg||undefined 执行callback时的this
 * @return {Array} 由原数组每个元素执行callback的结果组成的新数组
 */
 arr.map(callback(item[,index[,array]])[,thisArg])
@@ -639,7 +639,7 @@ arr1.map(item => item*2) // [2, 4, 6, 8, 10]
 **语法**
 ```js
 /*
-* @return {*} 被删除的元素,数组为空时返回undefind
+* @return {*} 被删除的元素,数组为空时返回undefined
 */
 arr.pop()
 ```
@@ -788,7 +788,7 @@ itemNum(arr1); // { '1': 4, '2': 1, '3': 1, '44': 2 }
 **语法**
 ```js
 /*
-* @return 从数组中所删除的元素，也就是第一个元素，如果数组为空，返回undefind
+* @return 从数组中所删除的元素，也就是第一个元素，如果数组为空，返回e
 */
 arr.shift()
 ```
@@ -796,7 +796,7 @@ arr.shift()
 **示例**
 ```js
 let obj1 = {0:'a',1:'b',length:0};
-Array.prototype.shift.call(obj1); // undefind
+Array.prototype.shift.call(obj1); // undefined
 obj1;//{0: "a", 1: "b", length: 0}
 
 let obj2 = {'0':'a',1:'b',length:1};
@@ -804,7 +804,7 @@ Array.prototype.shift.call(obj2); // "a"
 obj2; //{1: "b", length: 0}
 
 let obj3 = {'a':1,'b':2,length:1};
-Array.prototype.shift.call(obj3); // undefind
+Array.prototype.shift.call(obj3); // undefined
 obj3; // {a: 1, b: 2, length: 0}
 ```
 * 可以看出是根据length来判断元素的  
