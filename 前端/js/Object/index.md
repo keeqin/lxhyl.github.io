@@ -280,28 +280,365 @@ Object.defineProperties(obj,props)
 Object.defineProperty(obj,prop,des)
 ```
 
+用`Object.defineProperty`定义的属性  
+
+* 默认`writeable,configurable,enumberable`都为false 
 
 **示例**
 > 添加或修改属性
 ```js
     let obj1 = {};
+    let a = 1;
     Object.defineProperty(obj1,'a',{
         enumerable:true,
         get:function(){
-          console.log("访问值")
-          return 1
+          console.log("访问值");
+          return a;
         },
         set:function(value){
             console.log("把修改值为"+value);
-            return value
+            return value;
         }
     })
-    obj1.a; // 访问值
-    obj1['a'] = 2; // 把修改值为2
+    obj1.a; // 访问值  1
+    obj1['a'] = 2; // 把修改值为2 
     obj1;
     /*
     a: 1
     get a: ƒ ()
     set a: ƒ (value)
     */
+```
+> 数组填加属性
+```js
+  let arr1 = [1,2,3];
+    Object.defineProperty(arr1,5,{
+        value:4,
+        configurable:true,
+        enumerable:false
+    })
+    arr1; // [1, 2, 3, empty × 2, 4]
+```
+
+> 实现个订阅函数，当对象中的值改变时打印
+```js
+ let  obj2 = {
+        a:'aaa',
+        arr1:[1,2,3,4],
+        b:{
+            b1:'b1',
+            b2:'b2',
+        }
+    }
+    const sub = obj => {
+        let keys = Object.keys(obj);
+        for(let i =0;i<keys.length;i++){
+           if(typeof obj[keys[i]] === 'object'){
+               sub(obj2[keys[i]]);
+           }else{
+               Object.defineProperty(obj,keys[i],{
+                   set:function(value){
+                     console.log(`${keys[i]}的值改变为${value}了`)
+                     return value;
+                    }
+               })
+           }
+        }
+    }
+    sub(obj2)
+    obj2.a = 1;// a的值改变为1了
+    obj2.arr1[0] = 'a'; // 0的值改变为a了
+    obj2.b.b1 = 'bbbb1'; // b1的值改变为bbbb1了
+```
+
+## Object.entries()
+?> 返回一个给定对象自身可枚举属性的键值对数组，不包括原型
+
+**语法** 
+```js
+/*
+* @param {Object} obj 对象
+* @return {Array} 键值对数组
+*/
+Object.entries(obj)
+```
+
+**示例**
+```js
+ let obj1 = {
+        a:'1',
+        b:2
+     };
+ Object.entries(obj1);  // [ [ 'a', '1' ], [ 'b', 2 ] ]
+```
+
+## Object.fromEntries()
+?> 把键值对列表转换为一个对象。
+
+* 与`Object.entries`互为逆操作
+
+**语法**
+```js
+/*
+*  @param iterable 可迭代对象
+*  @return 真正的对象
+*/
+Object.fromEntries(iterable)
+```
+
+**示例**
+```js
+ let arr1 = [[0,'a'],[1,'b'],[2,'c']];
+ let arr2obj = Object.fromEntries(arr1);
+ arr2obj; // { '0': 'a', '1': 'b', '2': 'c' }
+```
+
+
+
+
+## Object.preventExtensions()
+?> 让一个对象变的不可扩展，也就是永远不能再添加新的属性。
+
+**语法**
+```js
+/*
+*  @param obj 要变得不可扩展的对象
+*  @param {Object} 不可扩展得对象
+*/
+Object.preventExtensions(obj)
+```
+
+**示例**
+```js
+let obj1 = {
+    a:'1',
+    b:2
+}
+Object.preventExtensions(obj1);
+obj1.c = 'ccc';
+obj1; // { a: '1', b: 2 }
+```
+
+
+## Object.seal()
+?> 封闭一个对象，阻止添加新属性并将所有现有属性标记为不可配置。当前属性的值只要原来是可写的就可以改变。  
+
+* 不能添加新属性
+* 不能重新配置属性描述符
+* 不能删除现有属性
+* 但可以修改属性值
+
+**语法**
+```js
+/*
+* @param  obj 要封闭的对象
+* @return 已经封闭的对象
+*/
+Object.seal(obj)
+```
+
+**示例**
+```js
+    let obj1 = {
+        a: '1',
+        b: 2
+    };
+    Object.seal(obj1);
+
+    Object.defineProperty(obj1,'a',{
+        configurable:true,
+        enumerable:false
+    }) // TypeError  报错，不能重新配置
+    delete obj1.a
+    obj1;  // { a: '1', b: 2 } delete未能删除掉a属性
+    obj1.b = 3; // {a: "1", b: 3} 可以改变属性值
+```
+
+
+## Object.freeze()
+?> 冻结一个对象。一个被冻结的对象再也不能被修改；冻结了一个对象则不能向这个对象添加新的属性，不能删除已有属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。此外，冻结一个对象后该对象的原型也不能被修改。freeze() 返回和传入的参数相同的对象。
+
+> 也就是说  先调用Object.seal()，然后将`writeable`标记为`false`，是最高级别的冻结对象
+
+也就是说  
+
+* 不可添加属性
+* 不能删除属性
+* 不可配置属性描述符
+* 不可修改属性的值
+
+!> 浅冻结，属性如果也为对象，则这个属性不受影响，可以使用递归来真正冻结所有属性
+
+**语法**
+```js
+/*
+* @param {Object} obj 要冻结的对象
+* @return {Object} 被冻结的对象 
+*/
+Object.freeze(obj)
+```
+
+**示例**
+```js
+    let obj1 = {
+        a: '1',
+        b: {
+            b1:222,
+            b2:111
+        }
+    };
+    Object.freeze(obj1);
+    obj1.a = 'a';
+    obj1.c = 'newC';
+    delete obj1.a;
+    delete obj1.b.b1;
+    obj1; // { a: '1', b: { b2: 111 } }
+```
+可以看到不能修改值,不能添加属性，不能删除非对象属性，但可以删除属性类型为对象中的属性（此处的b只是指向另一个对象的指针，而b所☞的对象并没有被冻结）
+
+
+## Object.getOwnPropertyDescriptor()
+?> 指定对象上一个自有属性对应的属性描述符
+
+**语法**
+```js
+/*
+* @param {Object} obj 对象
+* @param {*} prop 属性
+* @return 如果属性存在在对象上，则返回其属性描述符，否则返回undefined
+*/
+Object.getOwnPropertyDescriptor(obj,prop)
+```
+
+**示例**
+```js
+   let obj1 = {
+        a: '1',
+        b: {
+            b1:222,
+            b2:111
+        }
+    };
+    let desA = Object.getOwnPropertyDescriptor(obj1,'a');
+    let desB = Object.getOwnPropertyDescriptor(obj1,'b');
+    desA; 
+    /*
+    { 
+        value: '1', 
+        writable: true,
+        enumerable: true, 
+        configurable: true
+    }
+    */
+    desB;
+    /*
+    {
+       value: { b1: 222, b2: 111 },
+       writable: true,
+       enumerable: true,
+       configurable: true
+    }
+    */
+```
+
+
+## Object.getOwnPropertyDescriptors()
+?> 获取一个对象的所有自身属性的描述符。
+
+**语法**
+```js
+/*
+* @param obj 要获取描述符的对象
+* @return 对象的所有自身属性的描述符，如果自身没有任何属性，则返回空对象。
+*/
+Object.getOwnPropertyDescriptors(obj)
+```
+
+**示例**
+```js
+let obj1 = {
+    a: '1',
+    b: {
+        b1:222,
+        b2:111
+    }
+};
+let desA = Object.getOwnPropertyDescriptors(obj1);
+desA;
+/*
+{
+  a: { value: '1', writable: true, enumerable: true, configurable: true },
+  b: {
+    value: { b1: 222, b2: 111 },
+    writable: true,
+    enumerable: true,
+    configurable: true
+  }
+} 
+*/
+```
+
+## Object.getOwnPropertyNames()
+?> 返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组。
+
+**语法**
+```js
+/*
+* @param {Object} obj 对象
+* @return {Array} 给定对象上找到的自身属性对应的字符串数组
+*/
+Object.getOwnPropertyNames(obj)
+```
+
+**示例**
+```js
+   let sym = Symbol()
+    let obj1 = {
+        a: '1',
+        b: {
+            b1:222,
+            b2:111
+        },
+    };
+    obj1[sym] = 'Symbol';
+    obj1; // { a: '1', b: { b1: 222, b2: 111 }, [Symbol()]: 'Symbol' }
+    let keys = Object.getOwnPropertyNames(obj1);
+    keys; // [ 'a', 'b' ]
+```
+
+> 数组的键
+```js
+
+    let arr1 = ['a','b','c'];
+    let arr1Keys = Object.getOwnPropertyNames(arr1);
+    arr1Keys; // [ '0', '1', '2', 'length' ]
+```
+!> 别忘了数组还有`length`这个键！
+
+## Object.getOwnPropertySymbols()
+?> 返回一个给定对象自身的所有 Symbol 属性的数组
+
+**语法**
+```js
+/*
+* @param {Object} obj 
+* @return {Array} obj上所有Symbol属性的集合的数组
+*/
+Object.getOwnPropertySymbols(obj)
+```
+
+**示例**
+```js
+    let sym = Symbol()
+    let obj1 = {
+        a: '1',
+        b: {
+            b1:222,
+            b2:111
+        },
+    };
+    obj1[sym] = 'Symbol';
+    obj1; // { a: '1', b: { b1: 222, b2: 111 }, [Symbol()]: 'Symbol' }
+    let keys = Object.getOwnPropertySymbols(obj1);
+    keys; // [Symbol()]
 ```
