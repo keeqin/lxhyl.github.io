@@ -7,7 +7,7 @@
 ### configurable    
 ?>  是否可修改属性的特性，是否可删除该属性 默认为`true`  
 
-### enumberable
+### enumerable
 ?> 是否可遍历，默认为`true`
 
 ### writeable    
@@ -21,7 +21,7 @@
 ### configurable
 ?> 同数据属性  
 
-### enumberable
+### enumerable
 ?> 同数据属性
 
 ### get 
@@ -227,8 +227,8 @@ obj22.toString; // undefined
     */
 ```
 * 不能保证插入顺序
-* node环境好像默认enumberable为false
-* chrome环境默认enumberable为true
+* node环境好像默认enumerable为false
+* chrome环境默认enumerable为true
 
 
 
@@ -282,7 +282,7 @@ Object.defineProperty(obj,prop,des)
 
 用`Object.defineProperty`定义的属性  
 
-* 默认`writeable,configurable,enumberable`都为false 
+* 默认`writeable,configurable,enumerable`都为false 
 
 **示例**
 > 添加或修改属性
@@ -613,7 +613,7 @@ Object.getOwnPropertyNames(obj)
     let arr1Keys = Object.getOwnPropertyNames(arr1);
     arr1Keys; // [ '0', '1', '2', 'length' ]
 ```
-!> 别忘了数组还有`length`这个键！
+!> 别忘了数组还有`length`这个不可枚举的键！
 
 ## Object.getOwnPropertySymbols()
 ?> 返回一个给定对象自身的所有 Symbol 属性的数组
@@ -641,4 +641,355 @@ Object.getOwnPropertySymbols(obj)
     obj1; // { a: '1', b: { b1: 222, b2: 111 }, [Symbol()]: 'Symbol' }
     let keys = Object.getOwnPropertySymbols(obj1);
     keys; // [Symbol()]
+```
+
+
+## Object.getPrototypeOf()
+?> 返回指定对象的原型（内部[[Prototype]]属性的值）
+
+**语法**
+```js
+/*
+* @param {Object} obj
+* @return obj的原型，如果没有继承属性则返回null
+*/
+Object.getPrototypeOf(obj)
+```
+
+
+**示例**
+```js
+let obj1 = {};
+let obj2 = Object.create(obj1);
+console.log(obj2.__proto__ === obj1); // true
+Object.getPrototypeOf(obj2) === obj1; // true
+```
+
+`Object.getPrototypeOf(Object) === Function.prototype`,因为`Object`是构造函数，类型为`Function`，所以原型自然就指向`Function.prototype`
+
+
+## Object.is()
+?> 判断两个值是否为同一个值
+
+**语法**
+```js
+/*
+* @param {Object} value1 要比较的第一个值
+* @param {Object} value2 要比较的第二个值
+* @return {boolean} 两个参数是否是同一个值
+*/
+Object.is(value1,value2)
+```
+
+**示例**
+
+```js
+Object.is(null,undefined); // false
+let obj1 = {
+    a:1
+}
+let obj2 = {
+     a:1
+}
+let obj3 = obj2;
+Object.is(obj1,obj2); // false
+Object.is(obj2,obj2); // true 
+
+Object.is(0, -0); // false
+Object.is(0, +0); // true  
+```
+
+
+## Object.isExtensible()
+?> 判断一个对象是否是可扩展的,是否可以添加新的属性
+
+**语法**
+```js
+/*
+* @param {Object} obj 要检测的对象
+* @return {boolean} 是否可扩展 
+*/
+Object.isExtensible(obj)
+```
+
+**示例**
+```js
+let obj1 = {};
+Object.isExtensible(obj1); // true
+Object.preventExtensions(obj1);
+Object.isExtensible(obj1); // false
+```
+
+!> 注意
+> ES5:`Object.isExtensible(1); // TypeError`   
+
+> ES6:`Object.isExtensible(1); // false` 
+
+> 浏览器:`Object.isExtensible(1); // false`
+
+
+## Object.isFrozen()
+?> 判断一个对象是否被冻结。
+
+**语法**
+```js
+/*
+* @param {Object} obj 待检测对象
+* @return {boolean} 是否被冻结 
+*/
+Object.isFrozen(obj)
+```
+
+**示例**
+```js
+let obj1 = {};
+Object.isFrozen(obj1); // false
+```
+> 一个空对象变为不可扩展，就是一个冻结对象
+```js
+Object.preventExtensions(obj1);
+Object.isFrozen(obj1); // true 
+```
+
+> 不可扩展的非空对象，不是冻结的
+```js
+let obj2 = {
+    a:1,
+}
+Object.preventExtensions(obj2);
+Object.isFrozen(obj2); // false
+```
+
+```js
+Object.freeze(obj1);  
+Object.isFrozen(obj1); // true
+```
+
+## Object.isSealed()
+?> 判断一个对象是否被密封。
+
+**语法**
+```js
+/*
+* @param {Object} obj 待检测对象
+* @return {boolean} 是否密封
+*/
+Object.isSealed(obj)
+```
+
+**示例**
+```js
+let obj1 = {a:1};
+Object.preventExtensions(obj1);
+Object.isSealed(obj1); // false
+// 使obj的a不可配置
+Object.defineProperty(obj1,'a',{
+    value:1,
+    writable:true,
+    configurable:false,
+    enumerable:true,
+})
+Object.isSealed(obj1); // true 此时成为密封对象
+```
+
+
+## Object.keys()
+?> 返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和正常循环遍历该对象时返回的顺序一致
+
+**语法**
+```js
+/*
+* @param {Object} obj 对象
+* @return {Array} obj自身所有key组成的数组
+*/
+Object.keys(obj)
+```
+
+**示例**
+
+```js
+    let obj1 = {
+        a:1,
+    }
+    Object.defineProperty(obj1,'b',{
+        value:'bbb',
+        enumerable:false
+    })
+    let c = Symbol('test')
+    Object.defineProperty(obj1,c,{
+        value:'ccc',
+        enumerable:true
+    })
+    Object.keys(obj1); // [ 'a' ]
+```
+
+> 与Object.getOwnProPertyNames()的区别
+
+```js
+let arr1 = ['a', 'b', 'c'];
+Object.getOwnPropertyNames(arr1); // ["0", "1", "2", "length"]
+```
+
+* `Object.key`的得到的是**自身的，可枚举的,不包括`Symbol`类型的键**
+* `Object.getOwnPropertyNames`得到的是**自身的，所有的（包括不可枚举），不包括`Symbol`的键**   
+* `Object.getOwnPropertySymbols`得到的是**自身的,Symbol属性的键**
+
+
+## Object.values()
+?> 返回一个给定对象自身的所有可枚举属性值的数组，值的顺序与使用for...in循环的顺序相同 (区别在于 for-in 循环枚举原型链中的属性)。
+
+**语法**
+```js
+/*
+* @param {Object} obj 对象
+* @return {Array} 可枚举属性的值的数组
+*/
+Object.values(obj)
+```
+
+**示例**
+```js
+let obj1 = {
+     a:1,
+    b:null,
+}
+Object.defineProperty(obj1,'c',{
+    value:'ccc',
+    enumerable:false
+})
+Object.values(obj1); // [ 1, null ]
+```
+
+
+## Object.prototype.hasOwnProproty()
+?> 返回一个布尔值，指示对象自身属性中是否具有指定的属性（也就是，是否有指定的键）。
+
+**语法**
+```js
+/*
+* @param key 待检测的键
+* @return {boolean} 是否含有这个键
+*/
+obj.hasOwnProperty(key)
+```
+
+**示例**
+```js
+let obj1 = {
+    a:1,
+    b:null,
+}
+Object.defineProperty(obj1,'c',{
+    value:'ccc',
+    enumerable:false
+})
+obj1.hasOwnProperty('c') // true
+```
+
+## Object.propertype.isPrototypeOf()
+?> 测试一个对象是否存在于另一个对象的原型链上。
+
+**语法**
+```js
+/*
+* @param obj1 在obj1的原型链上寻找
+* @return {boolean} 是否找到
+*/
+obj.isPrototypeOf(obj1)
+```
+如果obj为unll或undefined，则会抛出TypeError
+
+**示例**
+```js
+let obj1 = {
+    a:'1'
+}
+let obj2 = Object.create(obj1,{
+    b:{
+        value:'bbb',
+         enumerable:true
+    }
+})
+obj1.isPrototypeOf(obj2); // true
+```
+
+## Object.prototype.propertyIsEnumerable()
+?> 返回一个布尔值，表示指定的属性是否可枚举
+
+**语法**
+```js
+/*
+* @param key 指定的属性
+* @return {boolean} 是否可枚举
+*/
+obj.propertyIsEnumerable(key)
+```
+
+**示例**
+```js
+let obj1 = {a:1};
+Object.defineProperty(obj1,'b',{
+    value:'bbb',
+    enumerable:false
+ });
+obj1.propertyIsEnumerable('a'); // true
+obj1.propertyIsEnumerable('b'); // false
+```
+
+## Object.prototype.toLoacleString()
+?> 返回一个该对象的字符串表示。此方法被用于派生对象为了特定语言环境的目的（locale-specific purposes）而重载使用
+
+**语法**
+```js
+/*
+* @return 字符串
+*/
+obj.toLoacleString()
+```
+
+**示例**
+> 数字的千分位表示
+```js
+(1234567).toLocaleString();  //1,234,567
+```
+
+## Object.prototype.toString()
+?> 返回一个表示该对象的字符串。
+
+**语法**
+```js
+/*
+* @return 表示该对象的字符串
+*/
+obj.toString()
+```
+
+**示例**
+> 用toString()可以判断类型`
+```js
+let obj1 = {};
+obj1.toString(); // [object Object]
+Object.prototype.toString.call(new Date);// [object Date]
+Object.prototype.toString.call(new String); // [object String]
+Object.prototype.toString.call(new Array);// [object Array]
+```
+
+## Object.peototype.valueOf()
+?> 返回指定对象的原始值
+
+**语法**
+```js
+/*
+* @return 对象的原始值
+*/
+obj.valueOf()
+```
+
+**示例**
+```js
+  let obj1 = {
+        a:1,
+        b:2,
+    }
+ obj1.valueOf(); // {a: 1, b: 2}
 ```

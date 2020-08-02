@@ -283,6 +283,138 @@ console.log(Math.lxhyl('Math调用'))
     // Object.getPrototypeOf()
     let obj1 = {};
     let obj2 = Object.create(obj1);
-    console.log(obj2.__proto__ === obj1);
+    console.log(obj2.__proto__ === obj1); // true
     Object.getPrototypeOf(obj2) === obj1; // true
+}
+
+{
+    // Object.is()
+    console.log(Object.is(null,undefined)) 
+
+    let obj1 = {
+        a:1
+    }
+    let obj2 = {
+        a:1
+    }
+    let obj3 = obj2;
+    console.log(Object.is(obj1,obj2)); 
+    console.log(Object.is(obj3,obj2)); 
+}
+
+{
+    // Object.isExtensible()
+    let obj1 = {};
+    Object.preventExtensions(obj1);
+    console.log(Object.isExtensible(obj1));
+   console.log(Object.isExtensible(1));
+}
+{
+    //Object.isFrozen()
+    let obj1 = {};
+    console.log(Object.isFrozen(obj1));
+    Object.freeze(obj1);
+    console.log(Object.isFrozen(obj1));
+
+}
+
+{
+    // Object.isSealed()
+    let obj1 = {a:1};
+    Object.defineProperty(obj1,'a',{
+        value:1,
+        writable:true,
+        configurable:false,
+        enumerable:true,
+    })
+    Object.preventExtensions(obj1);
+    console.log(Object.isSealed(obj1));
+
+}
+
+
+{
+    // Object.keys()
+    let obj1 = {
+        a:1,
+    }
+    Object.defineProperty(obj1,'b',{
+        value:'bbb',
+        enumerable:false
+    })
+    let c = Symbol('test')
+    Object.defineProperty(obj1,c,{
+        value:'ccc',
+        enumerable:true
+    })
+    console.log(Object.keys(obj1));
+}
+
+{
+    // Object.values()
+    let obj1 = {
+        a:1,
+        b:null,
+    }
+    Object.defineProperty(obj1,'c',{
+        value:'ccc',
+        enumerable:false
+    })
+    console.log(Object.values(obj1)); // [ 1, null ]
+}
+
+{
+    // Object.prototype.hasOwnProproty()
+    let obj1 = {
+        a:1,
+        b:null,
+    }
+    Object.defineProperty(obj1,'c',{
+        value:'ccc',
+        enumerable:false
+    })
+    console.log(obj1.hasOwnProperty('c'))
+}
+
+{
+    // Object.prototype.isProprotyOf()
+    let obj1 = {
+        a:'1'
+    }
+    let obj2 = Object.create(obj1,{
+        b:{
+            value:'bbb',
+            enumerable:true
+        }
+    })
+    console.log(obj1.isPrototypeOf(obj2));
+}
+
+{
+    // Object.prototype.propertyIsEnumerable()
+    let obj1 = {a:1};
+    Object.defineProperty(obj1,'b',{
+        value:'bbb',
+        enumerable:false
+    });
+    console.log(obj1.propertyIsEnumerable('a'));
+    console.log(obj1.propertyIsEnumerable('b'));
+}
+
+{
+    // Object.prototype.toLoacleString()
+    console.log((1234567).toLocaleString());
+}
+
+
+{
+    //  Object.prototype.toString()
+    let obj1 = {
+        
+    };
+    let fun1 = () => {
+       
+    };
+    console.log(obj1.toString());
+    console.log(fun1.toString());
 }
