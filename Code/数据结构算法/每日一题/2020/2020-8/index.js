@@ -14,7 +14,7 @@
        let j = num2.length - 1;
        // 维护一个进位器    
        let add = 0;
-       let result = [];
+       let result = '';
        // 当任意一个字符串没遍历完的时候，或者进位器有值的时候
        // 进入循环   
        while(i>=0 || j >= 0 || add > 0){
@@ -25,16 +25,17 @@
           let sum = x + y + add;
           // 求完和，让进位器归零
           add = 0;
+          // 拼接字符串
           if(sum >= 10){
              add = 1;
-             result.push(sum - 10);
+             result = `${sum - 10}${result}`;
           }else{
-            result.push(sum);
+            result = `${sum}${result}`;
           }
           i--;
           j--;
        }
-       return result.reverse().join('');
+       return result;
     }
     console.log(addStrings('123','12'))
 }
