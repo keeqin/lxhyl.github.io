@@ -98,6 +98,7 @@
     console.log('b' in proxyData);
 }
 
+
 {
     // construct
     let data = function (){
@@ -112,5 +113,5 @@
             }
         }
     })
-    console.log(new proxyData())
+    console.log(new proxyData(1,2,3))
 }
