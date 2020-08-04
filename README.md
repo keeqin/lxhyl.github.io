@@ -6,6 +6,7 @@
   - [x] String
   - [x] JSON 
   - [x] Object
+  - [ ] Proxy
   - [ ] ...  (MORE)
 
 
