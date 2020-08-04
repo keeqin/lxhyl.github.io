@@ -10,7 +10,7 @@
 
 
 
-- [x] LeetCode每日一题
+- [ ] LeetCode每日一题
 
 
 # 关于
