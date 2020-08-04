@@ -108,3 +108,100 @@ set:function(obj,prop,value,proxyObj){}
     resultObj.b.b2.b22 = 'test222'; // 设置了新属性b22,值为test222
     resultObj.b.b2 = null; // [b2]的值变为了null
 ```
+
+### 拦截get （读取操作）
+
+**语法**
+```js
+/*
+* @param obj 原对象
+* @param prop 属性名
+* @param receiver Proxy
+*/
+get:function(obj,prop,receiver){}
+```
+> 如果目标属性是不可写，不可配置的，则必须原样返回   
+
+**示例**
+```js
+  let data = {
+        a:1,
+    }
+    let proxyData = new Proxy(data,{
+        get:(data,prop,receiver)=>{
+             if(data[prop]){
+                 return data[prop]
+             }else{
+                 throw Error(`不存在${prop}属性`)
+             }
+        }
+    })
+    proxyData.a; // 1
+    proxyData.b; // Error: 不存在b属性
+```
+
+### has(拦截in操作符)  
+
+**语法**
+```js
+/*
+* @param obj 原对象
+* @param prop 属性名
+*/
+has:function(obj,prop){}
+```
+* 如果对象不可扩展，则该对象的属性不能被代理隐藏
+* 如果该属性不可配置，则该属性不能被代理隐藏
+
+**示例**
+```js
+  let data = {
+        a:1,
+        b:2,
+        c:3
+    }
+    let proxyData = new Proxy(data,{
+        has:(obj,prop) => {
+          if(prop != 'b'){
+              return true
+          }else{
+              return false
+          }
+        }
+    })
+    console.log('a' in proxyData); // true
+    console.log('b' in proxyData); // false
+```
+
+
+### construct （拦截new操作符）
+
+**语法**
+```js
+/*
+* @param obj 原对象
+* @param args 原对象的参数
+* @param newObj 就是proxyObj
+*/
+let proxyObj = new Proxy(obj,{
+     construct:function(obj,args,newObj){}
+})
+```
+
+**示例**
+> 无论什么情况下都返回参数所组成的数组
+```js
+    let data = function (){
+
+    };
+    let proxyData = new Proxy(data,{
+        construct:function(obj,args,proxyObj){
+            if(args.length === 1){
+                return [args[0]]
+            }else{
+                return new Array(...args);
+            }
+        }
+    })
+    new proxyData(1,2,3); // [ 1, 2, 3 ]
+```

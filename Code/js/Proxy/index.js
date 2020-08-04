@@ -56,5 +56,61 @@
     resultObj.b.b2.b21 = 'test';
     resultObj.b.b2.b22 = 'test222';
     resultObj.b.b2 = null;
-    console.log(resultObj.b);
+    console.log(resultObj);
+    console.log(data);
+}
+
+{
+    // get
+    let data = {
+        a:1,
+    }
+    let proxyData = new Proxy(data,{
+        get:(data,prop,receiver)=>{
+             if(data[prop]){
+                 return data[prop]
+             }else{
+                 throw Error(`不存在${prop}属性`)
+             }
+        }
+    })
+    console.log(proxyData.a);
+    proxyData.b; 
+}
+
+{
+    // has
+    let data = {
+        a:1,
+        b:2,
+        c:3
+    }
+    let proxyData = new Proxy(data,{
+        has:(obj,prop) => {
+          if(prop != 'b'){
+              return true
+          }else{
+              return false
+          }
+        }
+    })
+    console.log('a' in proxyData);
+    console.log('b' in proxyData);
+}
+
+{
+    // construct
+    let data = function (){
+
+    };
+    let proxyData = new Proxy(data,{
+        construct:function(obj,args,proxyObj){
+            if(args.length === 1){
+                return [args[0]]
+            }else{
+                return new Array(...args);
+            }
+        }
+    })
+    console.log(new proxyData())
 }
