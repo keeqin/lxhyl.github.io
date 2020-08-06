@@ -70,6 +70,7 @@
 {
    // #336
    const allPlalindrome = words => {
+      // 判断是不是回文
       const isPlalindrome = (word1,word2) => {
          let str = `${word1}${word2}`;
          let i = 0;
@@ -85,6 +86,7 @@
          return true
       }
       let result = [];
+      // 找出所有回文
       for(let i =0;i<words.length;i++){
        for(let j =0;j<words.length;j++){
           if(i != j && isPlalindrome(words[i],words[j])){
