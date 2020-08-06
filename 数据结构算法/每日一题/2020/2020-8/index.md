@@ -1,7 +1,8 @@
 代码文件目录`Code/数据结构算法/每日一题/2020/2020-8/index.js`
 
 # 415.字符串相加
-> 2020-08-03
+> 2020-08-03   
+
 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和。
 
 注意：
@@ -55,3 +56,99 @@ num1 和num2 都不包含任何前导零。
  ```
 
 
+ # 337.打家劫舍3
+ > 2020-8-5   
+
+ 在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。   
+   
+计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。   
+
+示例 1:   
+ 
+输入: [3,2,3,null,3,null,1]   
+```js
+     3   
+    / \   
+   2   3   
+    \   \    
+     3   1   
+```
+输出: 7    
+解释: 小偷一晚能够盗取的最高金额 = 3 + 3 + 1 = 7.   
+
+来源：力扣(LeetCode)
+链接：https://leetcode-cn.com/problems/house-robber-iii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+ const rob = root => {
+      // 深度优先遍历
+      const dfs = node => {
+         if(node === null){
+            // 0为选择子节点，1为不选择子节点
+            return [0,0];
+         }
+         // 两个子节点的值
+         const l = dfs(node.left);
+         const r = dfs(node.right);
+         // 当选择了当前节点
+         let choosed = node.val + l[1] + r[1];
+         // 没选择当前节点
+         let notChoosed = Math.max(l[0],l[1]) + Math.max(r[0],r[1]);
+         // 返回两个值
+         return [choosed,notChoosed];
+      }
+      const rootValue = dfs(root);
+      // 返回最大值
+      return Math.max(rootValue[0],rootValue[1]);
+   }
+
+```
+
+# 336.回文对
+给定一组 互不相同 的单词， 找出所有不同 的索引对(i, j)，使得列表中的两个单词， words[i] + words[j] ，可拼接成回文串。  
+
+ 
+
+示例 1：  
+
+输入：["abcd","dcba","lls","s","sssll"]  
+输出：[[0,1],[1,0],[3,2],[2,4]]   
+解释：可拼接成的回文串为 ["dcbaabcd","abcddcba","slls","llssssll"]   
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/palindrome-pairs
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+   // 暴力法
+   const allPlalindrome = words => {
+      // 判断是不是回文
+      const isPlalindrome = (word1,word2) => {
+         let str = `${word1}${word2}`;
+         let i = 0;
+         let j = str.length - 1;
+         while(i<=j){
+            if(str[i] === str[j]){
+               i++;
+               j--;
+            }else{
+               return false;
+            }
+         }
+         return true
+      }
+      let result = [];
+      // 找出所有回文
+      for(let i =0;i<words.length;i++){
+       for(let j =0;j<words.length;j++){
+          if(i != j && isPlalindrome(words[i],words[j])){
+                result.push([i,j]);
+          }
+       }
+      }
+      return result;
+   }
+   let words = ["abcd","dcba","lls","s","sssll"];
+   allPlalindrome(words);  // [ [ 0, 1 ], [ 1, 0 ], [ 2, 4 ], [ 3, 2 ] ]
+```

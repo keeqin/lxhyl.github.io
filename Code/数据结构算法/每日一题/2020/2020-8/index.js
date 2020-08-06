@@ -39,3 +39,61 @@
     }
     console.log(addStrings('123','12'))
 }
+
+
+{
+   // #337
+   const rob = root => {
+      // 深度优先遍历
+      const dfs = node => {
+         if(node === null){
+            // 0为选择子节点，1为不选择子节点
+            return [0,0];
+         }
+         // 两个子节点的值
+         const l = dfs(node.left);
+         const r = dfs(node.right);
+         // 当选择了当前节点
+         let choosed = node.val + l[1] + r[1];
+         // 没选择当前节点
+         let notChoosed = Math.max(l[0],l[1]) + Math.max(r[0],r[1]);
+         // 返回两个值
+         return [choosed,notChoosed];
+      }
+      const rootValue = dfs(root);
+      // 返回最大值
+      return Math.max(rootValue[0],rootValue[1]);
+   }
+
+}
+
+{
+   // #336
+   const allPlalindrome = words => {
+      const isPlalindrome = (word1,word2) => {
+         let str = `${word1}${word2}`;
+         let i = 0;
+         let j = str.length - 1;
+         while(i<=j){
+            if(str[i] === str[j]){
+               i++;
+               j--;
+            }else{
+               return false;
+            }
+         }
+         return true
+      }
+      let result = [];
+      for(let i =0;i<words.length;i++){
+       for(let j =0;j<words.length;j++){
+          if(i != j && isPlalindrome(words[i],words[j])){
+                result.push([i,j]);
+          }
+       }
+      }
+      return result;
+   }
+   let words = ["abcd","dcba","lls","s","sssll"];
+   console.log(allPlalindrome(words));
+}
