@@ -99,3 +99,28 @@
    let words = ["abcd","dcba","lls","s","sssll"];
    console.log(allPlalindrome(words));
 }
+
+{
+   // #100
+   const isSameTree = (p,q) => {
+      let temp = true;
+      let valFirst = (p,q) => {
+        if(p && q){
+           if(p.val === q.val){
+              valFirst(p.left,q.left);
+              valFirst(p.right,q.right);
+           }else{
+              temp = false;
+              return false;
+           }
+        }else{
+           if(p !== q){
+              temp = false;
+              return false;
+           }
+        }
+      }
+      valFirst(p,q);
+      return temp;
+   }
+}

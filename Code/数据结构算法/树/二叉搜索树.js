@@ -184,10 +184,10 @@ class Tree {
      * @memberof Tree
      */
     max(node) {
-        // 二叉搜索树的特点最小值为右下角，
+        // 二叉搜索树的特点最大值为右下角，
         let tempNode = node;
         while (tempNode) {
-            if (tempNode.left === null) {
+            if (tempNode.right === null) {
                 return tempNode;
             } else {
                 tempNode = tempNode.right;
