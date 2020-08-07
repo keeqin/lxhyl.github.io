@@ -7,6 +7,7 @@
   - [x] JSON 
   - [x] Object
   - [ ] Proxy
+  - [ ] Promise
   - [ ] ...  (MORE)
 
 
