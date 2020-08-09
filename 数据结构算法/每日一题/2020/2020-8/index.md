@@ -198,3 +198,59 @@ num1 和num2 都不包含任何前导零。
       return temp;
    }
 ```
+
+# 93.复原IP地址
+> 2020-08-09  
+
+给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。   
+
+有效的 IP 地址正好由四个整数（每个整数位于 0 到 255 之间组成），整数之间用 '.' 分隔。   
+
+示例:   
+
+输入: "25525511135"   
+输出: ["255.255.11.135", "255.255.111.35"]   
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/restore-ip-addresses
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+    const restoreIpAddresses = s => {
+      // 判断单个num值是否合法
+      const isTrue = num => {
+         if (num.length === 0) return false;
+         if (num.length === 1) return true;
+         if (num[0] == 0) return false;
+         if (num <= 255) {
+            return true;
+         } else {
+            return false
+         }
+      }
+      let result = [];
+      // 遍历ipv4中三个点的位置，找出所有合法的ip地址
+      // 第一个点的位置
+      for (let i = 1; i <= 3 && i < s.length; i++) {
+         //第二个点的位置
+         for (let j = i; j <= i + 3 && j < s.length; j++) {
+            //第三个点的位置
+            for (let k = j; k <= j + 3 && k < s.length; k++) {
+               let num1 = s.substring(0, i);
+               let num2 = s.substring(i, j);
+               let num3 = s.substring(j, k);
+               let num4 = s.substring(k);
+               if (isTrue(num1) && isTrue(num2) && isTrue(num3) && isTrue(num4)) {
+                  let ip = `${num1}.${num2}.${num3}.${num4}`;
+                  result.push(ip);
+               }
+            }
+         }
+      }
+      return result;
+   }
+
+   let str = "25525511135"
+   console.log(restoreIpAddresses(str));
+   // [ '255.255.11.135', '255.255.111.35' ]
+
+```

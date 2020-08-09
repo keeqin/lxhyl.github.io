@@ -938,3 +938,73 @@ const search = (nums, target) => {
 const nums = [3, 1], target = 1;
 console.log(search(nums, target));
 ```
+
+# 43.字符串相乘  
+给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。  
+
+示例 1:  
+
+输入: num1 = "2", num2 = "3"  
+输出: "6"  
+示例 2:  
+说明：
+
+num1 和 num2 的长度小于110。  
+num1 和 num2 只包含数字 0-9。  
+num1 和 num2 均不以零开头，除非是数字 0 本身。  
+不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理  
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/multiply-strings
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+    const multiply = (num1, num2) => {
+    if(num1 == 0 || num2 ==0){
+        return '0';
+    }
+    // 先生成一个存储所有位数的数组
+    let arr = [];
+    for (let i = 0; i < (num1.length + num2.length - 1); i++) {
+        arr.push([]);
+    }
+    // 找到每一位的数字相乘  放入数组中
+    //  i+j的含义是，乘法的每一轮相乘都会错位
+    //  所以此轮相乘，最低位就为 i
+    for (let i = 0; i < num1.length; i++) {
+        for (let j = 0; j < num2.length; j++) {
+            let temp = num1[i] * num2[j];
+            arr[i + j].push(temp);
+        }
+    }
+    console.log('包含每位的值的数组：',arr);
+    // 包含每位的值的数组： [ [ 4 ], [ 5, 8 ], [ 10, 12 ], [ 15, 16 ], [ 20 ] ]
+
+
+    let result = '';
+    let add = 0;
+    // 由低位到高位 倒序遍历所有位，模拟加法
+    for (let i = arr.length - 1; i >= 0; i--) {
+        // 计算此位所有值的和，上次的进位 + 每轮相乘此位的数字之和
+        let sum = add + arr[i].reduce((lastSum, num) => {
+            return lastSum + num;
+        }, 0);
+        add = 0;
+        // 进位处理
+        if (sum >= 10) {
+            add = Math.floor(sum / 10);
+            let num = sum - add * 10;
+            result = `${num}${result}`;
+        } else {
+            result = `${sum}${result}`;
+        }
+    }
+    // 判断还有没有进位数
+    if(add === 0 ){
+        return result;
+    } else{
+        return `${add}${result}`
+    }
+}
+console.log(multiply('1234', '45')) // 55530
+```
