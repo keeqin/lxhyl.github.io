@@ -112,3 +112,41 @@
         console.log(err);
     })
 }
+
+{
+    let promiseFun = (s,e) => new Promise((resolve,reject)=> {
+        if(e){
+            reject(e);
+        }else{
+            resolve(s);
+        }
+    });
+    let p = Promise.race([promiseFun('成'),promiseFun('功'),promiseFun('了','失败'),promiseFun('了','失败了')]);
+
+    p.then( res => {
+        console.log(res);
+    })
+    .catch( err => {
+        console.log(err);
+    })
+    // 成
+}
+
+{
+    let promiseFun = (s,e) => new Promise((resolve,reject)=> {
+        if(e){
+            reject(e);
+        }else{
+            resolve(s);
+        }
+    });
+    let p = Promise.race([promiseFun('成','败'),promiseFun('功'),promiseFun('了')]);
+
+    p.then( res => {
+        console.log(res);
+    })
+    .catch( err => {
+        console.log(err);
+    })
+    // 败
+}

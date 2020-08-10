@@ -174,3 +174,23 @@ then方法的参数为所有Promise的resolve的值
     // 失败
 ```
 catch方法的参数为第一个reject的参数的值
+
+
+### Promise.race()
+?> 返回一个 promise，一旦迭代器中的某个promise解决或拒绝，返回的 promise就会解决或拒绝。
+
+
+**语法**
+```js
+/*
+* @param iterbaler 可迭代对象
+* @return Promise
+*/
+Promise.race(iterable)
+```
+
+**示例**
+还是上面的例子  
+```js
+
+```
