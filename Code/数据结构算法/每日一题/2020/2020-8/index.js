@@ -144,7 +144,7 @@
          //第二个点的位置
          for (let j = i; j <= i + 3 && j < s.length; j++) {
             //第三个点的位置
-            for (let k = j; k < j + 3 && k < s.length; k++) {
+            for (let k = j; k <= j + 3 && k < s.length; k++) {
                let num1 = s.substring(0, i);
                let num2 = s.substring(i, j);
                let num3 = s.substring(j, k);
@@ -161,4 +161,29 @@
 
    let str = "25525511135"
    console.log(restoreIpAddresses(str));
+}
+
+{
+   // #696
+   const countBinarySubstrings = s => {
+      let strCount = [];
+      let index = 0;
+      let num = 1;
+      while(index < s.length){
+          if(s[index] === s[index+1]){
+             index++;
+             num++;
+          }else{
+             strCount.push(num);
+             num = 1;
+             index++;
+          }
+      }
+      let result = 0;
+      for(let i =0;i<strCount.length - 1;i++){
+            result += Math.min(strCount[i],strCount[i+1]);
+      }
+      return result;
+   }
+   console.log(countBinarySubstrings('00110011'))
 }
