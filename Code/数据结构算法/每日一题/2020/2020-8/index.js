@@ -169,21 +169,70 @@
       let strCount = [];
       let index = 0;
       let num = 1;
-      while(index < s.length){
-          if(s[index] === s[index+1]){
-             index++;
-             num++;
-          }else{
-             strCount.push(num);
-             num = 1;
-             index++;
-          }
+      while (index < s.length) {
+         if (s[index] === s[index + 1]) {
+            index++;
+            num++;
+         } else {
+            strCount.push(num);
+            num = 1;
+            index++;
+         }
       }
       let result = 0;
-      for(let i =0;i<strCount.length - 1;i++){
-            result += Math.min(strCount[i],strCount[i+1]);
+      for (let i = 0; i < strCount.length - 1; i++) {
+         result += Math.min(strCount[i], strCount[i + 1]);
       }
       return result;
    }
-   console.log(countBinarySubstrings('00110011'))
+   console.log(countBinarySubstrings('00110011')) // 6
+}
+
+{
+   // #130
+   const solve = board => {
+      let notChange = [];
+
+      let h = board.length;
+      let w;
+      if (h > 1) {
+         w = board[0].length;
+      } else {
+         return board;
+      }
+      // 深度遍历所有连接的‘O’并标记
+      const dfs = (y, x) => {
+         if (y >= 0 && y < h && x >= 0 && x < w) {
+            if (board[y][x] === 'O') {
+               let str = JSON.stringify([y, x])
+               // 判断这个点是否已经遍历过，避免死循环
+               if (notChange.indexOf(str) <= -1) {
+                  notChange.push(str);
+                  dfs(y, x + 1);
+                  dfs(y, x - 1);
+                  dfs(y + 1, x);
+                  dfs(y - 1, x);
+               }
+            }
+         }
+      }
+      // 从边界开始查找
+      for (let i = 0; i < w; i++) {
+         if (board[0][i] === 'O') dfs(0, i);
+         if (board[h - 1][i] === 'O') dfs(h - 1, i);
+      }
+      for (let i = 0; i < h; i++) {
+         if (board[i][0] === 'O') dfs(i, 0);
+         if (board[i][w - 1] === 'O') dfs(i, w - 1);
+      }
+      // 遍历二维数组，改变没有被标记的点
+      for (let i = 0; i < h; i++) {
+         for (let j = 0; j < w; j++) {
+            if (board[i][j] === 'O' && notChange.indexOf(JSON.stringify([i, j])) <= -1) {
+               board[i][j] = 'X';
+            }
+         }
+      }
+      return board;
+   }
 }

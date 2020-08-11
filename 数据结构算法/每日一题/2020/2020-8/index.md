@@ -298,3 +298,75 @@ num1 和num2 都不包含任何前导零。
    }
    console.log(countBinarySubstrings('00110011')) // 6
 ```
+
+
+# 130.被围绕的区域
+
+给定一个二维的矩阵，包含 'X' 和 'O'（字母 O）。
+
+找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。
+```js
+示例:
+
+X X X X
+X O O X
+X X O X
+X O X X
+
+运行你的函数后，矩阵变为：
+
+X X X X
+X X X X
+X X X X
+X O X X
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/surrounded-regions
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+   const solve = board => {
+      let notChange = [];
+
+      let h = board.length;
+      let w;
+      if (h > 1) {
+         w = board[0].length;
+      } else {
+         return board;
+      }
+      // 深度遍历所有连接的‘O’并标记
+      const dfs = (y, x) => {
+         if (y >= 0 && y < h && x >= 0 && x < w) {
+            if (board[y][x] === 'O') {
+               let str = JSON.stringify([y, x])
+               // 判断这个点是否已经遍历过，避免死循环
+               if (notChange.indexOf(str) <= -1) {
+                  notChange.push(str);
+                  dfs(y, x + 1);
+                  dfs(y, x - 1);
+                  dfs(y + 1, x);
+                  dfs(y - 1, x);
+               }
+            }
+         }
+      }
+      // 从边界开始查找
+      for (let i = 0; i < w; i++) {
+         if (board[0][i] === 'O') dfs(0, i);
+         if (board[h - 1][i] === 'O') dfs(h - 1, i);
+      }
+      for (let i = 0; i < h; i++) {
+         if (board[i][0] === 'O') dfs(i, 0);
+         if (board[i][w - 1] === 'O') dfs(i, w - 1);
+      }
+      // 遍历二维数组，改变没有被标记的点
+      for (let i = 0; i < h; i++) {
+         for (let j = 0; j < w; j++) {
+            if (board[i][j] === 'O' && notChange.indexOf(JSON.stringify([i, j])) <= -1) {
+               board[i][j] = 'X';
+            }
+         }
+      }
+      return board;
+   }
+```
