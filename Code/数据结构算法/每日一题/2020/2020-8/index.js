@@ -236,3 +236,33 @@
       return board;
    }
 }
+
+{
+   // #133
+   const cloneGraph = node => {
+      if(!node){
+         return node;
+      }
+      // 创建HASH映射来存储 已经克隆过的节点
+      let map = new Map();
+      // 深度优先遍历
+      const dfs = n => {
+         // 如果已经克隆过了 直接返回
+         if(map.has(n)){
+            return map.get(n);
+         }
+         // 克隆节点
+         let cloneNode = new Node(n.val,[])
+         // 键为老节点，值为新节点
+         map.set(n,cloneNode);
+         // 遍历邻居，克隆邻居
+         for(let i=0;i< n.neighbors.length;i++){
+           let newN = dfs(n.neighbors[i]);
+           cloneNode.neighbors.push(newN);
+         }
+         // 返回克隆节点
+         return cloneNode;
+      }
+      return dfs(node);
+   }
+}

@@ -326,7 +326,6 @@ X O X X
 ```js
    const solve = board => {
       let notChange = [];
-
       let h = board.length;
       let w;
       if (h > 1) {
@@ -334,7 +333,7 @@ X O X X
       } else {
          return board;
       }
-      // 深度遍历所有连接的‘O’并标记
+      // 深度优先遍历所有连接的‘O’并标记
       const dfs = (y, x) => {
          if (y >= 0 && y < h && x >= 0 && x < w) {
             if (board[y][x] === 'O') {
@@ -368,5 +367,50 @@ X O X X
          }
       }
       return board;
+   }
+```
+
+
+
+# 133.克隆图
+给你无向 连通 图中一个节点的引用，请你返回该图的 深拷贝（克隆）。  
+  
+图中的每个节点都包含它的值 val（int） 和其邻居的列表（list[Node]）。    
+  
+class Node {  
+    public int val;
+    public List<Node> neighbors;
+}  
+ 
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/clone-graph
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+   const cloneGraph = node => {
+      if(!node){
+         return node;
+      }
+      // 创建HASH映射来存储 已经克隆过的节点
+      let map = new Map();
+      // 深度优先遍历
+      const dfs = n => {
+         // 如果已经克隆过了 直接返回
+         if(map.has(n)){
+            return map.get(n);
+         }
+         // 克隆节点
+         let cloneNode = new Node(n.val,[])
+         // 键为老节点，值为新节点
+         map.set(n,cloneNode);
+         // 遍历邻居，克隆邻居
+         for(let i=0;i< n.neighbors.length;i++){
+           let newN = dfs(n.neighbors[i]);
+           cloneNode.neighbors.push(newN);
+         }
+         // 返回克隆节点
+         return cloneNode;
+      }
+      return dfs(node);
    }
 ```
