@@ -8,4 +8,7 @@
    代码路径`/Code/js/手写/new.js`
 
 ## [深拷贝](前端/js/代码片段/deepCopy.md)
-   代码路径`/Code/js/手写/deepCopy.js`
+   代码路径`/Code/js/手写/deepCopy.js`  
+
+## [数组对象排序](前端/js/代码片段/sort.md)  
+   代码路径 `/Code/js/手写/sort.js`
