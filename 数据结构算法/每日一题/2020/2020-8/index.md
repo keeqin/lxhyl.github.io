@@ -414,3 +414,8 @@ class Node {
       return dfs(node);
    }
 ```
+
+# 43.字符串相乘
+?> 2020-08-13
+
+[这道题做过](/数据结构算法/LeetCode腾讯50题/index?id=_43字符串相乘)
