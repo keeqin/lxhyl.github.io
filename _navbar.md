@@ -16,3 +16,4 @@
 
 * 记录
  * [日记](diary/index.md)
+ * [吃喝玩乐](play/index.md)
