@@ -11,4 +11,6 @@
 
 # [JSON](前端/js/JSON/index.md)
 
+# [Map](前端/js/Map/index.md)
+
 # [代码片段](前端/js/代码片段/README.md)

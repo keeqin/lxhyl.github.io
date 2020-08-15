@@ -192,5 +192,44 @@ Promise.race(iterable)
 **示例**
 还是上面的例子  
 ```js
+ let promiseFun = (s,e) => new Promise((resolve,reject)=> {
+        if(e){
+            reject(e);
+        }else{
+            resolve(s);
+        }
+    });
+    let p = Promise.race([promiseFun('成'),promiseFun('功'),promiseFun('了','失败'),promiseFun('了','失败了')]);
 
+    p.then( res => {
+        console.log(res);
+    })
+    .catch( err => {
+        console.log(err);
+    })
+    // 成
 ```
+```js
+    let promiseFun = (s,e) => new Promise((resolve,reject)=> {
+        if(e){
+            reject(e);
+        }else{
+            resolve(s);
+        }
+    });
+    let p = Promise.race([promiseFun('成','败'),promiseFun('功'),promiseFun('了')]);
+
+    p.then( res => {
+        console.log(res);
+    })
+    .catch( err => {
+        console.log(err);
+    })
+```
+
+可以看到只要其中一个Promise状态改变了，那么返回的Pormise状态就会改变。
+
+### Promise.allSettled()
+?> Promise.allSettled()方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例。只有等到所有参数实例都返回结果，不论是fulfilled还是rejected，包装实例才会结束。
+
+### Promise.any()
