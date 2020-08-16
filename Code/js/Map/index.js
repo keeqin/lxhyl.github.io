@@ -31,15 +31,4 @@ console.log(b);
     }
 }
 
-{
-    function a(){
-        var test = 0;
-        for(;test<100;test++){
-           var temp = 111;
-        }
-        console.log(temp);
-    }
-    a();
-    // console.log(test);
-    // console.log(temp);
-}
+

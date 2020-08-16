@@ -240,7 +240,7 @@
 {
    // #133
    const cloneGraph = node => {
-      if(!node){
+      if (!node) {
          return node;
       }
       // 创建HASH映射来存储 已经克隆过的节点
@@ -248,17 +248,17 @@
       // 深度优先遍历
       const dfs = n => {
          // 如果已经克隆过了 直接返回
-         if(map.has(n)){
+         if (map.has(n)) {
             return map.get(n);
          }
          // 克隆节点
-         let cloneNode = new Node(n.val,[])
+         let cloneNode = new Node(n.val, [])
          // 键为老节点，值为新节点
-         map.set(n,cloneNode);
+         map.set(n, cloneNode);
          // 遍历邻居，克隆邻居
-         for(let i=0;i< n.neighbors.length;i++){
-           let newN = dfs(n.neighbors[i]);
-           cloneNode.neighbors.push(newN);
+         for (let i = 0; i < n.neighbors.length; i++) {
+            let newN = dfs(n.neighbors[i]);
+            cloneNode.neighbors.push(newN);
          }
          // 返回克隆节点
          return cloneNode;
@@ -267,3 +267,27 @@
    }
 }
 
+{
+   // #733
+   const floodFill = (image, sr, sc, newColor) => {
+      const oldColor = image[sr][sc];
+      let filled = [];
+      const helpFun = (x, y) => {
+         if (x >= 0 && x < image.length && y >= 0 && y < image[0].length) {
+            if (oldColor === image[x][y]) {
+               filled.push(`${x}${y}`)
+               image[x][y] = newColor;
+               if(filled.indexOf(`${x-1}${y}`) === -1) helpFun(x - 1, y);
+               if(filled.indexOf(`${x}${y-1}`) === -1) helpFun(x, y - 1);
+               if(filled.indexOf(`${x}${y+1}`) === -1) helpFun(x, y + 1);
+               if(filled.indexOf(`${x+1}${y}`) === -1) helpFun(x + 1, y);
+            }
+         }
+
+      }
+      helpFun(sr,sc);
+      return image;
+   }
+   let image = [[0,0,0],[0,1,1]];
+   console.log(floodFill(image,1,1,1));
+}
