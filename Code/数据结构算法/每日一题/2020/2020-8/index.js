@@ -277,17 +277,70 @@
             if (oldColor === image[x][y]) {
                filled.push(`${x}${y}`)
                image[x][y] = newColor;
-               if(filled.indexOf(`${x-1}${y}`) === -1) helpFun(x - 1, y);
-               if(filled.indexOf(`${x}${y-1}`) === -1) helpFun(x, y - 1);
-               if(filled.indexOf(`${x}${y+1}`) === -1) helpFun(x, y + 1);
-               if(filled.indexOf(`${x+1}${y}`) === -1) helpFun(x + 1, y);
+               if (filled.indexOf(`${x - 1}${y}`) === -1) helpFun(x - 1, y);
+               if (filled.indexOf(`${x}${y - 1}`) === -1) helpFun(x, y - 1);
+               if (filled.indexOf(`${x}${y + 1}`) === -1) helpFun(x, y + 1);
+               if (filled.indexOf(`${x + 1}${y}`) === -1) helpFun(x + 1, y);
             }
          }
 
       }
-      helpFun(sr,sc);
+      helpFun(sr, sc);
       return image;
    }
-   let image = [[0,0,0],[0,1,1]];
-   console.log(floodFill(image,1,1,1));
+   let image = [[0, 0, 0], [0, 1, 1]];
+   console.log(floodFill(image, 1, 1, 1));
+}
+
+{
+   // #110
+   const isBalanced = root => {
+      const balanced = node => {
+         if(!node) return 0;
+         let left = balanced(node.left);
+         let right = balanced(node.right);
+         if(left === -1 || right === -1 || Math.abs(left-right) > -1){
+            return -1;
+         }
+         return Math.max(left,right) + 1;
+      }
+     
+      return balanced(root) !== -1;
+   }
+   let root = {
+      val: 3,
+      left: {
+         val: 1,
+         left:null
+      },
+      right: {
+         val: 1,
+         left: {
+            val: 2,
+            left: {
+               val:3,
+               right:null
+            },
+            right:{
+               val:7,
+               left:null
+            }
+         }
+      }
+   }
+   console.log(isBalanced(root));
+}
+
+{
+   // # 201
+   var rangeBitwiseAnd = function(m, n) {
+      let shift = 0;
+      // 找到公共前缀
+      while (m < n) {
+          m >>= 1;
+          n >>= 1;
+          ++shift;
+      }
+      return m << shift;
+  }
 }

@@ -469,3 +469,65 @@ sr = 1, sc = 1, newColor = 2
       return image;
    }
 ```
+
+# 110.平衡二叉树
+给定一个二叉树，判断它是否是高度平衡的二叉树。  
+ 
+本题中，一棵高度平衡二叉树定义为：  
+
+一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1  
+```js
+示例 1:
+
+给定二叉树 [3,9,20,null,null,15,7]
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回 true 。
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/balanced-binary-tree
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+   const isBalanced = root => {
+      const balanced = node => {
+         if(!node) return 0;
+         let left = balanced(node.left);
+         let right = balanced(node.right);
+         if(left === -1 || right === -1 || Math.abs(left-right) > -1){
+            return -1;
+         }
+         return Math.max(left,right) + 1;
+      }
+     
+      return balanced(root) !== -1;
+   }
+```
+
+# 201.数字范围按位与
+给定范围 [m, n]，其中 0 <= m <= n <= 2147483647，返回此范围内所有数字的按位与（包含 m, n 两端点）。  
+```js
+示例 1:   
+
+输入: [5,7]
+输出: 4
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/bitwise-and-of-numbers-range
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+ var rangeBitwiseAnd = function(m, n) {
+      let shift = 0;
+      // 找到公共前缀
+      while (m < n) {
+          m >>= 1;
+          n >>= 1;
+          ++shift;
+      }
+      return m << shift;
+  }
+```

@@ -1037,12 +1037,14 @@ console.log(multiply('1234', '45')) // 55530
   }
   const dfs = (path,nums) => {
      // 长度够了 就表示找到了一个结果
+     
      if(path.length === nums.length){
         result.push([...path]);
         return;
      }
      // 遍历每个元素
      for(let i =0;i<len;i++){
+         // 如果不包含
         if(path.indexOf(nums[i]) === -1){
           path.push(nums[i]);
           dfs(path,nums);
