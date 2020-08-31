@@ -205,17 +205,35 @@
 
 {
     //Array.prototype.values()
-    let arr1 = ['a','b','c'];
+    let arr1 = ['a', 'b', 'c'];
     let eArr1 = arr1.values();
-    for(let i of eArr1){
+    for (let i of eArr1) {
         console.log(i);
     }
     // a b c
-    console.log(eArr1.next());
     arr1[0] = 'aaa';
-    for(let i of eArr1){
-          console.log(i);
+    for (let i of eArr1) {
+        console.log(i);
     }
-    
-   
-} 
+    // 无输出 迭代器是一次性的
+    let eArr2 = arr1.values();
+    arr1[0] = 'aaa';
+    for (let i of eArr2) {
+        console.log(i)
+    }
+}
+
+
+{
+    //Array.prototype[@@iterator]
+    let arr1 = ['a', 'b', 'c'];
+    let eArr1 = arr1[Symbol.iterator]();
+    for (let i of eArr1) {
+        console.log(i);
+    }
+    // a b c
+}
+
+{
+ console.log(Array[Symbol.species]())
+}

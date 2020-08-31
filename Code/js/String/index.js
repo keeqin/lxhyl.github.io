@@ -55,5 +55,5 @@ default: 1115.631ms
     let name ='zpf';
     console.log(String.raw`name:${name}`); //name:zpf
     console.log(String.raw({ raw: 'test' }, 0, 1, 2)); // t0e1s2t
-    console.log(String.raw({raw:['name:',',']},'zpf'))
+    console.log(String.raw({raw:['name:',',']},'zpf')) // name:zpf,
 }

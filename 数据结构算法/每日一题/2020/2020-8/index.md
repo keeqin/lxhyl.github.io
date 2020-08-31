@@ -531,3 +531,34 @@ sr = 1, sc = 1, newColor = 2
       return m << shift;
   }
 ```
+
+# 841.钥匙和房间
+```js
+ const canVisitedAllRoom = rooms => {
+      // 用一个数组存储所有房间，可以进为1 不能进为0。初始可以进0号房
+      let canInRooms = new Array(rooms.length).fill(0);
+      canInRooms[0] = 1;
+      // 深度优先遍历
+      const dfs = keysArray => {
+         for(let i =0;i<keysArray.length;i++){
+            // 判断是否已经进去过了，避免死循环
+            if(canInRooms[keysArray[i]] !== 1){
+               canInRooms[keysArray[i]] = 1;
+               // 拿到钥匙进入下一个房间
+               dfs(rooms[keysArray[i]]);
+            }
+         }
+      }
+      // 从0号房开始走起
+      dfs(rooms[0]);
+      // 判断是否 有0 （有房间还没进去）
+      if(canInRooms.indexOf(0) !== -1){
+         return false
+      }else{
+         return true;
+      }
+   }
+   let rooms = [[1,3],[3,0,1],[2],[0]];
+   console.log(canVisitedAllRoom(rooms));
+
+```

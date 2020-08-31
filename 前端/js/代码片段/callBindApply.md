@@ -5,7 +5,7 @@
 // 就相当于将 函数作为一个值添加至所绑定的对象
 // 就可以访问对象的属性了
 Function.prototype.myCall = function(context,...args){
-    // 如果为null或undefind时，将其指向全局对象
+    // 如果为null或undefined时，将其指向全局对象
     context = (context ? context : (window ? window : global))
     // 生成唯一key
     const key = Symbol();

@@ -200,7 +200,7 @@ str1.includes('a',1); //false
 **语法**
 ```js
 /*
-* @param {string} searchValue 要搜索的字符串，如果没有提供，则默认为undefind
+* @param {string} searchValue 要搜索的字符串，如果没有提供，则默认为undefined
 * @param {number} fromIndex 从此索引开始搜索,(如果大于字符长度且searchValue为空串，则会直接返回str的长度)
 * @return {number} searchValue第一次出现的位置的索引，如果没有找到就返回 -1
 */

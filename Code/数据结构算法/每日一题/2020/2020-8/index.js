@@ -344,3 +344,28 @@
       return m << shift;
   }
 }
+
+
+{
+   // #841
+   const canVisitedAllRoom = rooms => {
+      let canInRooms = new Array(rooms.length).fill(0);
+      canInRooms[0] = 1;
+      const dfs = keysArray => {
+         for(let i =0;i<keysArray.length;i++){
+            if(canInRooms[keysArray[i]] !== 1){
+               canInRooms[keysArray[i]] = 1;
+               dfs(rooms[keysArray[i]]);
+            }
+         }
+      }
+      dfs(rooms[0]);
+      if(canInRooms.indexOf(0) !== -1){
+         return false
+      }else{
+         return true;
+      }
+   }
+   let rooms = [[1,3],[3,0,1],[2],[0]];
+   console.log(canVisitedAllRoom(rooms));
+}

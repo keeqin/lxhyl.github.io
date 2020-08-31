@@ -115,3 +115,4 @@
     })
     console.log(new proxyData(1,2,3))
 }
+

@@ -418,3 +418,12 @@ console.log(Math.lxhyl('Math调用'))
     console.log(obj1.toString());
     console.log(fun1.toString());
 }
+
+{
+   // Object.prototype.valueOf()
+    let obj1 = {
+        a:1,
+        b:2,
+    }
+    obj1.valueOf();
+}
