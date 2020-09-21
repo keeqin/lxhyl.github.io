@@ -8,14 +8,13 @@
   - [x] Object
   - [x] Proxy
   - [x] Promise
-  - [ ] Map
-  - [ ] Set
+  - [x] Map
+  - [x] Set
   - [ ] ...  (MORE)
 
+# 实习
 
-
-- [ ] LeetCode每日一题
-
+[小米实习记录](小米实习记录/index.md)
 
 # 关于
   * lxhyl是蓝星回忆录的意思。
