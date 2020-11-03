@@ -9,4 +9,21 @@ console.log(intersection(nums1,nums2))
 
 }
 
-
+{
+    // #941
+    // 双指针法
+    const validMountainArray = a => {
+        let len = a.length;
+        if(len < 3){
+            return false
+        }
+        let left=0,right=len-1;
+        while(a[left+1]>a[left]){
+            left++;
+        }
+        while(a[right-1]>a[right]){
+            right--;
+        }
+        return left>0 && right < len-1 && left == right
+    }
+}
