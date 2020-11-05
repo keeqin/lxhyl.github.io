@@ -104,3 +104,47 @@ Store.install = _Vue => {
 export default Store
 
 ```
+
+
+# 输入框千分位
+
+项目有一个需求，要求鼠标离开输入框时，将输入内容转为千分位。聚焦输入时，内容为正常数字。
+
+使用自定义指令实现了下，特别简单。
+
+* `fmtnum.js`
+```js
+export const fmtnum = {
+    bind(el) {
+        // 将正常数字转为千分位的方法。
+        const formatNum = num => num ? Number(num).toLocaleString() : ''
+        // 聚焦时，将值变为正常状态
+        el.addEventListener('focus', function (event) {
+            // 去掉所有逗号
+            event.target.value= event.target.value.replace(/,/g, '')
+        }, true)
+        // 移出时变为千分位
+        el.addEventListener('blur', function (event) {
+            event.target.value = formatNum(event.target.value);
+        }, true) // 事件捕获触发
+    }
+}
+```
+
+* `main.js`中作为全局指令
+```js
+import {fmtnum} from "./utils/formatNum"
+Vue.directive('fmtnum',fmtnum);
+```
+
+* 组件中使用
+```js
+ <el-input
+          v-model="testvalue"
+          v-fmtnum
+          size="mini"
+          placeholder="请输入"
+        ></el-input>
+```
+
+?> 由于v-model监听的时Input事件，而数据格式转换是在focus，blur中完成的，所以并不影响model的值。使用的element的组件，此处采用事件捕获才能触发对应的处理函数（第三个参数为true）。

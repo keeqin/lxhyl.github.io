@@ -26,4 +26,7 @@ console.log(intersection(nums1,nums2))
         }
         return left>0 && right < len-1 && left == right
     }
+
+    const testArr = [3,6,5,5]
+    console.log(validMountainArray(testArr))
 }

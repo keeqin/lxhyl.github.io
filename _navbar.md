@@ -4,8 +4,12 @@
  * [VUE](前端/vue/index.md)
  * [笔记](前端/笔记/index.md)
  * [文章](前端/文章/index.md)
-* Nodeindex.md
+
+* Node
  * [node](node/index.md)
+
+* Python   
+ * [学习笔记](Python/index.md)  
 
 * 软技能
  * [正则](软技能/正则/index.md)
