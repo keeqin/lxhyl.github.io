@@ -34,3 +34,27 @@ console.log(intersection(nums1,nums2))
     const testArr = [3,6,5,5]
     console.log(validMountainArray(testArr))
 ```
+
+# 1356. 根据数字二进制下 1 的数目排序
+```js
+var sortByBits = function(arr) {
+   return arr.sort((a,b) => {
+       let have1num = num => {
+        return num.toString(2).replace(/[^1]/g, '').length
+       }
+       if(have1num(a) < have1num(b)){
+           return -1
+       }
+       if(have1num(a) == have1num(b)){
+           return a-b
+       }
+       return 1
+    })
+}
+```
+
+# 1629. 按键持续时间最长的键
+```js
+
+```
+
