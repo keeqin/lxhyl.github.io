@@ -8,8 +8,7 @@
 * Node
  * [node](node/index.md)
 
-* Python   
- * [学习笔记](Python/index.md)  
+* [函数式编程](fun/index.md)  
 
 * 软技能
  * [正则](软技能/正则/index.md)
