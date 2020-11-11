@@ -53,8 +53,8 @@
     // #884
     const solution = (A, B) => {
         const str2Arr = s => s.split(' ')
-        
-        const getWordsNum = (arr,map={}) => {
+
+        const getWordsNum = (arr, map = {}) => {
             arr.forEach(item => {
                 map[item] = map[item] || 0;
                 map[item]++;
@@ -77,25 +77,48 @@
 
 
 {
-    const isIsomorphic = (s,t) => {
-        let len = s.length;
-        let map = {}
-        for(let i=0;i<len;i++){
-           // s[i] -> t[i]
-           if(map[s[i]]){
-              if(map[s[i]] != t[i]){
+    // #205
+    const isIsomorphic = (s, t) => {
+        for (let i = 0; i < s.length; i++) {
+            if (s.indexOf(s[i]) != t.indexOf(t[i])) {
                 return false
-              }
-           }else{
-               map[s[i]] = t[i]
-           }
+            }
         }
-      
         return true
     }
-    
-    let s = "ab", t = "aa"
-    console.log(isIsomorphic(s,t))
+
+    let s = "paper", t = "title"
+    console.log(isIsomorphic(s, t))
 }
 
 
+{
+    // #17
+    const solution = digits => {
+        const map = {
+            2: 'abc',
+            3: 'def',
+            4: 'ghi',
+            5: 'jkl',
+            6: 'mno',
+            7: 'pqrs',
+            8: 'tuv',
+            9: 'wxyz'
+        }
+        let result = [];
+        let dfs = (index, strArr) => {
+            if (index >= digits.length) {
+                result.push(strArr.join(''));
+                return
+            }
+            for (let i = 0; i < map[digits[index]].length; i++) {
+                strArr.push(map[digits[index]][i]);
+                dfs(index + 1, strArr);
+                strArr.pop()
+            }
+        }
+        dfs(0, [])
+        return result;
+    }
+    console.log(solution('23'))
+}
