@@ -34,22 +34,23 @@ log(Box(curryAdd).ap(Box(1)).ap(Box(2)).ap(Box(3)).of)
 
 
 const Maybe = x => ({
-    of:x,
-    isNothing:function(){
-       return this.of === undefined || this.of === null || this.of === ''
+    of: x,
+    isNothing: function () {
+        return this.of === undefined || this.of === null || this.of === ''
     },
-    map:function(f){ 
-      return  this.isNothing() ? Maybe(null) : Maybe(f(x))
+    map: function (f) {
+        return this.isNothing() ? Maybe(null) : Maybe(f(x))
     },
 
-    ap:function(o){
-      return this.isNothing() ? Maybe(null) : o.map(x)
-    } 
+    ap: function (o) {
+        return this.isNothing() ? Maybe(null) : o.map(x)
+    }
 })
 
 
 
-const result = (a,b,c) => Maybe(curryAdd).ap(Maybe(a)).ap(Maybe(b)).ap(Maybe(c)).of
-log(result(null,1)) // null
-log(result(2,1,3)) // 6
-log(result(undefined,null,1)) // null
+const result = (a, b, c) => Maybe(curryAdd).ap(Maybe(a)).ap(Maybe(b)).ap(Maybe(c)).of
+log(result(null, 1)) // null
+log(result(2, 1, 3)) // 6
+log(result(undefined, null, 1)) // null
+

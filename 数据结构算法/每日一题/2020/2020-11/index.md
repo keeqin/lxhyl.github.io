@@ -53,8 +53,40 @@ var sortByBits = function(arr) {
 }
 ```
 
-# 1629. 按键持续时间最长的键
-```js
+# 884. 两句话中的不常见单词  
 
+```js
+const solution = (A, B) => {
+        const str2Arr = s => s.split(' ')
+        const getWordsNum = arr => {
+            let map = {};
+            arr.forEach(item => {
+                map[item] = map[item] || 0;
+                map[item]++;
+            });
+            return map
+        }
+        let all = getWordsNum([...str2Arr(A), ...str2Arr(B)])
+        let result = [];
+        for (let i in all) {
+            if (all[i] === 1) {
+                result.push(i)
+            }
+        }
+        return result
+     }
 ```
 
+# 205. 同构字符串
+
+?>  leetcode上看到的方法，太妙了！
+```js
+const isIsomorphic = (s,t) => {
+    for(let i=0;i<s.length;i++){
+        if(s.indexOf(s[i]) != t.indexOf(t[i])){
+              return false
+        }
+    }
+    return true
+}
+```
