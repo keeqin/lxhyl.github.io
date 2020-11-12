@@ -146,3 +146,91 @@ const isIsomorphic = (s,t) => {
         return A
   }
 ```
+
+
+# 35.  
+```js
+  const searchIndex = (nums,target) => {
+        let i = 0;
+        while(nums[i] < target){
+            i++;
+        }
+        return i;
+    }
+    const nums = [1,3,5,6],target = 0;
+    console.log(searchIndex(nums,target))
+```
+
+
+# 589  
+```js
+  // #589
+    const preorder = root => {
+        let result = []
+        const dfs = (node) => {
+            if(!node) return;
+            result.push(node.val)
+            if(node.children){
+                for(let i =0;i<node.children.length;i++){
+                    dfs(node.children[i]);
+                }
+            }
+        }
+        dfs(root)
+        return result;
+    }
+
+```
+
+
+# 289.  
+```js
+ // #289
+ const gameOfLife = board => {
+        let needChange = [];
+        const isExist = (i, j) => {
+            return board[i] && board[i][j] ? true : false;
+        }
+        const compute = (num) => ({
+            map: function (i, j) {
+                if (isExist(i, j) && board[i][j]) {
+                    num++;
+                }
+                return compute(num)
+            },
+            of: () => num
+        })
+       
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[0].length; j++) {
+                // let num = compute(0).map(i - 1, j - 1).map(i - 1, j).map(i - 1, j + 1).map(i, j - 1).map(i, j + 1).map(i + 1, j - 1).map(i + 1, j).map(i + 1, j + 1).of()
+                let num = compose(i,j);
+                if ((board[i][j] && (num < 2 || num > 3)) || (!board[i][j] && num === 3)) {
+                    needChange.push([i, j])
+                }
+            }
+        }
+        let dieLiveMap = {
+            0: 1,
+            1: 0
+        }
+        needChange.forEach(item => {
+            let val = board[item[0]][item[1]]
+            board[item[0]][item[1]] = dieLiveMap[val]
+        })
+        return board;
+    }
+```
+
+
+
+# 231  
+
+```js
+const isPowerOfTwo = n =>{
+        return n > 0 && ((n & (n - 1)) === 0)
+}
+```
+原理: 2的幂次方表示为二进制一定为 `1000000...`只有一个1，并且1在最前面
+减1后就变为了 0111111...。   
+然后执行按位与，就变为了00000000。  

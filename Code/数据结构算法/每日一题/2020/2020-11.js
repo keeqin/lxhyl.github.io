@@ -138,13 +138,120 @@
     const sortArrayByParity = A => {
         let i = 0, j = 1;
         for (i; i < A.length; i += 2) {
-             while(A[i] % 2 != 0){
-                 [A[i],A[j]] = [A[j],A[i]]
-                 j += 2
-             }
+            while (A[i] % 2 != 0) {
+                [A[i], A[j]] = [A[j], A[i]]
+                j += 2
+            }
         }
         return A
     }
-    const arr =[4,2,5,7];
+    const arr = [4, 2, 5, 7];
     console.log(sortArrayByParity(arr))
+}
+
+
+{
+    // #35
+    const searchIndex = (nums, target) => {
+        let i = 0;
+        while (nums[i] < target) {
+            i++;
+        }
+        return i;
+    }
+    const nums = [1, 3, 5, 6], target = 0;
+    console.log(searchIndex(nums, target))
+}
+
+
+{
+    // #589
+    const preorder = root => {
+        let result = []
+        const dfs = (node) => {
+            if (!node) return;
+            result.push(node.val)
+            if (node.children) {
+                for (let i = 0; i < node.children.length; i++) {
+                    dfs(node.children[i]);
+                }
+            }
+        }
+        dfs(root)
+        return result;
+    }
+
+}
+
+
+
+{
+    // #289
+    const gameOfLife = board => {
+        let needChange = [];
+        const isExist = (i, j) => {
+            return board[i] && board[i][j] ? true : false;
+        }
+        const compute = (num) => ({
+            map: function (i, j) {
+                if (isExist(i, j) && board[i][j]) {
+                    num++;
+                }
+                return compute(num)
+            },
+            of: () => num
+        })
+        const compose = (i,j) => {
+            const helpArr = [
+                [-1,-1],[-1,0],[-1,1],
+                [0,-1],        [0,1],
+                [1,-1],[1,0],[1,1]
+            ]
+            let f = compute(0);
+            while(helpArr.length > 0){
+                 f = f.map(i + helpArr[0][0],j + helpArr[0][1]);
+                 helpArr.shift();
+            }
+            return f.of()
+        }
+
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[0].length; j++) {
+                let num = compose(i,j)
+                if ((board[i][j] && (num < 2 || num > 3)) || (!board[i][j] && num === 3)) {
+                    needChange.push([i, j])
+                }
+            }
+        }
+        let dieLiveMap = {
+            0: 1,
+            1: 0
+        }
+        needChange.forEach(item => {
+            let val = board[item[0]][item[1]]
+            board[item[0]][item[1]] = dieLiveMap[val]
+        })
+        return board;
+    }
+    const testArr = [
+        [0, 1, 0],
+        [0, 0, 1],
+        [1, 1, 1],
+        [0, 0, 0]
+    ]
+    console.log(gameOfLife(testArr));
+}
+
+
+{
+    // #231
+    const isPowerOfTwo = n =>{
+        return n > 0 && ((n & (n - 1)) === 0)
+    }
+    console.log(isPowerOfTwo(16))
+}
+
+
+{
+    
 }
