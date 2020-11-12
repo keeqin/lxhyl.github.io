@@ -253,5 +253,22 @@
 
 
 {
-    
+  // #1013
+  const canThreePartsEqualSum = A => {
+      let sumA = A.reduce((sum,item) => sum + item ,0);
+      if(sumA % 3 != 0) return;
+      let sum = 0;
+      let index = 0;
+      for(let i =0;i<A.length;i++){
+          sum += A[i]
+          if(sum == sumA/3){
+              sum = 0;
+              index++;
+          }
+      }
+      return index > 2
+     
+  }
+  let testArr =[10,-10,10,-10,10,-10,10,-10]
+  console.log(canThreePartsEqualSum(testArr))
 }

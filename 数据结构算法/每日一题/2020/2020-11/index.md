@@ -234,3 +234,27 @@ const isPowerOfTwo = n =>{
 原理: 2的幂次方表示为二进制一定为 `1000000...`只有一个1，并且1在最前面
 减1后就变为了 0111111...。   
 然后执行按位与，就变为了00000000。  
+
+
+# 1013
+```js
+  const canThreePartsEqualSum = A => {
+      let sumA = A.reduce((sum,item) => sum + item ,0);
+      if(sumA % 3 != 0) return;
+      let sum = 0;
+      let index = 0;
+      for(let i =0;i<A.length;i++){
+          sum += A[i]
+          if(sum == sumA/3){
+              sum = 0;
+              index++;
+          }
+      }
+      return index > 2
+     
+  }
+  let testArr =[10,-10,10,-10,10,-10,10,-10]
+  console.log(canThreePartsEqualSum(testArr))
+```
+
+注意Index可能为4
