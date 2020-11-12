@@ -201,23 +201,23 @@
             },
             of: () => num
         })
-        const compose = (i,j) => {
+        const compose = (i, j) => {
             const helpArr = [
-                [-1,-1],[-1,0],[-1,1],
-                [0,-1],        [0,1],
-                [1,-1],[1,0],[1,1]
+                [-1, -1], [-1, 0], [-1, 1],
+                [0, -1], [0, 1],
+                [1, -1], [1, 0], [1, 1]
             ]
             let f = compute(0);
-            while(helpArr.length > 0){
-                 f = f.map(i + helpArr[0][0],j + helpArr[0][1]);
-                 helpArr.shift();
+            while (helpArr.length > 0) {
+                f = f.map(i + helpArr[0][0], j + helpArr[0][1]);
+                helpArr.shift();
             }
             return f.of()
         }
 
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[0].length; j++) {
-                let num = compose(i,j)
+                let num = compose(i, j)
                 if ((board[i][j] && (num < 2 || num > 3)) || (!board[i][j] && num === 3)) {
                     needChange.push([i, j])
                 }
@@ -245,7 +245,7 @@
 
 {
     // #231
-    const isPowerOfTwo = n =>{
+    const isPowerOfTwo = n => {
         return n > 0 && ((n & (n - 1)) === 0)
     }
     console.log(isPowerOfTwo(16))
@@ -253,22 +253,62 @@
 
 
 {
-  // #1013
-  const canThreePartsEqualSum = A => {
-      let sumA = A.reduce((sum,item) => sum + item ,0);
-      if(sumA % 3 != 0) return;
-      let sum = 0;
-      let index = 0;
-      for(let i =0;i<A.length;i++){
-          sum += A[i]
-          if(sum == sumA/3){
-              sum = 0;
-              index++;
-          }
-      }
-      return index > 2
-     
-  }
-  let testArr =[10,-10,10,-10,10,-10,10,-10]
-  console.log(canThreePartsEqualSum(testArr))
+    // #1013
+    const canThreePartsEqualSum = A => {
+        let sumA = A.reduce((sum, item) => sum + item, 0);
+        if (sumA % 3 != 0) return;
+        let sum = 0;
+        let index = 0;
+        for (let i = 0; i < A.length; i++) {
+            sum += A[i]
+            if (sum == sumA / 3) {
+                sum = 0;
+                index++;
+            }
+        }
+        return index > 2
+
+    }
+    let testArr = [10, -10, 10, -10, 10, -10, 10, -10]
+    console.log(canThreePartsEqualSum(testArr))
+}
+
+
+{
+    // # 1295
+    const findNumbers = nums => {
+        let result = 0;
+        nums.forEach(item => {
+            if (item.toString().length % 2 == 0) {
+                result++;
+            }
+        })
+        return result
+    }
+    let nums = [12, 345, 2, 6, 7896]
+    console.log(findNumbers(nums))
+}
+
+
+{
+    // #551
+    const checkRecord = s => {
+        let i = 0;
+        let Anum = 0;
+        while (i < s.length) {
+            if (s[i] == 'A') {
+                Anum++;
+            }
+            if (Anum > 1) {
+                return false
+            }
+            if (s[i] == 'L' && s[i + 1] && s[i + 1] == 'L' && s[i + 2] && s[i + 2] == 'L') {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+    let str = "PPALLL";
+    console.log(checkRecord(str))
 }

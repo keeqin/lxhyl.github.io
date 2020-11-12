@@ -258,3 +258,16 @@ const isPowerOfTwo = n =>{
 ```
 
 注意Index可能为4
+
+# 1295
+```js
+ const findNumbers = nums => {
+        let result = 0;
+        nums.forEach(item => {
+            if(item.toString().length % 2 == 0){
+                result++;
+            }
+        })
+        return result
+ }
+```
