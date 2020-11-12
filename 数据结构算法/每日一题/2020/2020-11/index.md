@@ -106,13 +106,14 @@ const isIsomorphic = (s,t) => {
             9: 'wxyz'
         }
         let result = [];
-        let dfs = (index, strArr) => {
-            if (index >= digits.length) {
+        const dfs = (index, strArr) => {
+            if (index === digits.length) {
                 result.push(strArr.join(''));
                 return
             }
-            for (let i = 0; i < map[digits[index]].length; i++) {
-                strArr.push(map[digits[index]][i]);
+            let mapStr = map[digits[index]]
+            for (let i = 0; i < mapStr.length; i++) {
+                strArr.push(mapStr[i]);
                 dfs(index + 1, strArr);
                 strArr.pop()
             }
@@ -121,4 +122,27 @@ const isIsomorphic = (s,t) => {
         return result;
     }
     console.log(solution('23'))
+```
+
+因为不知道输入数字的长度，所以dfs用来递归处理  
+`dfs`函数的第一个参数为*当前处理的数字的索引*，第二个参数为*存放字母的数组*
+递归很简单：先从第一个元素走起，然后遍历下一个元素`dfs(index + 1,strArr)`    
+递归终止条件为：输入的数字已经遍历完了,即`index === digits.length`。  
+待递归函数return后，就进入了下一步。    
+回溯：`strArr.pop()`：移除最后一个元素，进入下一次for循环
+
+
+# 922. 按奇偶排序数组 II
+
+```js
+  const sortArrayByParity = A => {
+        let i = 0, j = 1;
+        for (i; i < A.length; i += 2) {
+             while(A[i] % 2 != 0){
+                 [A[i],A[j]] = [A[j],A[i]]
+                 j += 2
+             }
+        }
+        return A
+  }
 ```

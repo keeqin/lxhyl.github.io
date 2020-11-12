@@ -95,6 +95,7 @@
 {
     // #17
     const solution = digits => {
+        if (!digits) return []
         const map = {
             2: 'abc',
             3: 'def',
@@ -106,13 +107,14 @@
             9: 'wxyz'
         }
         let result = [];
-        let dfs = (index, strArr) => {
-            if (index >= digits.length) {
+        const dfs = (index, strArr) => {
+            if (index == digits.length) {
                 result.push(strArr.join(''));
                 return
             }
-            for (let i = 0; i < map[digits[index]].length; i++) {
-                strArr.push(map[digits[index]][i]);
+            let mapStr = map[digits[index]]
+            for (let i = 0; i < mapStr.length; i++) {
+                strArr.push(mapStr[i]);
                 dfs(index + 1, strArr);
                 strArr.pop()
             }
@@ -121,4 +123,28 @@
         return result;
     }
     console.log(solution('23'))
+    /*
+    *  [
+    *   'ad', 'ae', 'af',
+    *   'bd', 'be', 'bf',
+    *   'cd', 'ce', 'cf'
+    *  ]
+    */
+}
+
+
+{
+    // #922
+    const sortArrayByParity = A => {
+        let i = 0, j = 1;
+        for (i; i < A.length; i += 2) {
+             while(A[i] % 2 != 0){
+                 [A[i],A[j]] = [A[j],A[i]]
+                 j += 2
+             }
+        }
+        return A
+    }
+    const arr =[4,2,5,7];
+    console.log(sortArrayByParity(arr))
 }
