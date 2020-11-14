@@ -35,3 +35,70 @@
 }
 
 
+{
+    // #1122
+    const relativeSortArray = (arr1, arr2) => {
+        let map = new Map()
+        arr2.forEach(item => {
+            map.set(item, []);
+        });
+        let surplus = [];
+        arr1.forEach((item, index) => {
+            if (map.has(item)) {
+                let value = map.get(item);
+                value.push(index);
+                map.set(item, value)
+            } else {
+                surplus.push(item)
+            }
+        })
+        surplus.sort((a, b) => a - b)
+        let result = [];
+        map.forEach((value, key) => {
+            value = value.map(item => arr1[item]);
+            result = [...result, ...value];
+        })
+        return [...result, ...surplus];
+    }
+    let arr1 = [2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], arr2 = [2, 1, 4, 3, 9, 6]
+    console.log(relativeSortArray(arr1, arr2))
+}
+
+
+{
+    // #47
+    const permuteUnique = nums => {
+        let len = nums.length;
+        if (len === 0) {
+           return []
+        };
+        let result = [];
+        const dfs = (arr, indexs) => {
+            if (arr.length == len) {
+                let cloneArr = arr.map(item => item);
+                result.push(cloneArr)
+                return
+            }
+            for (let i = 0; i < len; i++) {
+                if (indexs.indexOf(i) == -1) {
+                    arr.push(nums[i]);
+                    indexs.push(i)
+                    dfs(arr,indexs)
+                    arr.pop()
+                    indexs.pop()
+                }
+            }
+        }
+        const unique = arr2 => {
+           let res ={};
+           arr2.forEach(item => {
+               res[item] = item;
+           })
+           return Object.values(res);
+        }
+        dfs([], [])
+        return unique(result);
+    }
+    let nums = [1];
+    console.log(permuteUnique(nums))
+}

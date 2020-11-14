@@ -271,3 +271,74 @@ const isPowerOfTwo = n =>{
         return result
  }
 ```
+
+
+# 1122   
+!> 需要注意映射一定要使用Map,因为对象无法保证插入顺序
+```js
+  const relativeSortArray = (arr1, arr2) => {
+        let map = new Map()
+        arr2.forEach(item => {
+            map.set(item, []);
+        });
+        let surplus = [];
+        arr1.forEach((item, index) => {
+            if (map.has(item)) {
+                let value = map.get(item);
+                value.push(index);
+                map.set(item, value)
+            } else {
+                surplus.push(item)
+            }
+        })
+        surplus.sort((a, b) => a - b)
+        let result = [];
+        map.forEach((value, key) => {
+            value = value.map(item => arr1[item]);
+            result = [...result, ...value];
+        })
+        return [...result, ...surplus];
+  }
+```
+
+
+# 47  
+
+额外维护一个索引数组，方便判断元素是否push过了.   
+数组是引用类型，所以找到满足条件的数组后，需要浅克隆下，再push进result。不然result中的元素引用的其实都是一个数组（第一次调用递归函数传进去的数组）
+```js
+    const permuteUnique = nums => {
+        let len = nums.length;
+        if (len === 0) {
+           return []
+        };
+        let result = [];
+        // arr结果数组,indexs索引数组
+        const dfs = (arr, indexs) => {
+            if (arr.length == len) {
+                let cloneArr = arr.map(item => item);
+                result.push(cloneArr)
+                return
+            }
+            for (let i = 0; i < len; i++) {
+                if (indexs.indexOf(i) == -1) {
+                    arr.push(nums[i]);
+                    indexs.push(i)
+                    dfs(arr,indexs)
+                    arr.pop()
+                    indexs.pop()
+                }
+            }
+        }
+        const unique = arr2 => {
+           let res ={};
+           arr2.forEach(item => {
+               res[item] = item;
+           })
+           return Object.values(res);
+        }
+        dfs([], [])
+        return unique(result);
+    }
+```
+
