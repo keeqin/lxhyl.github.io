@@ -312,3 +312,45 @@
     let str = "PPALLL";
     console.log(checkRecord(str))
 }
+
+
+{
+    // #136
+    const singleNum = nums => {
+        return nums.reduce((l, n) => l ^ n)
+    }
+    const nums = [2, 2, 1]
+    console.log(singleNum(nums))
+    console.log(2 ^ 1)
+}
+
+{
+    // #402
+    const removeKdigits = (num, k) => {
+        let stack = [];
+        for (let i = 0; i < num.length; i++) {
+            while (k > 0 && stack.length > 0 && stack[stack.length - 1] > num[i]) {
+                stack.pop()
+                k--;
+            }
+            stack.push(num[i]);
+        }
+        for (; k > 0; --k) {
+            stack.pop()
+        }
+        let result = ''
+        let flag = true;
+        for (const i of stack) {
+            if (i == '0' && flag) {
+                continue;
+            }
+            flag = false
+            result = `${result}${i}`
+        }
+        return result === '' ? '0' : result
+
+    }
+    let num = "1"
+    let k = 1
+    console.log(removeKdigits(num, k))
+}

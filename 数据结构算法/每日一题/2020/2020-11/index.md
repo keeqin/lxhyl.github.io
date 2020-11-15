@@ -342,3 +342,43 @@ const isPowerOfTwo = n =>{
     }
 ```
 
+
+# 136
+```js
+// #136
+const singleNum = nums => {
+    return nums.reduce((l, n) => l ^ n)
+}
+```
+
+# 402   
+
+需要注意，字符串可能很长，所以去掉开头的0时不能用`Number`  
+
+```js
+// 402
+ const removeKdigits = (num, k) => {
+    let stack = [];
+    for (let i = 0; i < num.length; i++) {
+        while (k > 0 && stack.length > 0 && stack[stack.length - 1] > num[i]) {
+            stack.pop()
+            k--;
+        }
+        stack.push(num[i]);
+    }
+    for (; k > 0; --k) {
+        stack.pop()
+    }
+    let result = ''
+    let flag = true;
+    for (const i of stack) {
+        if (i == '0' && flag) {
+            continue;
+        }
+        flag = false
+        result = `${result}${i}`
+    }
+    return result === '' ? '0' : result
+
+}
+```
