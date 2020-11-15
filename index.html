@@ -60,13 +60,25 @@
       mergeNavbar: true,
       topMargin: 60,
       // themeColor: '#42b983'
+      plugins: [
+        function (hook, vm) {
+          hook.afterEach(function (html, next) {
+            // 解析成 html 后调用。
+            // beforeEach 和 afterEach 支持处理异步逻辑
+            // ...
+            // 异步处理完成后调用 next(html) 返回结果
+            console.log('html',html)
+            next(html);
+          });
+        }
+      ]
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-dark-mode@latest/dist/index.min.js"></script>
   <script>
-    console.log('彩蛋:','😀🙂😁');
-    console.log('微信:',"Lxhyl-Z");
+    console.log('彩蛋:', '😀🙂😁');
+    console.log('微信:', "Lxhyl-Z");
 
     let lxhylToTop = document.getElementsByClassName('lxhyx-to-top')[0];
     let timer;
@@ -82,6 +94,7 @@
         }
       });
     }
+
   </script>
 </body>
 
