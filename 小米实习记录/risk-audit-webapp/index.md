@@ -91,3 +91,19 @@ element的表单校验中,NaN是判定为非空的。因为要对数据转换，
 
 
 
+# 11-16     
+创建项目，和回退重新创建复用一个页面，而当请求项目详情数据回显时，后端会返回此项目的完整数据，然后再提交时，就会把很多无用数据也发给后端。所有需要对数据进行过滤。  
+也就是求交集。   
+可以遍历请求到的数据，判断是否要用，然后无用的删除。但这样耦合度会很高，代码也不能复用，所以单独写了个函数来进行过滤。  
+```js
+// 两个对象求交集以删除无用的key
+deleteOtherKey(needObj, allObj) {
+  const needKey = Object.keys(needObj);
+  for (const key in allObj) {
+    if (needKey.indexOf(key) === -1) {
+        delete allObj[key];
+    }
+  }
+  return allObj;
+}
+```
