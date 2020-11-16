@@ -1,18 +1,28 @@
 
-# [String](前端/js/String/index.md)
+# String
 
-# [Array](前端/js/Array/index.md)
+[String](前端/js/String/index.md)
 
-# [Object](前端/js/Object/index.md)
+# Array  
+[Array](前端/js/Array/index.md)
 
-# [Proxy](前端/js/Proxy/index.md)
+# Object
+[Object](前端/js/Object/index.md)
 
-# [Promise](前端/js/Promise/index.md)
+# Proxy
+[Proxy](前端/js/Proxy/index.md)
 
-# [JSON](前端/js/JSON/index.md)
+# Promise  
+[Promise](前端/js/Promise/index.md)
 
-# [Map](前端/js/Map/index.md)
+# JSON
+[JSON](前端/js/JSON/index.md)
 
-# [Set](前端/js/Set/index.md)
+# Map  
+[Map](前端/js/Map/index.md)
 
-# [代码片段](前端/js/代码片段/README.md)
+# Set  
+[Set](前端/js/Set/index.md)
+
+# 代码片段  
+[代码片段](前端/js/代码片段/README.md)
