@@ -494,22 +494,28 @@
                 s2.push(char)
                 return
             }
-            if (s1.length === 0 || s1[s1.length - 1] === '(') {
-                s1.push(char)
+            if (s1.length === 0 || (s1[s1.length - 1] === '(')) {
+                if (char === ')') {
+                    s1.pop()
+                } else {
+                    s1.push(char)
+                }
                 return
             }
+
             if (char === '(') {
                 s1.push(char)
                 return
             }
             if (char === ')') {
                 let s1TopStr = s1.pop();
-                while (s1TopStr && s1TopStr != '(') {
+                while (s1TopStr && s1TopStr !== '(') {
                     s2.push(s1TopStr);
                     s1TopStr = s1.pop();
                 }
                 return
             }
+
             // 处理运算符
             let topStr = s1[s1.length - 1];
             let flag = true
@@ -561,6 +567,33 @@
         }
         return compute(suffix)
     }
-    let input = "1*2-3/4+5*6-7*8+9/10"
+    let input = "(1)"
     console.log(calculate(input))
+}
+
+
+
+{
+    const allCellsDistOrder = (R, C, r0, c0) => {
+        let indexMap = new Map()
+        for (let i = 0; i < C; i++) {
+            for (let j = 0; j < R; j++) {
+                let distance = Math.abs(i - c0) + Math.abs(j - r0);
+                if (indexMap.has(distance)) {
+                    let arr = indexMap.get(distance)
+                    arr.push([j, i])
+                    indexMap.set(distance, arr);
+                } else {
+                    indexMap.set(distance, [[j, i]])
+                }
+            }
+        }
+        indexMap = Array.from(indexMap).sort((a, b) => a[0] - b[0])
+        return indexMap.reduce((s, i) => {
+            s.push(...i[1])
+            return s
+        }, [])
+    }
+    let R = 1, C = 2, r0 = 0, c0 = 0
+    console.log(allCellsDistOrder(R, C, r0, c0))
 }
