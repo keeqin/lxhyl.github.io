@@ -71,3 +71,13 @@
 # git revert 
 
 git reset是彻底回退，git revert是将commit_hash作为新的commit，加在当前分支最前端
+
+
+
+# 分支重命名
+
+ * `git branch -m oldName newName` 重命名本地分支   
+ * `git push --delete origin oldName` 删除远程分支   
+ * `git push origin newName` 上传本地分支至远程   
+ * `git branch --set-upstream-to origin/newName` 将本地分支与远程分支关联  
+ 

@@ -574,6 +574,7 @@
 
 
 {
+    // #1030
     const allCellsDistOrder = (R, C, r0, c0) => {
         let indexMap = new Map()
         for (let i = 0; i < C; i++) {
@@ -596,4 +597,106 @@
     }
     let R = 1, C = 2, r0 = 0, c0 = 0
     console.log(allCellsDistOrder(R, C, r0, c0))
+}
+
+
+{
+    // #1598
+    const minOperations = logs => {
+        return logs.reduce((s, i) => {
+            switch (true) {
+                case i === '../':
+                    if (s >= 1) {
+                        s--;
+                    }
+                    break;
+                case i === './':
+                    break;
+                default:
+                    s++;
+            }
+            return s
+        }, 0)
+    }
+    let logs = ["d1/", "../", "../", "../"]
+    console.log(minOperations(logs))
+}
+
+{
+    // #829
+    const consecutiveNumbersSum = N => {
+        let result = 0,
+            i = 1
+        while (N > 0) {
+            result = (N % i === 0) ? result + 1 : result;
+            N -= i;
+            i++
+        }
+        return result
+    }
+    console.log(consecutiveNumbersSum(100))
+}
+
+{
+    // 1344
+    const canCompleteCircuit = (gas, cost) => {
+        const n = gas.length;
+        let i = 0;
+        while (i < n) {
+            let sumOfGas = 0, sumOfCost = 0;
+            let cnt = 0;
+            while (cnt < n) {
+                const j = (i + cnt) % n;
+                sumOfGas += gas[j];
+                sumOfCost += cost[j];
+                if (sumOfCost > sumOfGas) {
+                    break;
+                }
+                cnt++;
+            }
+            if (cnt === n) {
+                return i;
+
+
+            } else {
+                i = i + cnt + 1;
+            }
+        }
+        return -1;
+    }
+    const gas = [2, 3, 4],
+        cost = [3, 4, 3]
+    console.log(canCompleteCircuit(gas, cost))
+}
+
+
+
+{
+    // #283
+    const moveZeroes = nums => {
+        let len = nums.length,
+            left = 0,
+            right = 0;
+        while (right < len) {
+            if (nums[right]) {
+                [nums[left], nums[right]] = [nums[right], nums[left]]
+                left++;
+            }
+            right++;
+        }
+        return nums;
+    }
+    const nums = [1, 0, 1]
+    console.log(moveZeroes(nums))
+}
+
+
+
+{
+    // 904
+    const totalFruit = tree => {
+     
+    }
+    const tree = [3,3,3,1,2,1,1,2,3,3,4]
+    console.log(totalFruit(tree));
 }
