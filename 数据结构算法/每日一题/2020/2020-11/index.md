@@ -379,6 +379,14 @@ const singleNum = nums => {
         result = `${result}${i}`
     }
     return result === '' ? '0' : result
-
 }
+```
+
+
+# 242
+```js
+ // #242
+    const isAnagram = (s,t) => {
+        return s.length == t.length && [...s].sort().join('') === [...t].sort().join('')
+    }
 ```
