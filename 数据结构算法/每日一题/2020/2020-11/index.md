@@ -383,6 +383,135 @@ const singleNum = nums => {
 ```
 
 
+# 406 
+
+利用Array.splice进行插入操作
+
+```js
+  const reconstructQueue = people => {
+        people.sort((a,b) =>{
+          if(a[0] > b[0] || (a[0] == b[0] && a[1] < b[1])){
+              return -1;
+          }
+          return 1
+        })
+        let result = [];
+        for(let i =0;i<people.length;i++){
+            result.splice(people[i][1],0,people[i])
+        }
+        return result
+  }
+```
+
+# 力扣计算器类型的题    
+
+主要中缀转后缀表达式的细节,  还有字符串中连续数字的处理
+
+```js
+  // 面试题 16.26.计算器
+    const calculate = s => {
+        s = s.replace(/\s/g, '').split('');
+        s = s.reduce((arr, str) => {
+            if (arr.length === 0) {
+                arr.push(str)
+                return arr;
+            }
+            let left = arr.pop()
+            if (left && !isNaN(left) && !isNaN(str)) {
+                arr.push(`${left}${str}`)
+            } else {
+                arr.push(left, str)
+            }
+            return arr;
+        }, [])
+        let priority = {
+            '+': 1,
+            '-': 1,
+            '*': 2,
+            '/': 2,
+            '(': 0,
+            ')': 0,
+        }
+        // s1：辅助栈, s2: 结果栈
+        let s1 = [], s2 = [];
+        const strHandle = index => {
+            let char = s[index];
+            if (!isNaN(+char)) {
+                s2.push(char)
+                return
+            }
+            if (s1.length === 0 || s1[s1.length - 1] === '(') {
+                s1.push(char)
+                return
+            }
+            if (char === '(') {
+                s1.push(char)
+                return
+            }
+            if (char === ')') {
+                let s1TopStr = s1.pop();
+                while (s1TopStr && s1TopStr != '(') {
+                    s2.push(s1TopStr);
+                    s1TopStr = s1.pop();
+                }
+                return
+            }
+            // 处理运算符
+            let topStr = s1[s1.length - 1];
+            let flag = true
+            while (flag) {
+                if (topStr && priority[char] > priority[topStr]) {
+                    s1.push(char)
+                    flag = false
+                }
+                if (topStr && priority[char] <= priority[topStr]) {
+                    s2.push(s1.pop())
+                    topStr = s1[s1.length - 1];
+                }
+                if (s1.length === 0 || s1[s1.length - 1] === '(') {
+                    s1.push(char)
+                    flag = false
+                }
+            }
+        }
+        for (let i = 0; i < s.length; i++) {
+            strHandle(i)
+        }
+        const suffix = s2.concat(s1.reverse())
+        const compute = sfx => {
+            let stack = [];
+            for (let i in sfx) {
+                let value = sfx[i]
+                if (!isNaN(value)) {
+                    stack.push(value)
+                } else {
+                    let x = +stack.pop(),
+                        y = +stack.pop()
+                    switch (true) {
+                        case value === '+':
+                            stack.push(y + x)
+                            break
+                        case value === '-':
+                            stack.push(y - x)
+                            break
+                        case value === '*':
+                            stack.push(y * x)
+                            break
+                        case value === '/':
+                            stack.push(y / x)
+                            break
+                    }
+                }
+            }
+            return stack.pop()
+        }
+        return compute(suffix)
+    }
+    let s = "1*2-3/4+5*6-7*8+9/10"
+    console.log(calculate(s))
+```
+
+
 # 242
 ```js
  // #242
