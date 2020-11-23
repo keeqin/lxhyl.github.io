@@ -512,6 +512,125 @@ const singleNum = nums => {
 ```
 
 
+# 1030
+```js
+// #1030
+    const allCellsDistOrder = (R, C, r0, c0) => {
+        let indexMap = new Map()
+        for (let i = 0; i < C; i++) {
+            for (let j = 0; j < R; j++) {
+                let distance = Math.abs(i - c0) + Math.abs(j - r0);
+                if (indexMap.has(distance)) {
+                    let arr = indexMap.get(distance)
+                    arr.push([j, i])
+                    indexMap.set(distance, arr);
+                } else {
+                    indexMap.set(distance, [[j, i]])
+                }
+            }
+        }
+        indexMap = Array.from(indexMap).sort((a, b) => a[0] - b[0])
+        return indexMap.reduce((s, i) => {
+            s.push(...i[1])
+            return s
+        }, [])
+    }
+    let R = 1, C = 2, r0 = 0, c0 = 0
+    console.log(allCellsDistOrder(R, C, r0, c0))
+```
+
+# 1589  
+
+```js
+  // #1598
+    const minOperations = logs => {
+        return logs.reduce((s, i) => {
+            switch (true) {
+                case i === '../':
+                    if (s >= 1) {
+                        s--;
+                    }
+                    break;
+                case i === './':
+                    break;
+                default:
+                    s++;
+            }
+            return s
+        }, 0)
+    }
+    let logs = ["d1/", "../", "../", "../"]
+    console.log(minOperations(logs))
+```
+
+# 892
+```js
+ // #829
+    const consecutiveNumbersSum = N => {
+        let result = 0,
+            i = 1
+        while (N > 0) {
+            result = (N % i === 0) ? result + 1 : result;
+            N -= i;
+            i++
+        }
+        return result
+    }
+    console.log(consecutiveNumbersSum(100))
+```
+
+# 1344
+```js
+  // 1344
+    const canCompleteCircuit = (gas, cost) => {
+        const n = gas.length;
+        let i = 0;
+        while (i < n) {
+            let sumOfGas = 0, sumOfCost = 0;
+            let cnt = 0;
+            while (cnt < n) {
+                const j = (i + cnt) % n;
+                sumOfGas += gas[j];
+                sumOfCost += cost[j];
+                if (sumOfCost > sumOfGas) {
+                    break;
+                }
+                cnt++;
+            }
+            if (cnt === n) {
+                return i;
+
+
+            } else {
+                i = i + cnt + 1;
+            }
+        }
+        return -1;
+    }
+    const gas = [2, 3, 4],
+        cost = [3, 4, 3]
+    console.log(canCompleteCircuit(gas, cost))
+```
+
+# 283
+```js
+const moveZeroes = nums => {
+        let len = nums.length,
+            left = 0,
+            right = 0;
+        while (right < len) {
+            if (nums[right]) {
+                [nums[left], nums[right]] = [nums[right], nums[left]]
+                left++;
+            }
+            right++;
+        }
+        return nums;
+    }
+    const nums = [1, 0, 1]
+    console.log(moveZeroes(nums))
+```
+
 # 242
 ```js
  // #242
@@ -521,3 +640,22 @@ const singleNum = nums => {
 ```
 
 
+# 452
+```js
+  // 452
+  const findMinArrowShots = points => {
+        if (!points.length) return 0;
+        points.sort((a, b) => a[1] - b[1]);
+        let startR = points[0][1];
+        return points.reduce((s, i) => {
+            if (i[0] > startR) {
+                startR = i[1];
+                return s + 1;
+            } else {
+                return s
+            }
+        }, 1)
+    }
+    let test = [[10, 16], [2, 8], [1, 6], [7, 12]];
+    console.log(findMinArrowShots(test))
+```
