@@ -692,11 +692,3 @@
 
 
 
-{
-    // 904
-    const totalFruit = tree => {
-     
-    }
-    const tree = [3,3,3,1,2,1,1,2,3,3,4]
-    console.log(totalFruit(tree));
-}
