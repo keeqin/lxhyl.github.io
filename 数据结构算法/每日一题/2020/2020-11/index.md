@@ -379,7 +379,6 @@ const singleNum = nums => {
         result = `${result}${i}`
     }
     return result === '' ? '0' : result
-
 }
 ```
 
@@ -513,118 +512,12 @@ const singleNum = nums => {
 ```
 
 
-# 1030
+# 242
 ```js
- // #1030
-    const allCellsDistOrder = (R, C, r0, c0) => {
-        let indexMap = new Map()
-        for (let i = 0; i < C; i++) {
-            for (let j = 0; j < R; j++) {
-                let distance = Math.abs(i - c0) + Math.abs(j - r0);
-                if (indexMap.has(distance)) {
-                    let arr = indexMap.get(distance)
-                    arr.push([j, i])
-                    indexMap.set(distance, arr);
-                } else {
-                    indexMap.set(distance, [[j, i]])
-                }
-            }
-        }
-        indexMap = Array.from(indexMap).sort((a, b) => a[0] - b[0])
-        return indexMap.reduce((s, i) => {
-            s.push(...i[1])
-            return s
-        }, [])
-    }
-    let R = 1, C = 2, r0 = 0, c0 = 0
-    console.log(allCellsDistOrder(R, C, r0, c0))
-```
-
-# 1598
-```js
-// #1598
-    const minOperations = logs => {
-      return  logs.reduce((s, i) => {
-            switch (true) {
-                case i === '../':
-                    if(s >= 1){
-                        s--;
-                    }
-                    break;
-                case i === './':
-                    break;
-                default:
-                    s++;
-            }
-            return s
-        }, 0)
-    }
-    let logs = ["d1/","../","../","../"]
-    console.log(minOperations(logs))
-```
-
-
-# 829    
-
-看到大佬的解法，太妙了!
-```js
-const consecutiveNumbersSum = N => {
-       let result = 0,
-           i =1
-       while(N>0){
-           result = (N%i === 0) ? result+1 : result;
-           N -= i;
-           i++
-       }
-       return result
-}
-
-```
-
-
-# 134
-```js
-  // 1344
-    const canCompleteCircuit = (gas, cost) => {
-        const n = gas.length;
-        let i = 0;
-        while (i < n) {
-            let sumOfGas = 0, sumOfCost = 0;
-            let cnt = 0;
-            while (cnt < n) {
-                const j = (i + cnt) % n;
-                sumOfGas += gas[j];
-                sumOfCost += cost[j];
-                if (sumOfCost > sumOfGas) {
-                    break;
-                }
-                cnt++;
-            }
-            if (cnt === n) {
-                return i;
-
-                
-            } else {
-                i = i + cnt + 1;
-            }
-        }
-        return -1;
+ // #242
+    const isAnagram = (s,t) => {
+        return s.length == t.length && [...s].sort().join('') === [...t].sort().join('')
     }
 ```
 
-# 283
-```js
- const moveZeroes = nums => {
-        let len = nums.length,
-            left = 0,
-            right = 0;
-        while(right < len){
-           if(nums[right]){
-               [nums[left], nums[right]] = [nums[right], nums[left]]
-               left++;
-           }
-           right++;
-        }
-        return nums;
-    }
-```
+
