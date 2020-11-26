@@ -93,17 +93,29 @@ element的表单校验中,NaN是判定为非空的。因为要对数据转换，
 
 # 11-16     
 创建项目，和回退重新创建复用一个页面，而当请求项目详情数据回显时，后端会返回此项目的完整数据，然后再提交时，就会把很多无用数据也发给后端。所有需要对数据进行过滤。  
-也就是求交集。   
-可以遍历请求到的数据，判断是否要用，然后无用的删除。但这样耦合度会很高，代码也不能复用，所以单独写了个函数来进行过滤。  
+也就是请求到的数据和发给后端的请求体求交集。
+
+
+# 11-26
+有个需求，要根据后端返回数据去判断路由到那个页面。  
+我的解决方案是，先建立一个index页面，在这个index页面中处理相关逻辑，文件结构如下
 ```js
-// 两个对象求交集以删除无用的key
-deleteOtherKey(needObj, allObj) {
-  const needKey = Object.keys(needObj);
-  for (const key in allObj) {
-    if (needKey.indexOf(key) === -1) {
-        delete allObj[key];
-    }
-  }
-  return allObj;
-}
+|——detail
+   |——index.vue
+   |——组件A
+   |——组件B
+   |——组件C
+   |——mock.js
+   |——mixin.js
 ```
+
+`index.vue`中请求到数据，再去根据数据判断加载那个组件,通过prop将数据传入组件   
+`mock.js`中引入mock数据   
+`mixin.js`中写组件的公共逻辑，同时引入格式化数据的mixin   
+
+
+
+
+
+
+

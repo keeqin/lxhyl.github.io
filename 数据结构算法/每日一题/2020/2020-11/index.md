@@ -659,3 +659,21 @@ const moveZeroes = nums => {
     let test = [[10, 16], [2, 8], [1, 6], [7, 12]];
     console.log(findMinArrowShots(test))
 ```
+
+# 222
+
+```js
+ const countNode = root => {
+        let count = 0;
+        const dfs = node => {
+            if(!node) return;
+            count++;
+            dfs(node.left);
+            dfs(node.right); 
+        }
+        dfs(root);
+        return count;
+    }
+```
+
+
