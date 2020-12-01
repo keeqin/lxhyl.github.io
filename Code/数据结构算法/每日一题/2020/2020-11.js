@@ -717,13 +717,19 @@
     const countNode = root => {
         let count = 0;
         const dfs = node => {
-            if(!node) return;
+            if (!node) return;
             count++;
             dfs(node.left);
-            dfs(node.right); 
+            dfs(node.right);
         }
         dfs(root);
         return count;
     }
 }
 
+
+{
+    const date = new Date();
+    const formatDate = date.toLocalString('zh-cn');
+    console.log(formatDate)
+}

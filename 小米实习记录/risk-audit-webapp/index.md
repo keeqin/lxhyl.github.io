@@ -96,7 +96,8 @@ element的表单校验中,NaN是判定为非空的。因为要对数据转换，
 也就是请求到的数据和发给后端的请求体求交集。
 
 
-# 11-26
+# 11-26  
+
 有个需求，要根据后端返回数据去判断路由到那个页面。  
 我的解决方案是，先建立一个index页面，在这个index页面中处理相关逻辑，文件结构如下
 ```js
@@ -117,5 +118,60 @@ element的表单校验中,NaN是判定为非空的。因为要对数据转换，
 
 
 
+
+
+# 12-1    
+
+获取并格式化当前时间点，使用`data.toLocaleString()`很方便 
+
+
+**语法**
+```js
+const date = new Date();
+
+/**
+ *  @param {String || Array} locales 语言环境
+ *  @param {Object} options  配置返回的字符串
+ */
+date.toLocaleString([locales[,options]])
+```
+
+> 例1   
+`new Date().toLocaleString('zh-cn')`  ***"2020/12/1 下午4:34:24"***    
+
+**options**参数
+
+默认都为numeric  
+
+> 例：  
+```js
+new Date(2020,11,01,16,45).toLocaleString()
+//  2020/12/1 下午4:45:00
+```
+
+下面表格使用`2020-12-1/16:45 星期二`为例
+
+|       |year  |month|day|hour    |minute|weekday|
+|:--:   |:---  |:---:|:-:|:--:    |:----:|:-----:|
+|numeric|2020年|12月 |1日|下午4时  |45    |二     |
+|2-digit|20年  |12月 |01日|下午04时|45    |   |
+|narrow|       |12   |  
+|short|        |12月|     |       |      |周二|
+|long|         |十二月|    |      |      |星期二|
+
+
+> 例2 
+```js
+const options = {
+  year:'numeric',
+  month:'short',
+  day:'2-digit',
+  hour:'2-digit',
+  minute:'numeric',
+  weekday:'long',
+}
+new Date(2020,11,01,16,45).toLocaleString('zh-cn',options)
+// 2020年12月01日星期二 下午04:45
+```
 
 
