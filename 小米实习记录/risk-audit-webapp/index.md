@@ -136,8 +136,11 @@ const date = new Date();
 date.toLocaleString([locales[,options]])
 ```
 
-> 例1   
-`new Date().toLocaleString('zh-cn')`  ***"2020/12/1 下午4:34:24"***    
+> 例1      
+```
+new Date().toLocaleString('zh-cn')
+// 2020/12/1 下午4:34:24
+```   
 
 **options**参数
 
