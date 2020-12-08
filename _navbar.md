@@ -2,6 +2,7 @@
  * [CSS](前端/css/index.md)
  * [JS](前端/js/README.md)
  * [VUE](前端/vue/index.md)
+ * [React](前端/React/index.md)
  * [笔记](前端/笔记/index.md)
  * [文章](前端/文章/index.md)
 

@@ -122,7 +122,7 @@ element的表单校验中,NaN是判定为非空的。因为要对数据转换，
 
 # 12-1    
 
-获取并格式化当前时间点，使用`data.toLocaleString()`很方便 
+获取并格式化日期时间，使用`date.toLocaleString()`很方便 
 
 
 **语法**
@@ -136,10 +136,11 @@ const date = new Date();
 date.toLocaleString([locales[,options]])
 ```
 
+
 > 例1   
 `new Date().toLocaleString('zh-cn')`  ***"2020/12/1 下午4:34:24"***    
 
-**options**参数
+**options** 参数
 
 默认都为numeric  
 
@@ -148,7 +149,8 @@ date.toLocaleString([locales[,options]])
 new Date(2020,11,01,16,45).toLocaleString()
 //  2020/12/1 下午4:45:00
 ```
-
+  
+  
 下面表格使用`2020-12-1/16:45 星期二`为例
 
 |       |year  |month|day|hour    |minute|weekday|
@@ -175,3 +177,24 @@ new Date(2020,11,01,16,45).toLocaleString('zh-cn',options)
 ```
 
 
+# 12-8  
+今天遇到一个问题,后端需要自定义请求头传递参数,我一想这不是很简单吗?请求中加个headers参数不就完事了吗?  
+啪一下代码就敲出来了。
+```js
+request({
+    url: ``,
+    method: '',
+    headers: {
+        idempotent_token: idempotent_token || '',
+    },
+    data,
+});
+```  
+这时自然是打开页面测试,按传统码德来讲，我请求发出去了啊，请求头中有`idempotent_token`属性了啊.   
+可返回的不是200，我大意了啊，没有管，因为现在是开发时间，以为是后端正在开发的原因。后端开发完成后，我再测还是有问题，后端说没问题，`staging`环境试了两次了，都没问题.我说有问题，控制台已经看到属性且有值了, 返回的还是系统异常。后端说我开发环境有问题。我就再测。   
+仔细一想，开发环境和`staging`环境的区别是我本地多了`nginx`代理。一个谷歌搜索打出去，发现，`nginx`会将带`_`的自定义请求头过滤。   
+解决方法是在`nginx.conf`中http部分添加如下配置  
+```js
+underscores_in_headers on;
+```
+好你个`nginx`，来!欺负我一个没有经验的年轻人，希望年轻人好自为之，好好学习码德.
