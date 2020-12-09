@@ -1,24 +1,8 @@
+Hi! I'm lxhyl.     
 
-# TODO
-
-- [ ] JS复习记录(JavaScript标准内置对象学习)
-  - [x] Array
-  - [x] String
-  - [x] JSON 
-  - [x] Object
-  - [x] Proxy
-  - [x] Promise
-  - [x] Map
-  - [x] Set
-  - [ ] ...  (MORE)
-
-# 实习
-
-[小米实习记录](小米实习记录/index.md)
+“长大是人必经的溃烂”
 
 # 关于
-  * lxhyl是蓝星回忆录的意思。
-  * 此网站相当于个人笔记,日记,博客。
+  * 此网站主要是个人笔记,记录等杂七杂八的东西
   * 此文档基于[docsify](https://github.com/docsifyjs/docsify/)
-  * 所有内容皆采用[知识共享署名 4.0 国际许可协议（署名-允许演绎-可商用）](http://creativecommons.org/licenses/by/4.0/)协议
-
+  
