@@ -200,3 +200,33 @@ request({
 underscores_in_headers on;
 ```
 好你个`nginx`，来!欺负我一个没有经验的年轻人，希望年轻人好自为之，好好学习码德.
+
+
+
+# 12-9   
+
+很多页面都要文件上传，所以可以将文件类型提取出来。  
+新增文件类型文件,并导出为数组格式。   
+```js
+export default [
+  "pdf",
+  "jpg",
+  "jpeg",
+  "jpe",
+  "png",
+  "rar",
+  "tar",
+  "zip",
+  "doc",
+  "docx",
+  "xls",
+  "xlsx",
+  "ppt",
+  "pptx",
+];
+```   
+然后判断文件类型是否符合条件时就可以使用`array.includes`，或者`array.indexOf`.    
+
+也可供提示使用    
+![fileTypes](/files/img/fileTypes.jpg)
+
