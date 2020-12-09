@@ -227,6 +227,6 @@ export default [
 ```   
 然后判断文件类型是否符合条件时就可以使用`array.includes`，或者`array.indexOf`.    
 
-也可供提示使用    
+也可供提示使用,如下：    
 ![fileTypes](https://raw.githubusercontent.com/lxhyl/lxhyl.github.io/master/files/img/fileTypes.jpg)
 
