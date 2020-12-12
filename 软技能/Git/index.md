@@ -88,3 +88,35 @@ git reset是彻底回退，git revert是将commit_hash作为新的commit，加�
 
  * `git rebase -i HEAD~2` 从当前合并到往前两个版本
  * `git rebase -i *******` 合并到`*******`以前
+
+运行命令后可能报错找不到编辑器，可以执行`git config --global core.editor vim`,将默认编辑器设为vim。然后在执行rebase。   
+
+运行成功后会出现编辑器如下，在这里可以更改提交。每个命令后面都有相应的提示.  
+```js
+# Rebase 59bee03..9d5e4ee onto 59bee03 (2 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+pick dd0f9d2 提交1
+pick 9d5e4ee 提交2
+```
+
+这里我做出更改   
+```js
+r dd0f9d2 添加git rebase
+s 9d5e4ee 提交2
+```
+ * s 将此次提交合并到上一次
+ * r 使用此次提交，但更改备注
+
+然后wq退出 
+
+若有冲突，修改完冲突再  
+`git add`   
+`git rebase -continue`    
+
+无冲突就可以直接推到远程仓库，  
+![git-rebase](https://raw.githubusercontent.com/lxhyl/lxhyl.github.io/master/files/img/git-rebase.png)
