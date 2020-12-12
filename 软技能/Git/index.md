@@ -81,3 +81,10 @@ git reset是彻底回退，git revert是将commit_hash作为新的commit，加�
  * `git push origin newName` 上传本地分支至远程   
  * `git branch --set-upstream-to origin/newName` 将本地分支与远程分支关联  
  
+
+# 将几次commit合并为一次
+
+ **git rebase**   
+
+ * `git rebase -i HEAD~2` 从当前合并到往前两个版本
+ * `git rebase -i *******` 合并到`*******`以前
