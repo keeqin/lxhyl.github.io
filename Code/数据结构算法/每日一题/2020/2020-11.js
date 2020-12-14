@@ -728,8 +728,3 @@
 }
 
 
-{
-    const date = new Date();
-    const formatDate = date.toLocalString('zh-cn');
-    console.log(formatDate)
-}
