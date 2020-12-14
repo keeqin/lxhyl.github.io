@@ -20,5 +20,5 @@
 
 * 记录
  * [日记](diary/index.md)
- * [小米实习记录](小米实习记录/index.md)
+ * [实习记录](小米实习记录/index.md)
  * [小诗](poem/index.md)
