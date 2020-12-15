@@ -234,9 +234,55 @@ export default [
 
 # 12-15   
 
-学习到了个解决bug的方法.
-vue项目,当数据更新页面不更新时,要查看数据是否设置了`getter`和`setter`.如果没有，说明vue没有监听到此数据。解决方法是使用`Vue.set`给赋值，而不是直接`=`赋值。   
+学习到了个解决bug的方法. 
+
+vue项目,使用的是element-ui,当数据更新页面不更新时,要查看数据是否设置了`getter`和`setter`.如果没有，说明vue没有监听到此数据。解决方法是使用`Vue.set`给赋值，而不是直接`=`赋值。   
 
 **语法**     
 `Vue.set( target, propertyName/index, value )`
 
+
+
+写个了demo测试了下
+```html
+ <input v-model="test.input" />
+  <div v-for="radio in radioOption" :key="radio.value">
+      <input
+        type="radio"
+        v-model="test.radio"
+        name="testradio"
+        :value="radio.value"
+      />
+      <label>{{ radio.label }}</label>
+  </div>
+  <el-input v-model="test.inputel"></el-input>
+  <el-radio-group v-model="test.radioel">
+      <el-radio
+        v-for="radio in radioOption"
+        :key="radio.value"
+        :label="radio.label"
+        :value="radio.value"
+      ></el-radio>
+  </el-radio-group>
+```
+
+```js
+ data() {
+    return {
+      test: {},
+      radioOption: [
+        { label: "test1", value: 1 },
+        { label: "test2", value: 2 },
+      ],
+    };
+  },
+  created() {
+    this.test.input = null;
+    this.test.radio = null;
+    // this.test.inputel = null;
+    this.$set(this.test, "inputel", null);
+    this.test.radioel = null;
+  },
+```
+
+发现，原生是可以正常工作的。elment-ui在初始化时不可以直接设置为null.必须通过`Vue.set`才可以正常工作。
