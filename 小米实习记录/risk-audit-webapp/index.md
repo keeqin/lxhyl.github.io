@@ -230,3 +230,13 @@ export default [
 也可供提示使用,如下：    
 ![fileTypes](https://raw.githubusercontent.com/lxhyl/lxhyl.github.io/master/files/img/fileTypes.jpg)
 
+
+
+# 12-15   
+
+学习到了个解决bug的方法.
+vue项目,当数据更新页面不更新时,要查看数据是否设置了`getter`和`setter`.如果没有，说明vue没有监听到此数据。解决方法是使用`Vue.set`给赋值，而不是直接`=`赋值。   
+
+**语法**     
+`Vue.set( target, propertyName/index, value )`
+
