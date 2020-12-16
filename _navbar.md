@@ -7,6 +7,9 @@
 * Node
  * [node](node/index.md)
 
+* Python
+ * [练习100题](Python/实例练习/index.md)
+
 * [函数式编程](fun/index.md)  
 
 * 软技能
