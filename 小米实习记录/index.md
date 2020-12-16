@@ -2,6 +2,4 @@
 
 入职的下午开始配置环境，真的折磨人，各种问题。
 
-
-# 第一个项目  
 [risk-audit-webapp](小米实习记录/risk-audit-webapp/index)
