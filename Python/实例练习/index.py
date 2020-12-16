@@ -90,16 +90,22 @@ def learn006(n):
   if n== 1 or n == 2:
     return 1
   return learn006(n-1) + learn006(n-2)
-print(learn006(10))
-
-def learn006v2(n):
-  a,b = 1,1
-  for i in range(n):
-    a,b = b,a+b
-  return a
-print(learn006(50))
+# print(learn006(10))
 
 
 
 
+# 007  
+def learn007(list):
+  return list[:]
 
+# print(learn007([1,2,3]))
+
+
+# 008
+def learn008():
+  for i in range(1,9): 
+    for j in range(1,i+1):
+      print(str(i) + '*' + str(j) + '=' + str(i*j),end="   ")
+    print('\n')
+learn008()
