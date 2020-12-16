@@ -99,3 +99,14 @@ def learn005v2():
 
 print(learn005v2())
 ```
+
+
+# 006   
+斐波那契数列    
+```py
+def learn006(n):
+  if n== 1 or n == 2:
+    return 1
+  return learn006(n-1) + learn006(n-2)
+print(learn006(10))
+```

@@ -82,10 +82,22 @@ def learn005v2():
   numList.sort()
   return numList  
 
-print(learn005v2())
+# print(learn005v2())
 
+# 006
 
+def learn006(n):
+  if n== 1 or n == 2:
+    return 1
+  return learn006(n-1) + learn006(n-2)
+print(learn006(10))
 
+def learn006v2(n):
+  a,b = 1,1
+  for i in range(n):
+    a,b = b,a+b
+  return a
+print(learn006(50))
 
 
 
