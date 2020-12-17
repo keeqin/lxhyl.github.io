@@ -108,4 +108,90 @@ def learn008():
     for j in range(1,i+1):
       print(str(i) + '*' + str(j) + '=' + str(i*j),end="   ")
     print('\n')
-learn008()
+# learn008()
+
+
+# 009
+def learn009(n):
+  import time
+  for i in range(n):
+    print(i)
+    time.sleep(1)  
+
+# learn009(4)
+
+
+# 010
+def learn010():
+  import time
+  nowtime = time.localtime(time.time())
+  formatTime = time.strftime('%Y-%m-%d %H:%M:%S',nowtime)
+  print('wait...')
+  time.sleep(1)
+  return formatTime
+# print(learn010())
+
+# 011
+def learn011():
+  m = int(input('输入月数'))
+  def fib(n):
+    if n == 1 or n == 2:
+      return 2
+    return fib(n-1) + fib(n-2)
+  return fib(m)
+
+# print(learn011())
+
+
+# 012
+def learn012():
+  def isPrime(num):
+    from math import sqrt
+    for i in range(2,int(sqrt(num))+1):
+      if  num % i == 0:
+        return False
+    return True
+  primeList = []
+  total = 0
+  for i in range(101,201):
+     if isPrime(i):
+       total += 1
+       primeList.append(i)
+  print('总共' + str(total) + '个')
+  print('分别是:',primeList)
+
+# learn012()
+
+# 013
+
+def learn013():
+  numlist = []
+  for n in range(100,1000):
+    i = n // 100
+    j = (n - i * 100) // 10
+    k = n - i*100 - j * 10
+    if pow(i,3) + pow(j,3) + pow(k,3) == n:
+      numlist.append(n)
+  return numlist
+
+# print(learn013())
+
+def learn014(n):
+  numlist = []
+  def findMin(num):
+    if num == 0:
+      return
+    for i in range(2,num+1):
+      if num % i == 0:
+        numlist.append(str(i))
+        return findMin(num // i)
+      
+  findMin(n)
+  if len(numlist) == 1:
+    print('%d = %d * %d'%(n,numlist[0],1))
+  else:
+    print('%d = %s' %(n,'*'.join(numlist)))
+learn014(90)
+
+
+

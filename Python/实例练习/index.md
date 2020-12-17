@@ -1,7 +1,9 @@
 
-[python练习100题](https://www.runoob.com/python/python-100-examples.html)
+python练习100题    
 
-代码地址`Python/实例练习/index.py`  
+[题目来源](https://www.runoob.com/python/python-100-examples.html)    
+
+[代码地址](https://github.com/lxhyl/lxhyl.github.io/blob/master/Python/%E5%AE%9E%E4%BE%8B%E7%BB%83%E4%B9%A0/index.py)  
 
 # 001   
 有四个数字：1、2、3、4，能组成多少个互不相同且无重复数字的三位数？各是多少？  
@@ -129,3 +131,114 @@ def learn008():
       print(str(i) + '*' + str(j) + '=' + str(i*j),end="   ")
     print('\n')
 ```
+
+# 009    
+
+暂停一秒输出  
+```py
+def learn009(n):
+  import time
+  for i in range(n):
+    print(i)
+    time.sleep(1)  
+
+# learn009(4)
+```
+
+# 010    
+暂停一秒输出，并格式化当前时间    
+```py
+def learn010():
+  import time
+  nowtime = time.localtime(time.time())
+  formatTime = time.strftime('%Y-%m-%d %H:%M:%S',nowtime)
+  print('wait...')
+  time.sleep(1)
+  return formatTime
+
+print(learn010())
+```
+
+# 011    
+古典问题：有一对兔子，从出生后第3个月起每个月都生一对兔子，小兔子长到第三个月后每个月又生一对兔子，假如兔子都不死，问每个月的兔子总数为多少？  
+
+> 写出来才发现是斐波那契数列  
+
+```py
+def learn011():
+  m = int(input('输入月数'))
+  def fib(n):
+    if n == 1 or n == 2:
+      return 2
+    return fib(n-1) + fib(n-2)
+  return fib(m)
+
+# print(learn011())
+```
+
+
+# 012   
+判断101-200之间有多少个素数，并输出所有素数。  
+
+```py
+def learn012():
+  def isPrime(num):
+    from math import sqrt
+    for i in range(2,int(sqrt(num))+1):
+      if  num % i == 0:
+        return False
+    return True
+  primeList = []
+  total = 0
+  for i in range(101,201):
+     if isPrime(i):
+       total += 1
+       primeList.append(i)
+  print('总共' + str(total) + '个')
+  print('分别是:',primeList)
+
+# learn012()
+```
+
+# 013  
+打印出所有的"水仙花数"，所谓"水仙花数"是指一个三位数，其各位数字立方和等于该数本身。例如：153是一个"水仙花数"，因为153=1的三次方＋5的三次方＋3的三次方。
+```py
+def learn013():
+  numlist = []
+  for n in range(100,1000):
+    i = n // 100
+    j = (n - i * 100) // 10
+    k = n - i*100 - j * 10
+    if pow(i,3) + pow(j,3) + pow(k,3) == n:
+      numlist.append(n)
+  return numlist
+
+# print(learn013())
+```
+
+# 014
+将一个正整数分解质因数。例如：输入90,打印出90=2*3*3*5。  
+```py
+def learn014(n):
+  numlist = []
+  def findMin(num):
+    if num == 0:
+      return
+    for i in range(2,num+1):
+      if num % i == 0:
+        numlist.append(str(i))
+        return findMin(num // i)
+      
+  findMin(n)
+  if len(numlist) == 1:
+    print('%d = %d * %d'%(n,numlist[0],1))
+  else:
+    print('%d = %s' %(n,'*'.join(numlist)))
+learn014(90)
+```
+
+分解质因数算法，从最小的质因数开始，递归就行。  
+
+* python 中的`//`才是整除,需要注意下，否则`range`函数接收到float参数会失败  
+* join方法是字符串才有的,所以列表转字符串应该使用`''.join(list)`  
+
