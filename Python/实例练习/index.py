@@ -191,7 +191,118 @@ def learn014(n):
     print('%d = %d * %d'%(n,numlist[0],1))
   else:
     print('%d = %s' %(n,'*'.join(numlist)))
-learn014(90)
+# learn014(90)
+
+
+# 015
+def learn015():
+  num = int(input('输入分数:'))
+  if num >= 90:
+    return 'A'
+  elif num >= 60:
+    return 'B'
+  else:
+    return 'C'
+
+# print(learn015())
+
+# 016
+def learn016():
+  import time
+  localTime = time.localtime()
+  print('本地时间:',localTime,end="\n\n")
+  time1 = time.strftime('%y-%m-%d/%H:%M:%S',localTime)
+  print('yy-mm-dd/hh-mm-ss:',time1,end="\n")
+  time2 = time.strftime('%Y-%m-%d/%H:%M:%S  %A',localTime)
+  print('yyyy-mm-dd/hh-mm-ss week:',time2)
+
+# learn016()
+
+# 017 
+def learn017():
+  inputStr = input('输入字符:')
+  nums = {
+    'alphaNum':0,
+    'spaceNum':0,
+    'numNum':0,
+    'elseNum':0,
+  }
+  for s in inputStr:
+    if s.isalpha():
+      nums['alphaNum'] += 1
+    elif s.isspace():
+      nums['spaceNum'] += 1
+    elif s.isdigit():
+      nums['numNum'] += 1
+    else:
+      s['elseNum'] += 1
+  return nums
+# print(learn017())
+
+# 018  
+def learn018():
+  n = int(input('n:'))
+  a = int(input('a:'))
+  a1 = a
+  numList = []
+  for i in range(n+1):
+    numList.append(a1)
+    a1 = 10 * a1 + a
+  print('sum:',sum(numList))
+  print(numList)
+
+# learn018()
+
+# 019  
+def learn019():
+  numlist = []
+  def findNum(num):
+    if num == 0:
+      return
+    for i in range(1,num // 2 + 1):
+      if num % i == 0:
+        numlist.append(i)
+  result = []
+  for n in range(2,1001):
+    findNum(n)
+    if sum(numlist) == n:
+      print('%d = %s '%(n,' + '.join([str(s) for s in numlist])))
+      # print('%d = %s '%(n,' + '.join(map(lambda s:str(s),numlist))))
+      result.append(n)
+    numlist = []
+  return result
+# print(learn019())
+
+
+# 020  
+def learn020():
+  from math import pow
+  h = int(input('输入高度:'))
+  n = int(input('输入弹跳次数:'))
+  nowh = h * pow(1/2,n-1)
+  mSum = h * (1 - pow(1/2,n)) / (1 - 1/2 )
+  print('第%d次的高度为%f' % (n,nowh))
+  print('共经过%f米' % mSum)
+
+# learn020()
+
+# 021
+def learn021():
+  d = int(input('day:'))
+  x = 0
+  def peach(n,dNum):
+    print('n',n)
+    if dNum >= d:
+      return n
+    x = (n+1) * 2
+    return peach(x,dNum + 1) 
+  print(peach(1,1))
+# learn021()
+
+
+# 022 
+
+
 
 
 

@@ -242,3 +242,141 @@ learn014(90)
 * python 中的`//`才是整除,需要注意下，否则`range`函数接收到float参数会失败  
 * join方法是字符串才有的,所以列表转字符串应该使用`''.join(list)`  
 
+
+# 015   
+利用条件运算符的嵌套来完成此题：学习成绩>=90分的同学用A表示，60-89分之间的用B表示，60分以下的用C表示。  
+```py
+def learn015():
+  num = int(input('输入分数:'))
+  if num >= 90:
+    return 'A'
+  elif num >= 60:
+    return 'B'
+  else:
+    return 'C'
+```
+
+# 016   
+
+输出指定格式的日期   
+```py
+def learn016():
+  import time
+  localTime = time.localtime()
+  print('本地时间:',localTime,end="\n\n")
+  time1 = time.strftime('%y-%m-%d/%H:%M:%S',localTime)
+  print('yy-mm-dd/hh-mm-ss:',time1,end="\n")
+  time2 = time.strftime('%Y-%m-%d/%H:%M:%S  %A',localTime)
+  print('yyyy-mm-dd/hh-mm-ss week:',time2)
+```
+
+更多可见[日期](https://www.runoob.com/python/python-date-time.html)  
+
+# 017  
+输入一行字符，分别统计出其中英文字母、空格、数字和其它字符的个数。  
+```py
+def learn017():
+  inputStr = input('输入字符:')
+  nums = {
+    'alphaNum':0,
+    'spaceNum':0,
+    'numNum':0,
+    'elseNum':0,
+  }
+  for s in inputStr:
+    if s.isalpha():
+      nums['alphaNum'] += 1
+    elif s.isspace():
+      nums['spaceNum'] += 1
+    elif s.isdigit():
+      nums['numNum'] += 1
+    else:
+      s['elseNum'] += 1
+  return nums
+```
+
+# 018   
+求s=a+aa+aaa+aaaa+aa...a的值，其中a是一个数字。例如2+22+222+2222+22222(此时共有5个数相加)，几个数相加由键盘控制。
+ 
+```py
+def learn018():
+  n = int(input('n:'))
+  a = int(input('a:'))
+  a1 = a
+  numList = []
+  for i in range(n+1):
+    numList.append(a1)
+    a1 = 10 * a1 + a
+  print('sum:',sum(numList))
+  print(numList)
+```
+
+* `sum`函数的参数为`list`
+
+# 019   
+一个数如果恰好等于它的因子之和，这个数就称为"完数"。例如6=1＋2＋3.编程找出1000以内的所有完数。  
+
+```py
+def learn019():
+  numlist = []
+  def findNum(num):
+    if num == 0:
+      return
+    for i in range(1,num // 2 + 1):
+      if num % i == 0:
+        numlist.append(i)
+  result = []
+  for n in range(2,1001):
+    findNum(n)
+    if sum(numlist) == n:
+      print('%d = %s '%(n,' + '.join([str(s) for s in numlist])))
+      # print('%d = %s '%(n,' + '.join(map(lambda s:str(s),numlist))))
+      result.append(n)
+    numlist = []
+  return result
+print(learn019())
+```
+
+* 使用`fn(item) for item in list`可以对列表每个元素执行`fn`函数操作，返回一个新列表
+
+* 也可使用map进行遍历，`map(fn,iterable,...)`,第一个参数`fn`是对`item`执行`fn(item)`操作，后面其他参数是可迭代对象，会把可迭代对象的`item`作为参数传入`fn`中  
+
+**如上例**  
+```py 
+map(lambda s:str(s),numlist)
+```
+和js的map很像
+
+# 020     
+一球从100米高度自由落下，每次落地后反跳回原高度的一半；再落下，求它在第10次落地时，共经过多少米？第10次反弹多高？   
+
+```py
+def learn020():
+  from math import pow
+  h = int(input('输入高度:'))
+  n = int(input('输入弹跳次数:'))
+  nowh = 100 * pow(1/2,n-1)
+  mSum = 100 * (1 - pow(1/2,n)) / (1 - 1/2 )
+  print('第%n次的高度为%f' % (n,nowh))
+  print('共经过%f米' % mSum)
+learn020()
+```
+其实就是等比数列
+
+
+# 021  
+
+猴子吃桃问题：猴子第一天摘下若干个桃子，当即吃了一半，还不瘾，又多吃了一个第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半零一个。到第10天早上想再吃时，见只剩下一个桃子了。求第一天共摘了多少。
+```py
+def learn021():
+  d = int(input('day:'))
+  x = 0
+  def peach(n,dNum):
+    print('n',n)
+    if dNum >= d:
+      return n
+    x = (n+1) * 2
+    return peach(x,dNum + 1) 
+  print(peach(1,1))
+learn021()
+```
