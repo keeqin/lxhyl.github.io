@@ -301,8 +301,195 @@ def learn021():
 
 
 # 022 
+def learn022():
+  allGameType = {
+    'a':['y','z'],
+    'b':['x','y','z'],
+    'c':['y']
+  }
+  def find1Len(itemDicList):
+    for key in itemDicList:
+      if len(itemDicList[key]) == 1:
+        return key
+    return 'notFound'
+  result = []
+
+  for item in allGameType:
+    oneLen = find1Len(allGameType)
+    needRemoveKey = allGameType[oneLen][0]
+    result.append('%s --> %s'%(oneLen,needRemoveKey))
+    for personTeamB in allGameType:
+      if needRemoveKey in  allGameType[personTeamB]:
+        allGameType[personTeamB].remove(needRemoveKey)
+  return result
+# print(learn022())
+
+# 023 
+def learn023():
+  for i in range(4):
+    for j in range(3-i):
+      print(' ',end="")
+    for k in range(2*i + 1):
+      print('*',end="")
+    print(' ',end="")
+    print()
+
+# learn023()
+
+# 024
+def learn024():
+  n = int(input('多少项之和?'))
+  t,b,s = 2,1,0
+  for i in range(n):
+    s += t/b
+    temp = t
+    t += b
+    b = temp
+  return s
+# print(learn024())
+
+# 025 
+def learn025():
+  s = 1
+  sumNum = 0
+  for i in range(1,21):
+    s *= i
+    sumNum += s
+  return sumNum
+# print(learn025())
+
+# 026  
+def learn026():
+  def rec(num):
+    if num == 1:
+      return 1
+    else:
+      return num * rec(num-1)
+  return rec(5)
+# print(learn026())
+
+# 027
+def learn027():
+  inputStr = input('输入str:')
+  strLen = len(inputStr)
+  def rec(s,l):
+    if l == 0:
+      return
+    print(s[l-1])
+    rec(s,l-1)
+  rec(inputStr,strLen)
+
+# learn027()
+
+# 028
+def learn028():
+  personNum = int(input('第几个人'))
+  def rec(n):
+    if n == 1:
+      c = 10
+    else:
+      c = rec(n-1)+2
+    return c
+  return rec(personNum)
+# print(learn028())
 
 
+# 029
+def learn029():
+  inputNum = int(input('输入一个数:'))
+  strNum = str(inputNum)
+  l = len(strNum)
+  for s in strNum[::-1]:
+    print('s:',s)
+  return l
+# print(learn029())
+
+# 030
+def learn030():
+  n = int(input('输入一个数字'))
+  strN = str(n)
+  for i in range(len(strN)//2):
+    if strN[i] != strN[-i-1]:
+      return False
+  return True
+# print(learn030())
+    
+
+# 031
+def learn031():
+  weekList = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+  def findDay(days,index):
+    if len(days) == 1:
+      return days
+    inputStr = input('输入:')
+    findDays = []
+    for day in days:
+      if day[index] == inputStr:
+        findDays.append(day)
+    return findDay(findDays,index + 1)
+  return findDay(weekList,0)
+
+# print(learn031())
+
+# 032
+def learn032():
+  a = ['one', 'two', 'three']
+  for i in a[::-1]:
+    print(i)
+
+# learn032()
+
+# 033
+def learn033():
+  a = [1,2,3,4,5]
+  print(','.join(str(n) for n in a))
+  print(','.join(map(lambda e:str(e),a)))
+# learn033()
+
+# 035
+def learn035():
+  print("\033[1;31;40m\t黑底红字\033[0m")
+  print('\033[4;32;47m\t下划线白低绿字\033[0m"')
+# learn035()
+
+# 036
+def learn036():
+  n = int(input('输入数字'))
+  numlist = []
+  for num in range(2,n+1):
+    for i in range(2,num):
+      if num % i == 0:
+        break
+    else:
+      numlist.append(num)
+  return numlist
+# print(learn036())
 
 
+# 037
+def learn037():
+  flag = True
+  sortNum = []
+  def appendToSortNums(n):
+    i = 0
+    while i < len(sortNum) and n > sortNum[i]:
+      print('i',i)
+      print('n',n)
+      print('sortNum',sortNum)
+      i += 1
+    else:
+      sortNum.insert(n)
+      return
+  while flag:
+    num = int(input('输入一个数字:'))
+    if len(sortNum) == 0:
+      sortNum.append(num)
+    else:
+      appendToSortNums(num)
+    
+    isQuit = input('是否输入完毕? y/n:')
+    if isQuit == 'y':
+      flag = False
+  return sortNum
+print(learn037())
 
