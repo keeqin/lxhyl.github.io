@@ -604,3 +604,26 @@ def learn036():
 
 # 037  
 对输入的数进行排序
+```py
+def learn037():
+  flag = True
+  sortNum = []
+  def appendToSortNums(n):
+    i = 0
+    while i < len(sortNum) and n > sortNum[i]:
+      i += 1
+    else:
+      sortNum.insert(i,n)
+      return
+  while flag:
+    num = int(input('输入一个数字:'))
+    if len(sortNum) == 0:
+      sortNum.append(num)
+    else:
+      appendToSortNums(num)
+    isQuit = input('是否输入完毕? y/n:')
+    if isQuit == 'y':
+      flag = False
+  return sortNum
+# print(learn037())
+```

@@ -473,12 +473,9 @@ def learn037():
   def appendToSortNums(n):
     i = 0
     while i < len(sortNum) and n > sortNum[i]:
-      print('i',i)
-      print('n',n)
-      print('sortNum',sortNum)
       i += 1
     else:
-      sortNum.insert(n)
+      sortNum.insert(i,n)
       return
   while flag:
     num = int(input('输入一个数字:'))
@@ -486,7 +483,6 @@ def learn037():
       sortNum.append(num)
     else:
       appendToSortNums(num)
-    
     isQuit = input('是否输入完毕? y/n:')
     if isQuit == 'y':
       flag = False
