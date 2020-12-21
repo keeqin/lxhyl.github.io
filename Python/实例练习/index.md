@@ -627,3 +627,164 @@ def learn037():
   return sortNum
 # print(learn037())
 ```
+
+# 038   
+
+求一个3*3矩阵主对角线元素之和  
+```py
+def learn038():
+  a = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+  ]
+  numSum = 0
+  for i in range(len(a)):
+    for j in range(len(a[i])):
+      if i == j:
+        numSum += a[i][j]
+  return numSum
+# print(learn038())
+```
+
+# 039    
+有一个已经排好序的数组。现输入一个数，要求按原来的规律将它插入数组中
+
+**插入排序没啥好说的**  见[037](/python/实例练习/index?id=_037)题 
+
+# 040   
+将一个数组逆序输出
+
+```py
+def learn040():
+  numList = [1,2,3,4,5]
+  for index in range(len(numList)-1,0-1,-1):
+    print(numList[index])
+
+# learn040()
+```
+
+* `range`函数的第三个参数可以设定步长，-1即为倒序
+
+# 041    
+模仿静态变量的用法  
+
+```py
+class learn041(object):
+  print('object', object)
+  a = 1
+  b = 2
+  def aAdd(self,num):
+    print('num', num)
+    self.a += self.b
+    return self
+  def getA(self):
+    return self.a
+test = learn041()
+test.aAdd(1).aAdd(2).aAdd(3)
+print(test.getA())
+```
+
+* 类里面函数的第一个参数是self   
+
+
+# 042  
+
+auto搜了半天只在枚举中搜到了， 此题应该学习的是作用域方面的知识    
+
+```py
+def learn042():
+  a = 1
+  b = 2
+  c = []
+  def fun1():
+    # a += 1 报错 需要先声明
+    b = 3
+    c.append('fun1C')
+    print('fun1 -> a', a)
+    print('fun1 -> b',b)
+    print('fun1 -> c',c)
+  fun1()
+  print('a', a)
+  print('b',b)
+  print('c',c)
+``` 
+更多作用域方面的知识见[深入理解Python之作用域解析](https://zhuanlan.zhihu.com/p/50174320)   
+
+# 043  
+和[042题](/python/实例练习/index?id=_042)同理   
+
+# 044    
+两个 3 行 3 列的矩阵，实现其对应位置的数据相加，并返回一个新矩阵  
+```py
+def learn044():
+  X = [[12,7,3],
+    [4 ,5,6],
+    [7 ,8,9]]
+
+  Y = [[5,8,1],
+    [6,7,3],
+    [4,5,9]]
+  result = []
+  for i in range(0,len(X)):
+    row = []
+    for j in range(0,len(X[i])):
+      row.append(X[i][j] + Y[i][j])
+    result.append(row)
+  return result
+print(learn044())
+```
+
+# 045   
+统计 1 到 100 之和  
+```py
+def learn045():
+  numSum = 0
+  for i in range(1,101):
+    numSum += i
+  return numSum
+print(learn045())
+```
+
+# 046  
+太简单，略。 太简单的就只写题号了...
+
+# 047 
+
+# 048 
+
+# 049  
+使用lambda来创建匿名函数  
+```py
+def learn049():
+  X = [[12,7,3],
+    [4 ,5,6],
+    [7 ,8,9]]
+
+  Y = [
+    [5,8,1],
+    [6,7,3],
+    [4,5,9]
+    ]
+  return list(map(lambda rowx,rowy:list(map(lambda colx,coly:colx + coly,rowx,rowy)),X,Y))
+print(learn049())
+```
+
+使用lambda来解决[044题](/python/实例练习/index?id=_044)
+
+# 050
+输出一个随机数  
+```py
+def learn050():
+  import random
+  print('random',random.random() * 100)
+learn050()
+```
+更多可见[random模块](https://docs.python.org/zh-cn/3/library/random.html)
+
+# 051 
+# 052  
+# 053  
+# 054
+# 055
+

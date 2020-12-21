@@ -487,5 +487,111 @@ def learn037():
     if isQuit == 'y':
       flag = False
   return sortNum
-print(learn037())
+# print(learn037())
+
+
+
+# 038  
+def learn038():
+  a = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+  ]
+  numSum = 0
+  for i in range(len(a)):
+    for j in range(len(a[i])):
+      if i == j:
+        numSum += a[i][j]
+  return numSum
+# print(learn038())
+
+# 040 
+def learn040():
+  numList = [1,2,3,4,5]
+  for index in range(len(numList)-1,0-1,-1):
+    print(numList[index])
+
+# learn040()
+
+# 041  
+class learn041(object):
+  a = 1
+  b = 2
+  def aAdd(self,num):
+    print('num', num)
+    self.a += self.b
+    return self
+  def getA(self):
+    return self.a
+# test = learn041()
+# test.aAdd(1).aAdd(2).aAdd(3)
+# print(test.getA())
+
+# 042 
+def learn042():
+  a = 1
+  b = 2
+  c = []
+  def fun1():
+    # a += 1
+    b = 3
+    c.append('fun1C')
+    print('fun1 -> a', a)
+    print('fun1 -> b',b)
+    print('fun1 -> c',c)
+  fun1()
+  print('a', a)
+  print('b',b)
+  print('c',c)
+
+# learn042()
+
+# 044
+def learn044():
+  X = [[12,7,3],
+    [4 ,5,6],
+    [7 ,8,9]]
+
+  Y = [[5,8,1],
+    [6,7,3],
+    [4,5,9]]
+  result = []
+  for i in range(0,len(X)):
+    row = []
+    for j in range(0,len(X[i])):
+      row.append(X[i][j] + Y[i][j])
+    result.append(row)
+  return result
+# print(learn044())
+
+
+# 045
+def learn045():
+  numSum = 0
+  for i in range(1,101):
+    numSum += i
+  return numSum
+# print(learn045())
+
+# 049
+def learn049():
+  X = [[12,7,3],
+    [4 ,5,6],
+    [7 ,8,9]]
+
+  Y = [
+    [5,8,1],
+    [6,7,3],
+    [4,5,9]
+    ]
+  return list(map(lambda rowx,rowy:list(map(lambda colx,coly:colx + coly,rowx,rowy)),X,Y))
+# print(learn049())
+
+# 050
+def learn050():
+  import random
+  print('random',random.random() * 100)
+learn050()
+
 
