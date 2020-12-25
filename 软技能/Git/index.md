@@ -120,3 +120,15 @@ s 9d5e4ee 提交2
 
 无冲突就可以直接推到远程仓库，  
 ![git-rebase](https://raw.githubusercontent.com/lxhyl/lxhyl.github.io/master/files/img/git-rebase.png)
+
+
+# 分支回滚  
+
+**本地回滚**
+
+* `git log` 查看分支hash   
+* `git reset --hard ${hash}` 回滚到hash处  
+
+**远程回滚**       
+1. 先回滚到本地,再强行推送   
+2. 删除原分支，再新建分支改名....

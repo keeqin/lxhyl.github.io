@@ -12,6 +12,8 @@
 
 * [函数式编程](fun/index.md)  
 
+* [数学](math/index.md)
+
 * 软技能
  * [正则](软技能/正则/index.md)  
  * [Git](软技能/Git/index.md)  
