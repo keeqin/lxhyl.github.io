@@ -76,3 +76,22 @@ directives: {
 **e.stopImmediatePropagation()**
 
 如果添加了多个监听器，如果在其中一个事件监听器中执行`stopImmediatePropagation()` ，那么剩下的事件监听器都不会被调用。
+
+
+# 12-29    
+~**todo**~已解决，但`number`组件在项目中的位置不合理，后期再改进。  
+
+表单项的`Number`类型输入框问题
+
+**单位转换**   
+
+我自己用链表搞的，结果很麻烦，然后请教陈哥，用数组实现简单清晰多了。  
+
+```js
+transitionUnit(oldUnit, newUnit, size) {
+  const list = ['K', 'M', 'G'];
+  const oldUnitIndex = list.indexOf(oldUnit);
+  const newUnitIndex = list.indexOf(newUnit);
+  return size * (1024 ** (oldUnitIndex - newUnitIndex));
+},
+```
