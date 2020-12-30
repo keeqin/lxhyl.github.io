@@ -49,7 +49,7 @@ directives: {
 
 
 **e.preventDefault()**  
-事件仍然是可以继续传播的，当默认行为会被阻止，比如`a`标签无法跳转，`radio`无法选中。  
+事件仍然是可以继续传播的，但默认行为会被阻止，比如`a`标签无法跳转，`radio`无法选中。  
 
 测试了下无法选中的有`input.radio`,`input.file`,`input.checkbox`,`input.date`,`input.color`,  
 
@@ -77,7 +77,6 @@ directives: {
 **e.stopImmediatePropagation()**
 
 如果添加了多个监听器，如果在其中一个事件监听器中执行`stopImmediatePropagation()` ，那么剩下的事件监听器都不会被调用。
-<<<<<<< HEAD
 
 
 # 12-29    
@@ -97,5 +96,3 @@ transitionUnit(oldUnit, newUnit, size) {
   return size * (1024 ** (oldUnitIndex - newUnitIndex));
 },
 ```
-=======
->>>>>>> 32fb20472646d99c5425e47d27a45c866f585c22
