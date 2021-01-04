@@ -96,3 +96,17 @@ transitionUnit(oldUnit, newUnit, size) {
   return size * (1024 ** (oldUnitIndex - newUnitIndex));
 },
 ```
+
+
+# 12-31   
+
+**表单校验**
+
+时刻注意：vue2.x是使用`defineProperty`来监听对象变更的。对象的新增是监听不到的，所以watch是触发不了的。解决方法还是使用`$set`。
+
+遇到的问题：
+这里监听的是整个表单的验证规则改变。   
+而当一个校验规则改变时，整个`rules`都会重新计算，导致其他元素触发校验。
+
+解决方案：遍历表单，分别监听每个元素。
+
