@@ -8,4 +8,6 @@
 
 [kimmy-ui](小米实习记录/kimmy-ui/index)
 
-[mifi-loan-activity](小米实习记录/mifi-loan-activity/index)
+[mifi-loan-activity](小米实习记录/mifi-loan-activity/index)   
+
+[mifi-datamap-web-static](小米实习记录/mifi-datamap-web-static/index)
