@@ -19,6 +19,7 @@
  * [实习记录](小米实习记录/index.md)
  * [日记](diary/index.md)
  * [小诗](poem/index.md)
+ * [随便记记](things/index.md)
 
 * 软技能
  * [正则](软技能/正则/index.md)  
@@ -28,5 +29,3 @@
  * [树](数据结构算法/树/二叉搜索树.md)
  * [每日一题](数据结构算法/每日一题/README.md)
  * [LeetCode腾讯50题](数据结构算法/LeetCode腾讯50题/index.md)
-
-* [毕设](graduationProject/index.md)
