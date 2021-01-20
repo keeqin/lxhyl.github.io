@@ -21,9 +21,9 @@
  * [小诗](poem/index.md)
  * [随便记记](things/index.md)
 
-* 软技能
- * [正则](软技能/正则/index.md)  
- * [Git](软技能/Git/index.md)  
+* 其他
+ * [正则](其他/正则/index.md)  
+ * [Git](其他/Git/index.md)  
  
 * 数据结构算法
  * [树](数据结构算法/树/二叉搜索树.md)
