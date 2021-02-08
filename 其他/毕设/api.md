@@ -2,7 +2,11 @@
 
 * url 
 
-`/login`   
+`/login`      
+* method     
+
+`post`   
+
 
 * body   
 ```js
