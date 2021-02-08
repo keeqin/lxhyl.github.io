@@ -176,6 +176,10 @@ const options = {
 }
 new Date(2020,11,01,16,45).toLocaleString('zh-cn',options)
 // 2020年12月01日星期二 下午04:45
+
+
+**补充** 
+时区默认和'zh-cn'都会显示出上下午，使用'cn'则不会...
 ```
 
 
