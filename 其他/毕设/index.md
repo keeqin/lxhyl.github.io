@@ -5,7 +5,7 @@ web端地址
 http://zhangpengfan.xyz/bsweb
 
 日志地址
-http://zhangpengfan.xyz/bsweb/log
+http://zhangpengfan.xyz/bsweb/#/log
 
 
 [api](其他/毕设/api.md)
