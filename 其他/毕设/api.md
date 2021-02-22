@@ -42,3 +42,11 @@
     logName:'2021-2'
 }
 ```
+
+
+# 账户管理   
+
+## 获取所有账户   
+
+* url `/accountList`   
+* method `get`
