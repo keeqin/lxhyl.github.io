@@ -487,5 +487,5 @@ def learn037():
     if isQuit == 'y':
       flag = False
   return sortNum
-print(learn037())
+# print(learn037())
 
