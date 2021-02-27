@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #father {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 500px;
+      background-color: aquamarine;
+    }
+
+    #me {
+      width: 300px;
+      height: 400px;
+      margin: 50px;
+      background-color: antiquewhite;
+      position: relative;
+    }
+
+    #son {
+      width: 200px;
+      height: 300px;
+      position: absolute;
+      margin: 50px;
+      background-color: azure;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="father">
+    father
+    <div id="me">
+      me
+      <div id="son">
+        son
+        <br />
+        <a id="a" href="https://google.com" target="_blank">a标签</a>
+        <input type="radio" name="radio" />
+        <label>radio</label>
+        <br />
+        <select name="select">
+          <option value="select1">select1</option>
+          <option value="select2">select2</option>
+        </select>
+        <input />
+        <input type="file" />
+        <input type="button" onclick="console.log('inputButton')" value="button" />
+        <input type="color" />
+        <input type="date" />
+        <input type="email" />
+        <input type="range" />
+        <br />
+        <input type="checkbox" name="checkbox" value="checkbox" /> <label for="checkbox">checkbox111</label>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:520px">
+    执行顺序
+    <p id="result"></p>
+  </div>
+  <script>
+
+
+    const getE = (id) => document.getElementById(id);
+    const father = getE('father');
+    const me = getE('me');
+    const son = getE('son');
+    const result = getE('result');
+    const resultArr = [];
+    const proxyResult = new Proxy(resultArr, {
+      set: (obj, prop, value) => {
+        obj[prop] = value;
+        result.innerText = proxyResult.join('=>')
+        return true;
+      }
+    })
+
+    const fatherFn = function (e) {
+      proxyResult.push('father')
+    }
+    const meFn = function (e) {
+      proxyResult.push('me')
+    }
+    const sonFn = function (e) {
+      e.preventDefault()
+      proxyResult.push('son')
+    }
+    const stage = false;
+    father.addEventListener('click', fatherFn, stage);
+    me.addEventListener('click', meFn, stage)
+    me.addEventListener('click', function () { proxyResult.push('me2') }, stage)
+    me.addEventListener('click', function () { proxyResult.push('me3') }, stage)
+    son.addEventListener('click', sonFn, stage)
+
+  </script>
+</body>
+
+</html>
