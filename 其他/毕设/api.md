@@ -120,6 +120,10 @@ password: "test"
 }
 ```
 
+## 退出登录
+* url `/logout`  
+* method `get`
+
 
 # 枚举值接口  
 * url `enums`   
