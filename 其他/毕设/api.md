@@ -96,6 +96,12 @@ name: "测试"  // 姓名
 password: "test" // 密码
 }
 ```
+
+## 获取当前账号信息
+* url `/getUserInfo`  
+* method `get`   
+
+
 ## 编辑账号信息
 * url `/editAccount`  
 * method `post`   
@@ -138,3 +144,12 @@ password: "test"
 * enumsKey:level  职位
 
 
+#  上传文件  
+* url `/files`
+* method `post`
+* headers 
+```js
+{
+    Content-Type: multipart/form-data;boundary=----WebKitFormBoundaryBDOt8RHQWMk5B52t
+}
+```
