@@ -153,3 +153,41 @@ password: "test"
     Content-Type: multipart/form-data;boundary=----WebKitFormBoundaryBDOt8RHQWMk5B52t
 }
 ```
+
+
+# 任务相关
+
+##  创建任务
+
+* url `/createTask`   
+* method `post`   
+* body 
+```js
+{
+    title // 任务名称  必须
+    startDate // 任务开始时间  必须
+    endDate // 任务结束时间  必须
+    cost // 成本  必须
+    responsePerson // 负责人
+    phone // 联系方式
+    address // 联系地址
+    description // 描述
+    filePaths //  文件地址 多个文件使用';'分隔
+    tags: text1,type1;text2,type2  // 每个标签用';'分隔,标签内容和类型用','分隔
+    comment // 备注
+}
+```
+
+## 获取自己的待办   
+* url `/task/todo`  
+* method `get`   
+
+## 任务详情
+* url `/task/detail`   
+* method `get`  
+* params  
+```js
+{
+    taskId //任务ID
+}
+```
