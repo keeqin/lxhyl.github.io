@@ -153,6 +153,16 @@ password: "test"
     Content-Type: multipart/form-data;boundary=----WebKitFormBoundaryBDOt8RHQWMk5B52t
 }
 ```
+* response 
+```js
+{
+    code:200,
+    msg:'成功'
+    data:{
+        fileId:10   // 返回的文件id，在创建项目时需要把此id传过去
+    }
+}
+```
 
 
 # 任务相关
@@ -169,12 +179,13 @@ password: "test"
     endDate // 任务结束时间  必须
     cost // 成本  必须
     responsePerson // 负责人
-    phone // 联系方式
-    address // 联系地址
+    phone // 联系方式  
+    address // 联系地址 
     description // 描述
-    filePaths //  文件地址 多个文件使用';'分隔
+    fileIds // 文件ID 多个使用','分隔
     tags: text1,type1;text2,type2  // 每个标签用';'分隔,标签内容和类型用','分隔
-    comment // 备注
+    comment // 备注,
+    fatherTask // 如果是创建子任务，需要把父任务的id传回来
 }
 ```
 
@@ -190,4 +201,38 @@ password: "test"
 {
     taskId //任务ID
 }
+
+* response 
+```js
+{
+      code: 200,
+      msg: "成功",
+      data: {
+        taskId: "tzjho3pb2wqa65gkmqjipcd1qccmb9",
+        title: "测试12414214",
+        startDate: "1615996800000",
+        endDate: "1616083200000",
+        cost: "124",
+        responsePerson: "chuonyqt83un79$n/hzddgf*jl-h$h+7pu7zf7*4-h4y77yh//",
+        phone: "124125412512",
+        address: "阿萨大大",
+        fileIds: "24",
+        tags: "124,danger",
+        comment: "124用于布局的容器组件，方便快速搭建页面的基本结构：",
+        description:
+          "desc用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：",
+        status: 1,
+        createPerson: "等级4",
+        createDate: "1616060861626",
+        responsePersonName: "等级4",
+        files: [
+          {
+            fileId: 24,
+            sourceName: "1608537925(1).jpg",
+            path:
+              "http://zhangpengfan.xyz/FILES/files8YLyYBOLwreTEZYzyenlIi0o.jpg",
+          },
+        ],
+      },
+    };
 ```
