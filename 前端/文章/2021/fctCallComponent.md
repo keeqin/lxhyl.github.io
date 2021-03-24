@@ -112,3 +112,5 @@ Vue.use会调用上面的install方法将组件挂载到vue原型上
 content是可以直接传入一个组件的,所以复杂场景也能hold住。  
 
 `this.$dialog({})`会返回组件的vNode，可以直接调用上面的`close`方法关闭
+
+封装其他组件也是同理的
