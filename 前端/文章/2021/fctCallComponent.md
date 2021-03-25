@@ -21,24 +21,38 @@ export default {
       visible: true
     }
   },
+  computed: {
+    // 传入content 的类型
+    type() {
+      return typeof this.props.content   
+    },
+    // 如果传入了个组件，可以获取其vNode 调用其上的方法或者获取其数据
+    contentNode() {
+      if (this.type === 'object') {
+        return this.renderContent().componentInstance
+      }
+    }
+  },
   methods: {
     close() {
       this.visible = false
     },
+    open() {
+      this.visible = true
+    },
     renderContent() {
       if (!this.props.content) return ''
-      const type = typeof this.props.content
-      if (type === 'string' || type === 'object') return this.props.content
+      if (this.type === 'string' || this.type === 'object') return this.props.content
       return this.props.content()
     }
   },
   render() {
     return <a-modal
-      visible={this.visible} // 
-      props={{ ...this.props.attr }} // 属性  this.props为实例化组件时混入的
+      visible={this.visible}  // 控制打开关闭
+      props={{ ...this.props.attr }} // 属性
       on={{ ...this.props.methods }} // 方法
     >
-      {this.renderContent()}  // 
+      {this.renderContent()}
     </a-modal>
   }
 }
@@ -93,6 +107,7 @@ Vue.use会调用上面的install方法将组件挂载到vue原型上
 ```js
  import DeleteConfirm from './deleteConfirm'
  const confirmNode = this.$dialog({
+        // 传入一些属性
         attr: {
           destroyOnClose: true,
           title: `title`
@@ -102,7 +117,8 @@ Vue.use会调用上面的install方法将组件挂载到vue原型上
             confirmNode.close()
           },
           ok() {
-            console.log('onOk')
+            // 调用DeleteConfirm 组件上的submit方法
+            confirmNode.contentNode.submit() 
           }
         },
         content: <DeleteConfirm data={{id:'test'}}/>
@@ -111,6 +127,6 @@ Vue.use会调用上面的install方法将组件挂载到vue原型上
 ```
 content是可以直接传入一个组件的,所以复杂场景也能hold住。  
 
-`this.$dialog({})`会返回组件的vNode，可以直接调用上面的`close`方法关闭
+`this.$dialog({})`会返回组件的vNode，可以直接调用上面的`close`,`open`等方法
 
 封装其他组件也是同理的
