@@ -37,7 +37,7 @@ http://zhangpengfan.xyz/bsweb/#/log
 
 
 ## 任务状态码
- 
+ status 
  * 1:待办
  * 2:进行中   
  * 3:已完成  

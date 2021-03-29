@@ -142,6 +142,7 @@ password: "test"
 ```
 
 * enumsKey:level  职位
+* enumsKey:status 任务状态
 
 
 #  上传文件  
@@ -189,9 +190,20 @@ password: "test"
 }
 ```
 
-## 获取自己的待办   
-* url `/task/todo`  
+## 获取任务列表  
+* url `/taskList`  
 * method `get`   
+* params 
+```js
+{
+
+    status: 1 //待办列表, 2 进行中,3已完成,10 全部
+}
+```
+
+## 获取所有任务
+* url `/task/allList`   
+* method `get`
 
 ## 任务详情
 * url `/task/detail`   
@@ -236,3 +248,55 @@ password: "test"
       },
     };
 ```
+
+
+## 改变任务状态
+
+* url `/task/changTaskStatus`
+* method `post`   
+* params 
+```js
+{
+    status:2 // 改变为进行中
+    taskId //要改变的任务
+}
+```
+
+## 更改任务的负责人
+* url `/task/changeResPerson`
+* method `post`
+* data
+```js
+{
+    taskId // 任务的id
+    newPerson // 新负责人的id
+}
+```
+
+
+# 备注 任务进度 相关
+
+## 添加任务备注
+* url `/task/changeLog`
+* method `post`  
+* data 
+```js
+{
+  taskId  // 任务id
+  logtext // 要添加的内容
+}
+```
+
+## 获取任务备注
+
+* url `/task/getChangeLogs` 
+* method `get`
+* params 
+```js
+{
+    taskId //任务Id
+}
+```
+
+
+
