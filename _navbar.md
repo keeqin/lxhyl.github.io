@@ -8,19 +8,19 @@
   * [node](node/index.md)
 
 * Python
-  * [练习100题](Python/实例练习/index.md)
+  * [练习100题](Python/实例练习/index.md)  
 
-* 软技能
-  * [正则](软技能/正则/index.md)  
-  * [Git](软技能/Git/index.md)  
- 
 * 数据结构算法
   * [树](数据结构算法/树/二叉搜索树.md)
   * [每日一题](数据结构算法/每日一题/README.md)
   * [LeetCode腾讯50题](数据结构算法/LeetCode腾讯50题/index.md)
 
+* 其他
+  * [正则](其他/正则/index.md)  
+  * [Git](其他/Git/index.md)  
+
 * 记录
-  * [实习记录](小米实习记录/index.md)
+  * [实习记录](实习记录/index.md)
   * [日记](diary/index.md)
   * [小诗](poem/index.md)
   * [毕设](其他/毕设/index.md)
