@@ -187,6 +187,8 @@ password: "test"
     tags: text1,type1;text2,type2  // 每个标签用';'分隔,标签内容和类型用','分隔
     comment // 备注,
     fatherTask // 如果是创建子任务，需要把父任务的id传回来
+    quantity // 数量  number类型
+    flow // 工作流  多个工作流使用';'分隔
 }
 ```
 
@@ -217,36 +219,29 @@ password: "test"
 * response 
 ```js
 {
-      code: 200,
-      msg: "成功",
-      data: {
-        taskId: "tzjho3pb2wqa65gkmqjipcd1qccmb9",
-        title: "测试12414214",
-        startDate: "1615996800000",
-        endDate: "1616083200000",
-        cost: "124",
-        responsePerson: "chuonyqt83un79$n/hzddgf*jl-h$h+7pu7zf7*4-h4y77yh//",
-        phone: "124125412512",
-        address: "阿萨大大",
-        fileIds: "24",
-        tags: "124,danger",
-        comment: "124用于布局的容器组件，方便快速搭建页面的基本结构：",
-        description:
-          "desc用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：用于布局的容器组件，方便快速搭建页面的基本结构：",
-        status: 1,
-        createPerson: "等级4",
-        createDate: "1616060861626",
-        responsePersonName: "等级4",
-        files: [
-          {
-            fileId: 24,
-            sourceName: "1608537925(1).jpg",
-            path:
-              "http://zhangpengfan.xyz/FILES/files8YLyYBOLwreTEZYzyenlIi0o.jpg",
-          },
-        ],
-      },
-    };
+"code": 200,
+"msg": "成功",
+"data": {
+"taskId": "y744hno2qxg930elqbcgd72qa3dj97",
+"title": "ceshiwrenwu1",
+"startDate": "1619107200000",
+"endDate": "1619193600000",
+"cost": "124",
+"responsePerson": "chuonyqt83un79$n/hzddgf*jl-h$h+7pu7zf7*4-h4y77yh//",
+"phone": "214",
+"address": "24",
+"tags": "124,danger",
+"comment": "124",
+"description": "描述",
+"status": 1,
+"createPerson": "等级4",
+"createDate": "1618995701113",
+"responsePersonName": "等级4",
+"quantity": 1000,
+"flow": "购买材料;质检材料;切割;加工;打磨;质检"
+"nowFlow":"购买材料" 
+}
+}
 ```
 
 
@@ -259,6 +254,16 @@ password: "test"
 {
     status:2 // 改变为进行中
     taskId //要改变的任务
+}
+```
+## 改变进行中工作流
+* url `/task/ing/changeFlow`  
+* method `post`  
+* params  
+```js
+{
+    taskId //任务ID
+    flow // 要变更的状态名称
 }
 ```
 

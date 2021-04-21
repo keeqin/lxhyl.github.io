@@ -41,3 +41,23 @@
     console.log(findMin([11, 13, 15, 17]))
        
 }
+
+
+{
+    // #28 
+    const strStr = function(haystack, needle) {
+        if(needle === '') return 0
+        if(haystack === '') return -1
+        for(let i=0;i<haystack.length;i++){
+            let index = 0
+            while(haystack[i + index] === needle[index] && index < needle.length){
+                index += 1
+            }
+            if(index === needle.length) return i
+        }
+        return -1
+    }
+
+    const haystack = "a", needle = "a"
+    console.log(strStr(haystack,needle))
+}
