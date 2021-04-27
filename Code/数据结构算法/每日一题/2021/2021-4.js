@@ -58,6 +58,24 @@
         return -1
     }
 
-    const haystack = "a", needle = "a"
+    const haystack = "hello", needle = "ll"
     console.log(strStr(haystack,needle))
+}
+
+
+{
+    // # 938 
+    const computed = (root,low,high) => {
+        let result = 0;
+        const dfs = node => {
+            if(!node) return
+            if(node.val >= low && node.val <= high){
+                result += node.val
+            }
+            dfs(node.left)
+            dfs(node.right)
+        }
+        dfs(root)
+        return result
+    }
 }
