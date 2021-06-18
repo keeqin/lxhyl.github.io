@@ -19,11 +19,13 @@
 * 其他
   * [正则](其他/正则/index.md)  
   * [Git](其他/Git/index.md)  
+  * [实习记录](其他/实习记录/index.md)  
+  * [毕设](其他/毕设/index.md)  
 
 * 记录
-  * [实习记录](实习记录/index.md)
+ 
   * [日记](diary/index.md)
   * [小诗](poem/index.md)
-  * [毕设](其他/毕设/index.md)
+ 
 
 
