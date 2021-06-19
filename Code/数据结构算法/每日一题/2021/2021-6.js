@@ -76,28 +76,118 @@
 
 
 
-{   
+{
     // #98
     const isValidBST = root => {
-       const valArr = []
-       const dfs = node => {
-           if(!node) return
-           dfs(node.left)
-           valArr.push(node.val)
-           dfs(node.right)
-       }
-       dfs(root)
-       let i=0,j=1;
-       if(valArr.length <= 1) return true
-       while(i<j && j<valArr.length){
-           if(valArr[i] < valArr[j]){
-               i++
-               j++
-           }else{
-               return false
-           }
-       }
-       return true
+        const valArr = []
+        const dfs = node => {
+            if (!node) return
+            dfs(node.left)
+            valArr.push(node.val)
+            dfs(node.right)
+        }
+        dfs(root)
+        let i = 0, j = 1;
+        if (valArr.length <= 1) return true
+        while (i < j && j < valArr.length) {
+            if (valArr[i] < valArr[j]) {
+                i++
+                j++
+            } else {
+                return false
+            }
+        }
+        return true
     }
     console.log(isValidBST(tree))
 }
+
+{
+    //#102
+    const levelOrder = root => {
+        const result = []
+        const lsfHelper = nodesArr => {
+            if (nodesArr.length === 0) return
+            const tempLevelArr = []
+            const tempNodeArr = []
+            nodesArr.forEach(itemNode => {
+                if (!itemNode) return
+                tempLevelArr.push(itemNode.val)
+                tempNodeArr.push(itemNode.left)
+                tempNodeArr.push(itemNode.right)
+            });
+            if (tempLevelArr.length > 0) {
+                result.push([...tempLevelArr])
+            }
+            lsfHelper(tempNodeArr)
+        }
+        lsfHelper([root])
+        return result
+    }
+}
+
+{
+    // #103
+    const levelOrder = root => {
+        const result = []
+        const lsfHelper = (nodesArr,level) => {
+            if (nodesArr.length === 0) return
+            const tempLevelArr = []
+            const tempNodeArr = []
+            nodesArr.forEach(itemNode => {
+                if (!itemNode) return
+                tempLevelArr.push(itemNode.val)
+                tempNodeArr.push(itemNode.left)
+                tempNodeArr.push(itemNode.right)
+            });
+            if (tempLevelArr.length > 0) {
+                if(level % 2 === 0){
+                    result.push([...tempLevelArr].reverse())
+                }else{
+                    result.push([...tempLevelArr])
+                }
+            }
+            lsfHelper(tempNodeArr,level + 1)
+        }
+        lsfHelper([root],1)
+        return result
+    }
+}
+
+
+{
+    // #104
+    const maxDepth = root => {
+        const dfs = node => {
+            if(!node) return 0
+            return Math.max(dfs(node.left),dfs(node.right)) + 1
+        }
+        return dfs(root)
+    }
+}
+
+
+{
+    // #107
+    const orderTree = root => {
+        const result = []
+        const lsfHelper = nodesArr => {
+            if (nodesArr.length === 0) return
+            const tempLevelArr = []
+            const tempNodeArr = []
+            nodesArr.forEach(itemNode => {
+                if (!itemNode) return
+                tempLevelArr.push(itemNode.val)
+                tempNodeArr.push(itemNode.left)
+                tempNodeArr.push(itemNode.right)
+            });
+            if (tempLevelArr.length > 0) {
+                result.unshift([...tempLevelArr])
+            }
+            lsfHelper(tempNodeArr)
+        }
+        lsfHelper([root])
+        return result
+    }
+}
+
