@@ -191,3 +191,31 @@
     }
 }
 
+{
+    //#1333
+    const filterRestaurants = function(restaurants, veganFriendly, maxPrice, maxDistance) {
+       const filtersArr = restaurants.filter(rest => {
+           return rest[3] <= maxPrice && rest[4] <= maxDistance
+       }).filter(rest => {
+           if(veganFriendly === 1){
+               return rest[2] === 1
+           }
+           return true
+       })
+       filtersArr.sort((a,b) => {
+           if(a[1] < b[1]){
+               return 1
+           }else if(a[1] === b[1]){
+               return b[0] - a[0]
+           }else{
+               return -1
+           }
+       })
+       return filtersArr.map(item => item[0])
+    };
+    const restaurants = [[1,4,1,40,10],[2,8,0,50,5],[3,8,1,30,4],[4,10,0,10,3],[5,1,1,15,1]], 
+    veganFriendly = 1, 
+    maxPrice = 50, 
+    maxDistance = 10;
+    console.log(filterRestaurants(restaurants, veganFriendly, maxPrice, maxDistance))
+}
