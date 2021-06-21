@@ -130,7 +130,7 @@
     // #103
     const levelOrder = root => {
         const result = []
-        const lsfHelper = (nodesArr,level) => {
+        const lsfHelper = (nodesArr, level) => {
             if (nodesArr.length === 0) return
             const tempLevelArr = []
             const tempNodeArr = []
@@ -141,15 +141,15 @@
                 tempNodeArr.push(itemNode.right)
             });
             if (tempLevelArr.length > 0) {
-                if(level % 2 === 0){
+                if (level % 2 === 0) {
                     result.push([...tempLevelArr].reverse())
-                }else{
+                } else {
                     result.push([...tempLevelArr])
                 }
             }
-            lsfHelper(tempNodeArr,level + 1)
+            lsfHelper(tempNodeArr, level + 1)
         }
-        lsfHelper([root],1)
+        lsfHelper([root], 1)
         return result
     }
 }
@@ -159,8 +159,8 @@
     // #104
     const maxDepth = root => {
         const dfs = node => {
-            if(!node) return 0
-            return Math.max(dfs(node.left),dfs(node.right)) + 1
+            if (!node) return 0
+            return Math.max(dfs(node.left), dfs(node.right)) + 1
         }
         return dfs(root)
     }
@@ -193,56 +193,106 @@
 
 {
     //#1333
-    const filterRestaurants = function(restaurants, veganFriendly, maxPrice, maxDistance) {
-       const filtersArr = restaurants.filter(rest => {
-           return rest[3] <= maxPrice && rest[4] <= maxDistance
-       }).filter(rest => {
-           if(veganFriendly === 1){
-               return rest[2] === 1
-           }
-           return true
-       })
-       filtersArr.sort((a,b) => {
-           if(a[1] < b[1]){
-               return 1
-           }else if(a[1] === b[1]){
-               return b[0] - a[0]
-           }else{
-               return -1
-           }
-       })
-       return filtersArr.map(item => item[0])
+    const filterRestaurants = function (restaurants, veganFriendly, maxPrice, maxDistance) {
+        const filtersArr = restaurants.filter(rest => {
+            return rest[3] <= maxPrice && rest[4] <= maxDistance
+        }).filter(rest => {
+            if (veganFriendly === 1) {
+                return rest[2] === 1
+            }
+            return true
+        })
+        filtersArr.sort((a, b) => {
+            if (a[1] < b[1]) {
+                return 1
+            } else if (a[1] === b[1]) {
+                return b[0] - a[0]
+            } else {
+                return -1
+            }
+        })
+        return filtersArr.map(item => item[0])
     };
-    const restaurants = [[1,4,1,40,10],[2,8,0,50,5],[3,8,1,30,4],[4,10,0,10,3],[5,1,1,15,1]], 
-    veganFriendly = 1, 
-    maxPrice = 50, 
-    maxDistance = 10;
+    const restaurants = [[1, 4, 1, 40, 10], [2, 8, 0, 50, 5], [3, 8, 1, 30, 4], [4, 10, 0, 10, 3], [5, 1, 1, 15, 1]],
+        veganFriendly = 1,
+        maxPrice = 50,
+        maxDistance = 10;
     console.log(filterRestaurants(restaurants, veganFriendly, maxPrice, maxDistance))
 }
 
 {
     // #1
-    const twoSum = (nums,target) => {
-        const gapMap = new Map(nums.map((num,index) => [num,index]))
-        for(let i=0;i<nums.length;i++){
-            if(gapMap.has(target - nums[i])){
-                return [i,gapMap.get(target - nums[i])]
+    const twoSum = (nums, target) => {
+        for (let i = 0; i < nums.length; i++) {
+            for (let j = 0; i < nums.length; j++) {
+                if (i !== j && (nums[i] + nums[j] === target)) {
+                    return [i, j]
+                }
             }
         }
         return []
     }
-    let nums = [2,7,11,15], target = 9
-    console.log(twoSum(nums,target))
-    
-    const twoSum = (nums,target) => {
-      const gapMap = new Map()
-      for(let i=0;i<nums.length;i++){
-          if(gapMap.has(target - nums[i])){
-              return [i,gapMap.get(target - nums[i])]
-          }
-          gapMap.set(nums[i],i)
-      }
-      return []
+    let nums = [2, 7, 11, 15], target = 9
+    console.log(twoSum(nums, target))
+
+
+    const twoSum = (nums, target) => {
+        const gapMap = new Map(nums.map((num, index) => [num, index]))
+        for (let i = 0; i < nums.length; i++) {
+            if (gapMap.has(target - nums[i])) {
+                return [i, gapMap.get(target - nums[i])]
+            }
+        }
+        return []
     }
-   
+
+    const twoSum = (nums, target) => {
+        const gapMap = new Map()
+        for (let i = 0; i < nums.length; i++) {
+            if (gapMap.has(target - nums[i])) {
+                return [i, gapMap.get(target - nums[i])]
+            }
+            gapMap.set(nums[i], i)
+        }
+        return []
+    }
+
+}
+
+
+{
+    // #剑指offer 38.
+    const permutation = s => {
+        const result = []
+        const sArr = s.split('')
+        // 递归函数，strs为排列中的字符串，使用数组（栈会更好）存储，indexs为已经排列了的字符串的索引
+        const helper = (strs, indexs) => {
+            // 排列完成
+            if (strs.length === sArr.length) {
+                result.push([...strs])
+                return
+            }
+            // 选择一个字符串进行组合
+            for (let i = 0; i < sArr.length; i++) {
+                // 判断此字符是否排列过了
+                if(!indexs.includes(i)){
+                    // 未排列，则将此字符进行排列
+                    strs.push(sArr[i])
+                    // 标记索引
+                    indexs.push(i)
+                    helper(strs,indexs)
+                    // 运行至此，则说明已经找到一个满足条件的排列组合了
+                    // 进行回溯，由于函数参数是按值传递的，且为引用类型，所以直接pop移除栈顶元素即可
+                    indexs.pop()
+                    strs.pop()
+                }
+            }
+        }
+        for(let i=0;i<sArr.length;i++){
+            helper([sArr[i]],[i])
+        }
+        return Array.from(new Set(result.map(item => item.join(''))))
+    }
+    const str = 'aab'
+    console.log(permutation(str))
 }
