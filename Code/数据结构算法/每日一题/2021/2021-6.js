@@ -219,3 +219,30 @@
     maxDistance = 10;
     console.log(filterRestaurants(restaurants, veganFriendly, maxPrice, maxDistance))
 }
+
+{
+    // #1
+    const twoSum = (nums,target) => {
+        const gapMap = new Map(nums.map((num,index) => [num,index]))
+        for(let i=0;i<nums.length;i++){
+            if(gapMap.has(target - nums[i])){
+                return [i,gapMap.get(target - nums[i])]
+            }
+        }
+        return []
+    }
+    let nums = [2,7,11,15], target = 9
+    console.log(twoSum(nums,target))
+    
+    const twoSum = (nums,target) => {
+      const gapMap = new Map()
+      for(let i=0;i<nums.length;i++){
+          if(gapMap.has(target - nums[i])){
+              return [i,gapMap.get(target - nums[i])]
+          }
+          gapMap.set(nums[i],i)
+      }
+      return []
+    }
+   
+}
