@@ -1,4 +1,4 @@
-代码文件路径`/Code/js/String/index.js`  
+
 [参考:MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)
 
 # 转义字符

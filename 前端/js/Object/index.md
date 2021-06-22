@@ -1,4 +1,4 @@
-代码文件地址`/Code/js/Object/index.js`
+
 
 # 属性描述符
 

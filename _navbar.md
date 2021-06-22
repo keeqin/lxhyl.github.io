@@ -7,6 +7,9 @@
 * Node
   * [node](node/index.md)
 
+* Go   
+  * [学习](go/learn/index.md)
+
 * Python
   * [练习100题](Python/实例练习/index.md)  
 
