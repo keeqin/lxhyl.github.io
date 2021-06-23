@@ -2,8 +2,8 @@ go语言学习笔记
 
 学习的相关代码在`/Users/lxhyl/Documents/learn/go/learn`目录下   
 # 相关资料   
-* [topgoer.com/](http://www.topgoer.com/)  
-
+* [topgoer.com](http://www.topgoer.com/)    
+* [chai2010.cn](https://chai2010.cn/)
 
 # 初始  
 
