@@ -296,3 +296,16 @@
     const str = 'aab'
     console.log(permutation(str))
 }
+
+{
+    // #剑指Offer.15.二进制中1的个数
+    const hammingWeight = n => {
+        let result = 0;
+        for(let i = 0; i < 32; i++){
+            if( (n & (1 << i)) !== 0){
+                result++
+            }
+        }
+        return result
+    }
+}
