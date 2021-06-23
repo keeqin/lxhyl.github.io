@@ -275,12 +275,12 @@
             // 选择一个字符串进行组合
             for (let i = 0; i < sArr.length; i++) {
                 // 判断此字符是否排列过了
-                if(!indexs.includes(i)){
+                if (!indexs.includes(i)) {
                     // 未排列，则将此字符进行排列
                     strs.push(sArr[i])
                     // 标记索引
                     indexs.push(i)
-                    helper(strs,indexs)
+                    helper(strs, indexs)
                     // 运行至此，则说明已经找到一个满足条件的排列组合了
                     // 进行回溯，由于函数参数是按值传递的，且为引用类型，所以直接pop移除栈顶元素即可
                     indexs.pop()
@@ -288,8 +288,8 @@
                 }
             }
         }
-        for(let i=0;i<sArr.length;i++){
-            helper([sArr[i]],[i])
+        for (let i = 0; i < sArr.length; i++) {
+            helper([sArr[i]], [i])
         }
         return Array.from(new Set(result.map(item => item.join(''))))
     }
@@ -301,11 +301,62 @@
     // #剑指Offer.15.二进制中1的个数
     const hammingWeight = n => {
         let result = 0;
-        for(let i = 0; i < 32; i++){
-            if( (n & (1 << i)) !== 0){
+        for (let i = 0; i < 32; i++) {
+            if ((n & (1 << i)) !== 0) {
                 result++
             }
         }
         return result
     }
+}
+
+{
+    // #149.直线上最多的点
+    const maxPoints = points => {
+        const len = points.length
+        if (len <= 2) return len
+        let result = 0
+        const gcd = (a,b) => {
+            return b !== 0 ? gcd(b, a % b) : a
+        }
+        const computeSlopeBy2Points = (a,b) => {
+            let dx = b[0] - a[0]
+            let dy = b[1] - a[1]
+            const dgcd = gcd(Math.abs(dx),Math.abs(dy))
+            if (dx === 0) {
+                dy = 1;
+            } else if (dy === 0) {
+                dx = 1;
+            } else {
+                // 目的是把负号移到分子 
+                if (dy < 0) {
+                    dx = -dx;
+                    dy = -dy;
+                }
+                const dgcd = gcd(Math.abs(dx), Math.abs(dy));
+                dx /= dgcd;
+                dy /= dgcd;
+            }
+            return `${dx}/${dy}`
+        }
+        for (let i = 0; i < len; i++) {
+            const slopeMap = {}
+            for(let j=i+1;j < len;j++){
+                const slope = computeSlopeBy2Points(points[i],points[j]) 
+                if(!slopeMap[slope]){
+                   slopeMap[slope] = 1
+                }else{
+                   slopeMap[slope] += 1
+                }
+            }
+            let maxNum = 0;
+            for(let slope in slopeMap){
+                maxNum = Math.max(maxNum,slopeMap[slope]+1)
+            }
+            result = Math.max(result,maxNum)
+        }
+        return result
+    }
+    const points = [[1,1],[2,2],[3,3]]
+    console.log(maxPoints(points))
 }
