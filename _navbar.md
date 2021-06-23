@@ -4,11 +4,8 @@
   * [笔记](前端/笔记/index.md)
   * [文章](前端/文章/index.md)
 
-* Node
-  * [node](node/index.md)
-
 * Go   
-  * [学习](go/learn/index.md)
+  * [学习笔记](go/learn/index.md)
 
 * Python
   * [练习100题](Python/实例练习/index.md)  
@@ -19,16 +16,14 @@
   * [每日一题](数据结构算法/每日一题/README.md)
   * [LeetCode腾讯50题](数据结构算法/LeetCode腾讯50题/index.md)
 
+* 记录
+  * [日记](diary/index.md)
+  * [小诗](poem/index.md)
+ 
 * 其他
   * [正则](其他/正则/index.md)  
   * [Git](其他/Git/index.md)  
   * [实习记录](其他/实习记录/index.md)  
   * [毕设](其他/毕设/index.md)  
-
-* 记录
- 
-  * [日记](diary/index.md)
-  * [小诗](poem/index.md)
- 
 
 
