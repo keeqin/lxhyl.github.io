@@ -362,3 +362,67 @@
     const points = [[1, 1], [2, 2], [3, 3]]
     console.log(maxPoints(points))
 }
+
+
+{
+    // # 752
+    const openLock = (deadends, target) => {
+        if (target === '0000') return 0
+        if (deadends.includes('0000')) return -1
+        // 标记已经转到的数字
+        const markTarget = {}
+        // 计算下次可能的数字
+        const makeAllTarget = t => {
+            const arrT = t.split('').map(s => +s)
+            const res = []
+            for (let i = 0; i < arrT.length; i++) {
+                let a = [...arrT]
+                let b = [...arrT]
+                if (a[i] < 9) {
+                    a[i] += 1
+                } else {
+                    a[i] = 0
+                }
+                if (b[i] > 0) {
+                    b[i] -= 1
+                } else {
+                    b[i] = 9
+                }
+                a = a.join('')
+                b = b.join('')
+                if(!deadends.includes(a) && !markTarget[a]){
+                  res.push(a)
+                }
+                if(!deadends.includes(b) && !markTarget[b]){
+                  res.push(b)
+                }
+                markTarget[a] = 1
+                markTarget[b] = 1
+            }
+            return res
+        }
+
+        let result = 0
+        // 判断是否没有答案
+        let noSolve = false
+        // 广度优先遍历
+        const bfs = tArr => {
+            result += 1
+            if(tArr.includes(target)) return
+            const nextLevel = []
+            tArr.forEach(item => {
+                nextLevel.push(...makeAllTarget(item))
+            })
+            if(nextLevel.length === 0){
+               noSolve = true
+               return
+            }
+            bfs(nextLevel)
+        }
+        const firstLevel = makeAllTarget('0000')
+        bfs(firstLevel)
+        return noSolve ? -1 : result
+    }
+    const deadends = ["0201","0101","0102","1212","2002"], target = "0202"
+    console.log(openLock(deadends, target))
+}
