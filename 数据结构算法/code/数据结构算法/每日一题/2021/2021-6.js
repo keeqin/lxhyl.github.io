@@ -390,11 +390,11 @@
                 }
                 a = a.join('')
                 b = b.join('')
-                if(!deadends.includes(a) && !markTarget[a]){
-                  res.push(a)
+                if (!deadends.includes(a) && !markTarget[a]) {
+                    res.push(a)
                 }
-                if(!deadends.includes(b) && !markTarget[b]){
-                  res.push(b)
+                if (!deadends.includes(b) && !markTarget[b]) {
+                    res.push(b)
                 }
                 markTarget[a] = 1
                 markTarget[b] = 1
@@ -408,14 +408,14 @@
         // 广度优先遍历
         const bfs = tArr => {
             result += 1
-            if(tArr.includes(target)) return
+            if (tArr.includes(target)) return
             const nextLevel = []
             tArr.forEach(item => {
                 nextLevel.push(...makeAllTarget(item))
             })
-            if(nextLevel.length === 0){
-               noSolve = true
-               return
+            if (nextLevel.length === 0) {
+                noSolve = true
+                return
             }
             bfs(nextLevel)
         }
@@ -423,6 +423,69 @@
         bfs(firstLevel)
         return noSolve ? -1 : result
     }
-    const deadends = ["0201","0101","0102","1212","2002"], target = "0202"
+    const deadends = ["0201", "0101", "0102", "1212", "2002"], target = "0202"
     console.log(openLock(deadends, target))
+}
+
+{
+    // #773.滑动谜题
+    const slidingPuzzle = board => {
+        const strBoard = board.flat(2).join('')
+        if(strBoard === '123450') return 0
+        /*
+        *  将二维转为一维，方便操作
+        *  0 1 2
+        *  3 4 5
+        *  手动写出，i可能移动的位置
+        *  比如 0 可以和neighbor[0]数组内的索引处字符交换位置
+        */
+        const neighbor = [
+            [1, 3],
+            [0, 2, 4],
+            [1, 5],
+            [0, 4],
+            [1, 3, 5],
+            [2, 4]
+        ]
+        // 存储已经遍历过的状态
+        const markStatus = {}
+        markStatus[strBoard] = true
+        // 求出所有的可交换的结果
+        const allPossible = b => {
+            const zeroIndex = b.indexOf('0')
+            const possbileNeb = neighbor[zeroIndex]
+            const res = []
+            for (let i = 0; i < possbileNeb.length; i++) {
+                const tempB = b.split('')
+                tempB[zeroIndex] = tempB[possbileNeb[i]]
+                tempB[possbileNeb[i]] = '0'
+                const strTempB = tempB.join('')
+                if (!markStatus[strTempB]) {
+                    res.push(strTempB)
+                }
+                markStatus[strTempB] = true
+            }
+            return res
+        }
+        // 第一层
+        let step = 0
+        let noSolve = false
+        const bfs = boards => {
+            step += 1
+            if (boards.includes('123450')) return
+            const nextLevel = []
+            boards.forEach(s => {
+                nextLevel.push(...allPossible(s))
+            })
+            if(nextLevel.length  === 0) {
+                noSolve = true
+                return
+            }
+            bfs(nextLevel)
+        }
+        bfs(allPossible(strBoard))
+        return noSolve ? -1 : step
+    }
+    const board = [[3,2,4],[1,5,0]]
+    console.log(slidingPuzzle(board))
 }
