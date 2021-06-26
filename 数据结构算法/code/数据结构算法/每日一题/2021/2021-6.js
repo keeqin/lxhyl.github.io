@@ -492,7 +492,7 @@
 
 
 {
-    // #909.蛇梯题
+    // #909.蛇梯棋
     const snakesAndLadders = board => {
         const oneBoard =[]
         // 将二维展开为1维
