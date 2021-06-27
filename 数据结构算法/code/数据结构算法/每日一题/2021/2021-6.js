@@ -431,7 +431,7 @@
     // #773.滑动谜题
     const slidingPuzzle = board => {
         const strBoard = board.flat(2).join('')
-        if(strBoard === '123450') return 0
+        if (strBoard === '123450') return 0
         /*
         *  将二维转为一维，方便操作
         *  0 1 2
@@ -477,7 +477,7 @@
             boards.forEach(s => {
                 nextLevel.push(...allPossible(s))
             })
-            if(nextLevel.length  === 0) {
+            if (nextLevel.length === 0) {
                 noSolve = true
                 return
             }
@@ -486,7 +486,7 @@
         bfs(allPossible(strBoard))
         return noSolve ? -1 : step
     }
-    const board = [[3,2,4],[1,5,0]]
+    const board = [[3, 2, 4], [1, 5, 0]]
     console.log(slidingPuzzle(board))
 }
 
@@ -494,33 +494,33 @@
 {
     // #909.蛇梯棋i
     const snakesAndLadders = board => {
-        const oneBoard =[]
+        const oneBoard = []
         // 将二维展开为1维
         let pushWay = 'order'
-        for(let i=board.length - 1;i >=0 ; i--){
-            if(pushWay === 'order'){
+        for (let i = board.length - 1; i >= 0; i--) {
+            if (pushWay === 'order') {
                 oneBoard.push(...board[i])
                 pushWay = 'flashback'
-            }else{
+            } else {
                 oneBoard.push(...board[i].reverse())
                 pushWay = 'order'
             }
         }
         const startIndex = 0, endIndex = oneBoard.length - 1
-        if(startIndex >= endIndex) return 0
+        if (startIndex >= endIndex) return 0
         // 存储走过的格子
         const markStatus = {}
         // 找到下一步所有可能的格子
         const allNextStep = index => {
             const res = []
-            for(let i=1;i<=6;i++){
-                let nextStepIndex =  Number(index) + Number(i)
-                if(oneBoard[nextStepIndex] !== -1){
+            for (let i = 1; i <= 6; i++) {
+                let nextStepIndex = Number(index) + Number(i)
+                if (oneBoard[nextStepIndex] !== -1) {
                     nextStepIndex = oneBoard[nextStepIndex]
                     // 注意，格子的编号是从1开始的，和索引不一致，减一转换为索引
                     nextStepIndex -= 1
                 }
-                if(!markStatus[nextStepIndex] && (nextStepIndex <= endIndex)){
+                if (!markStatus[nextStepIndex] && (nextStepIndex <= endIndex)) {
                     res.push(nextStepIndex)
                 }
                 markStatus[nextStepIndex] = true
@@ -533,12 +533,12 @@
         const bfs = steps => {
             result += 1
             // 路线中包含终点
-            if(steps.includes(endIndex)) return
+            if (steps.includes(endIndex)) return
             // 下一步所有可能的格子
             const nextArr = []
-            steps.forEach(item =>nextArr.push(...allNextStep(item))) 
+            steps.forEach(item => nextArr.push(...allNextStep(item)))
             // 无结果
-            if(nextArr.length === 0){
+            if (nextArr.length === 0) {
                 noSolve = true
                 return
             }
@@ -548,6 +548,8 @@
         return noSolve ? -1 : result
     }
     // [-1,8,9,8,9,-1,-1,-1,-1]
-    const board = [[-1,-1,-1],[-1,9,8],[-1,8,9]]
+    const board = [[-1, -1, -1], [-1, 9, 8], [-1, 8, 9]]
     console.log(snakesAndLadders(board))
 }
+
+
