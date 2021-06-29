@@ -580,3 +580,49 @@
     let columnNumber = 1
     console.log(convertToTitle(columnNumber))
 }
+
+
+{
+    // #297.二叉树的序列化与反序列化
+    const serialize = root => {
+        const result = []
+        const dfs = node => {
+            if(!node){
+                result.push('NULL')
+                return
+            }
+            result.push(node.val)
+            dfs(node.left)
+            dfs(node.right)
+        }
+        dfs(root)
+        return result.join(',')
+    }
+    const deserialize = data => {
+        const dfs = nodeArr => {
+            if(nodeArr[0] === 'NULL'){
+                nodeArr.shift()
+                return null
+            }
+            const root = {val:parseInt(nodeArr[0])}
+            nodeArr.shift()
+            root.left = dfs(nodeArr)
+            root.right = dfs(nodeArr)
+            return root
+        }
+        return dfs(data.split(','))
+    }
+    const root = {
+        val:1,
+        left:{
+            val:11,
+            right:{
+                val:111
+            }
+        },
+        right:{
+            val:2
+        }
+    }
+    console.log(deserialize(serialize(root)))
+}
