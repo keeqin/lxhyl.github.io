@@ -626,3 +626,53 @@
     }
     console.log(deserialize(serialize(root)))
 }
+
+{
+    // #27.移除元素
+    const removeElement = (nums,val) => {
+        let i =0;
+        while(nums[i] !== undefined){
+            if(nums[i] === val){
+                if(i !== nums.length -1){
+                  nums[i] = nums.pop()
+                }else{
+                    nums.pop()
+                }
+            }else{
+                i++
+            }
+        }
+        return nums.length
+    }
+    const nums = [3,2,2,3], val = 3
+    console.log(removeElement(nums,val))
+}
+
+
+{
+    // #690.员工的重要性
+    const getImportance = (employees,id) => {
+        const employeesObj = {}
+        for(let i=0;i<employees.length;i++){
+            const item = employees[i]
+            employeesObj[item.id] = {
+                importance:item.importance,
+                subordinates:item.subordinates
+            }
+        }
+        console.log(employeesObj)
+        let result = employeesObj[id]?.importance
+        const bfs = s => {
+            s.forEach(item => {
+               result += employeesObj[item].importance
+               if(employeesObj[item].subordinates.length > 0){
+                   bfs(employeesObj[item].subordinates)
+               }
+            })
+        }
+        bfs(employeesObj[id].subordinates)
+        return result
+    }
+    const employees =[[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], id = 1
+    console.log(getImportance(employees,id))
+}

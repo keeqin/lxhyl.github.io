@@ -16,9 +16,10 @@
   * [每日一题](数据结构算法/每日一题/README.md)
   * [LeetCode腾讯50题](数据结构算法/LeetCode腾讯50题/index.md)
 
-* 记录
+* 写作
   * [日记](diary/index.md)
   * [小诗](poem/index.md)
+  * [写作](写作/index.md)
  
 * 其他
   * [正则](其他/正则/index.md)  
