@@ -676,3 +676,30 @@
     const employees =[[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], id = 1
     console.log(getImportance(employees,id))
 }
+
+{
+    // #LCP 07.传递信息
+    const numWays = (n,relation,k) => {
+        const allWaysMap = Array(n).fill(null).map(() => Array())
+        for(let [start,next] of relation){
+            allWaysMap[start].push(next)
+        }
+        let result = 0;
+        const dfs = (index,step) => {
+            if(step === k){
+                if(index === n -1){
+                   result++
+                }
+                return
+            }else{
+                allWaysMap[index].forEach(item => {
+                    dfs(item,step + 1)
+                })
+            }
+        }
+        dfs(0,0)
+        return result
+    }
+    const n = 5, relation = [[0,2],[2,1],[3,4],[2,3],[1,4],[2,0],[0,4]], k = 3
+    console.log(numWays(n,relation,k))
+}
