@@ -53,12 +53,12 @@
 {
     // #雪糕的最大数量
     const maxIceCream = (costs,coins) => {
-        costs = costs.sort((a,b) => a - b)
+        costs.sort((a,b) => a - b)
         let result = 0;
         for(let i=0; i<costs.length; i++){
             if(coins >= costs[i]){
                 result += 1
-                coins -=costs[i]
+                coins -= costs[i]
             }else{
                 break
             }
