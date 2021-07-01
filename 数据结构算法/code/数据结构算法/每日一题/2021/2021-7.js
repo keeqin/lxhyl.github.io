@@ -49,3 +49,22 @@
     const s = "dvdf"
     console.log(lengthOfLongestSubstring(s))
 }
+
+{
+    // #雪糕的最大数量
+    const maxIceCream = (costs,coins) => {
+        costs = costs.sort((a,b) => a - b)
+        let result = 0;
+        for(let i=0; i<costs.length; i++){
+            if(coins >= costs[i]){
+                result += 1
+                coins -=costs[i]
+            }else{
+                break
+            }
+        }
+        return result
+    }
+    const costs = [1,3,2,4,1], coins = 7
+    console.log(maxIceCream(costs,coins))
+}
