@@ -77,3 +77,46 @@ d := "test"
 ```
 ## 字符串
 
+* 使用双引号("")
+* 多行字符使用反引号(``)
+
+### 字符  
+
+* 使用单引号
+* unit8类型，byte型，代表ASCLL码的一个字符
+* rune型，代表一个utf-8字符，当处理中文，日文等复合字符时需要用到此类型
+
+## 数组Array   
+
+和js不同，go中的数组是值类型
+
+* 初始化`const arr = [3] int {1,2,3}`,定义了一个长度为三值分别为1，2，3的`int`型数组   
+
+* 数组遍历  
+```go
+// 长度为3，arr[1]=“hello”的string类型的数组
+arr2 := [3]string{1: "hello"}	
+for i, v := range arr2 {
+	fmt.Printf("%d => %s\n", i, v)
+}
+// 0 => 
+// 1 => hello
+// 2 => 
+```
+
+**练习**    
+> 数组求和  
+
+需要注意的是，由于数组是按值传递的，所以求和参数类型必须和原数组类型一致，要实现任意长度数组求和，在传参时，需将数组转为切片
+
+```go
+func sumArray(arr []int) int {
+	sum := 0
+	for _, v := range arr {
+		sum += v
+	}
+	return sum
+}
+const arr1 = [5]int{0,1,2,3,4}
+sumArray(arr1[:])
+```
