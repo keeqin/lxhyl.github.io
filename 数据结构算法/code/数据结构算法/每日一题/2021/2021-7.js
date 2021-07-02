@@ -99,3 +99,36 @@
     const s = 'tree'
     console.log(frequencySort(s))
 }
+
+{
+    // # 509.斐波那契数列
+    const fib = n => {
+        const dp = []
+        dp[0] = 0
+        dp[1] = 1
+        if(n <= 1) return dp[n]
+        let i = 2
+        while(i <= n){
+            dp[i] = dp[i-1] + dp[i-2]
+            i++
+        }
+        return dp[n]
+    }
+    console.log(fib(4))
+}
+
+{
+    // #1137.第n个泰波那契数 
+    const tribonacci = n => {
+        const dp = [0,1,1]
+        if(n <= 2) return dp[n]
+        let i = 3
+        while(i <= n){
+            dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
+            i++
+        }
+        return dp[n]
+    }
+    const n = 25
+    console.log(tribonacci(n))
+}
