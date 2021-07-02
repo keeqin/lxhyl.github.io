@@ -68,3 +68,34 @@
     const costs = [1,3,2,4,1], coins = 7
     console.log(maxIceCream(costs,coins))
 }
+
+{
+    // #451.根据字符出现的频率排序
+    const frequencySort = s => {
+        const len = s.length
+        if(s.length <= 1) return s
+        const strNumMap = {}
+        for(let i=0;i<len;i++){
+           strNumMap[s[i]] =  strNumMap[s[i]] ?  strNumMap[s[i]] + 1 : 1  
+        }
+        const strNumArr = []
+        for(let key in strNumMap){
+            strNumArr.push({
+                s:key,
+                n:strNumMap[key]
+            })
+        }
+        strNumArr.sort((a,b) => b.n - a.n)
+        return strNumArr.map(item => {
+            let str = ''
+            let i = 1
+            while(i <= item.n){
+                str += item.s
+                i++
+            }
+            return str
+        }).join('')
+    }
+    const s = 'tree'
+    console.log(frequencySort(s))
+}
