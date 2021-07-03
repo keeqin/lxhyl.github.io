@@ -155,8 +155,54 @@
            }
        }
        return [mult,miss]
-       console.log(numsMap)
     }
-    const nums =[3,2,2]
+    const nums = [3,2,3,4,6,5]
     console.log(findErrorNums(nums))
+}
+
+{
+    // # 70.爬楼梯
+    // 状态转移方程 f(x) = f(x-1) + f(x-2)
+    // 每次爬楼梯向前一步或两部，所以爬到第x层的方法等于x-1层的方法加上x-2层
+    const climbStairs = n => {
+        const dp = []
+        dp[1] = 1
+        dp[2] = 2
+        let i = 3
+        while(i<=n){
+            dp[i] = dp[i-1] + dp[i-2]
+            i++
+        }
+        return dp[n]
+    }
+    const climbStairs = n => {
+        let x1=0,x2=0
+        let x = 1
+        for(let i=1;i<=n;i++){
+           x1 = x2
+           x2 = x
+           x = x1 + x2
+        }
+        return x
+    }
+    console.log(climbStairs(3))
+}
+
+{
+    // # 746.使用最小话费爬楼梯
+
+    const minCostClimbingStairs = cost => {
+        const len = cost.length
+        const dp = Array(len + 1)
+        dp[0] = 0
+        dp[1] = 0
+        let i=2
+        while(i <= len){
+           dp[i] = Math.min(dp[i-1] + cost[i-1],dp[i-2] + cost[i-2])
+           i++
+        }
+        return dp[len]
+    }
+    const cost =  [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+    console.log(minCostClimbingStairs(cost))
 }
