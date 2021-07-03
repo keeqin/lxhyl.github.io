@@ -132,3 +132,31 @@
     const n = 25
     console.log(tribonacci(n))
 }
+
+
+{
+    // #645.错误的集合
+    const findErrorNums = nums => {
+       const numsMap = new Map()
+       nums.forEach(item => {
+           if(!numsMap.has(item)){
+               numsMap.set(item,1)
+           }else{
+               numsMap.set(item,2)
+           }
+       })
+       let miss,mult
+       for(let i=1;i<=nums.length;i++){
+           if(!numsMap.has(i)){
+               miss = i
+           }
+           if(numsMap.get(i) === 2){
+               mult = i
+           }
+       }
+       return [mult,miss]
+       console.log(numsMap)
+    }
+    const nums =[3,2,2]
+    console.log(findErrorNums(nums))
+}
