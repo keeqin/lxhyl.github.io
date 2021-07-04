@@ -206,3 +206,81 @@
     const cost =  [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
     console.log(minCostClimbingStairs(cost))
 }
+
+{
+    // #198.大家劫舍
+    const rob =  nums => {
+        const len = nums.length
+        if(len === 1) return nums[0]
+        if(len === 2) return Math.max(nums[0],nums[1])
+        const dp = Array(len)
+        dp[0] = nums[0]
+        dp[1] = Math.max(nums[0],nums[1])
+        let i = 2;
+        while(i<len){
+            dp[i] = Math.max(dp[i-1],dp[i-2] + nums[i])
+            i++
+        }
+        return dp[len-1]
+    }
+    const nums = [2,7,9,3,1]
+    console.log(rob(nums))
+}
+
+
+{
+    // #213.打家劫舍2
+    const rob = nums => {
+        const len = nums.length
+        if(len === 1) return nums[0]
+        if(len === 2) return Math.max(nums[0],nums[1])
+        const steal = (start,end) => {
+           let first = nums[start]
+           let second = Math.max(nums[start],nums[start + 1])
+           for(let i = start + 2; i<=end; i++){
+              const  t = Math.max(first + nums[i],second)
+              first = second
+              second = t
+           }
+           return second
+        }
+        return Math.max(steal(0,len-2),steal(1,len-1))
+    }
+    const nums  = [1,3,1,3,100]
+    console.log(rob(nums))
+}
+
+
+{
+    // #740.删除并获得点数
+
+    const deleteAndEarn = nums => {
+        const len = nums.len
+        if(len === 0) return 0
+        if(len === 1) return nums[0]
+        const numsCount = {}
+        nums.forEach(n => {
+            if(n in numsCount){
+                numsCount[n] += 1
+            }else{
+                numsCount[n] = 1
+            }
+        })
+        const numsSum = []
+        for(let key in numsCount){
+            numsSum[key] = Number(key) * numsCount[key]
+        }
+        const dp = Array(len)
+        dp[0] = numsSum[0] || 0
+        dp[1] = Math.max(numsSum[0] || 0,numsSum[1] || 0)
+        let i = 2
+        while(i < numsSum.length){
+
+            dp[i] = Math.max(dp[i-1],dp[i-2] + numsSum[i] || 0)
+            i++
+        }
+        return dp[numsSum.length - 1]
+    }
+    const nums  = [3,4,2]
+    console.log(deleteAndEarn(nums))
+}
