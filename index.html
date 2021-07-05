@@ -12,6 +12,8 @@
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css" title="vue">
   <link rel="stylesheet" href="./style/index.css">
+  <!-- 评论 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
 </head>
 
 <body>
@@ -42,6 +44,9 @@
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/components/prism-python.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-go.min.js"></script>
+  <!-- 评论 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
   <script>
     const lxhylToTop = document.getElementsByClassName('lxhyx-to-top')[0];
     let timer;
@@ -57,6 +62,15 @@
         }
       });
     }
+    const gitalk = new Gitalk({
+      clientID: '661243c155299855f4d8',
+      clientSecret: '4ba0f2578bf032e6deaf08df1ef0642f113dc224',
+      repo: 'lxhyl.comment',
+      owner: 'lxhyl',
+      admin: ['lxhyl'],
+      // facebook-like distraction free mode
+      distractionFreeMode: false
+    })
   </script>
 </body>
 
