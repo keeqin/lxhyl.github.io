@@ -284,3 +284,39 @@
     const nums  = [3,4,2]
     console.log(deleteAndEarn(nums))
 }
+
+{
+    const displayTable = orders => {
+        const tablesObj = {}
+        const allProductSet = new Set()
+        for(let i=0;i<orders.length;i++){
+            [_,tableNum,product] = orders[i]
+            allProductSet.add(product)
+            if(!tablesObj[tableNum]){
+                tablesObj[tableNum] = {}
+            }
+            if(!tablesObj[tableNum][product]){
+               tablesObj[tableNum][product] = 1
+            }else{
+                tablesObj[tableNum][product]++
+            }
+        }
+        const titles = Array.from(allProductSet).sort()
+        titles.unshift('Table')
+        const result = [titles]
+        for(let table in tablesObj){
+            const nums = [table]
+            for(let i=1;i<titles.length;i++){
+                if(!tablesObj[table][titles[i]]){
+                    nums.push("0")
+                }else{
+                    nums.push(tablesObj[table][titles[i]].toString())
+                }
+            }
+            result.push(nums)
+        }
+        return result
+    }
+    const orders = [["David","3","Ceviche"],["Corina","10","Beef Burrito"],["David","3","Fried Chicken"],["Carla","5","Water"],["Carla","5","Ceviche"],["Rous","3","Ceviche"]]
+    console.log(displayTable(orders))
+}
