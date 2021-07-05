@@ -47,7 +47,7 @@
   <!-- 评论 -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/md5@2.3.0/md5.min.js"></script>
+  
   <script>
     const lxhylToTop = document.getElementsByClassName('lxhyx-to-top')[0];
     let timer;
@@ -67,9 +67,9 @@
       clientID: '661243c155299855f4d8',
       clientSecret: '4ba0f2578bf032e6deaf08df1ef0642f113dc224',
       repo: 'lxhyl.comment',
-      owner: 'lxhyl',
+      owner: 'lxhyl', 
       admin: ['lxhyl'],
-      id:md5(location.pathname),
+      id:location.pathname.slice(0,50),
       // facebook-like distraction free mode
       distractionFreeMode: false
     })
