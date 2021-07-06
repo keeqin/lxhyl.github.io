@@ -320,3 +320,28 @@
     const orders = [["David","3","Ceviche"],["Corina","10","Beef Burrito"],["David","3","Fried Chicken"],["Carla","5","Water"],["Carla","5","Ceviche"],["Rous","3","Ceviche"]]
     console.log(displayTable(orders))
 }
+
+
+{
+    // #1711.大餐计数
+    const countPairs = deliciousness => {
+        let result = 0
+        const mod = 10**9 + 7
+        let len = deliciousness.length
+        const max = Math.max(...deliciousness) * 2
+        if(len <= 1) return 0
+        if(len === 2) return 1
+        const map = new Map()
+        for(let i =0; i<len;i++){
+           const val = deliciousness[i]
+           for(let j=1;j <= max;j <<= 1){
+              const count = map.get(j - val) || 0
+              result = (result + count) % mod
+           }
+           map.set(val,(map.get(val) || 0) + 1)
+        }
+        return result
+    }
+    const deliciousness = [2160,1936,3,29,27,5,2503,1593,2,0,16,0,3860,28908,6,2,15,49,6246,1946,23,105,7996,196,0,2,55,457,5,3,924,7268,16,48,4,0,12,116,2628,1468]
+    console.log(countPairs(deliciousness))
+}
