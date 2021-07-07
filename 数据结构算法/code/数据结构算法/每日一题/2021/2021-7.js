@@ -345,3 +345,34 @@
     const deliciousness = [2160,1936,3,29,27,5,2503,1593,2,0,16,0,3860,28908,6,2,15,49,6246,1946,23,105,7996,196,0,2,55,457,5,3,924,7268,16,48,4,0,12,116,2628,1468]
     console.log(countPairs(deliciousness))
 }
+
+{
+    // #930.和相同的二元子数组
+    // 暴力
+    const numSubarraysWithSum = (nums,goal) => {
+        const len = nums.length
+        let result = 0
+        nums.forEach((n,index) => {
+            let j = index
+            let sum = 0
+            while(j<len){
+               sum += nums[j]
+               if(sum < goal){
+                   j++
+                   continue
+               }
+               if(sum === goal){
+                   result += 1
+                   j++
+                   continue
+               }
+               if(sum > goal){
+                   return
+               }
+            }
+        })
+        return result
+    }
+    const nums = [0,0,0,0,0], goal = 0
+    console.log(numSubarraysWithSum(nums,goal))
+}
