@@ -376,3 +376,46 @@
     const nums = [0,0,0,0,0], goal = 0
     console.log(numSubarraysWithSum(nums,goal))
 }
+
+{
+     // #面试题 17.10.主要元素
+     const majorityElement = nums => {
+         const nMap = new Map()
+         const len = nums.length
+         const halfLen = Math.floor(len / 2)
+         for(let i = 0;i<len;i++){
+             nMap.set(nums[i],(nMap.get(nums[i]) || 0) + 1)
+             if(nMap.get(nums[i]) > halfLen){
+                 return nums[i]
+             }
+         }
+         return -1
+     }
+     const majorityElement = nums => {
+         let m
+         let n = 0
+         nums.forEach(item => {
+             console.log('m==>',m,';','n==>',n)
+             if(n === 0){
+                 m = item
+                 n = 1
+             }else if(m === item){
+                 n++
+             }else{
+                 n--
+             }
+         })
+         let mNum = 0
+         for(let i =0;i<nums.length;i++){
+             if(nums[i] === m){
+                 mNum++
+             }
+             if(mNum > Math.floor(nums.length / 2)){
+                 return m
+             }
+         }
+         return -1
+     }
+     const nums =[1,2,5,9,5,9,5,5,5]
+     console.log(majorityElement(nums))
+}
