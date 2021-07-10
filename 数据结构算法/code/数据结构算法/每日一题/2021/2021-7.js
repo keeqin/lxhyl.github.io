@@ -422,7 +422,7 @@
 
 {
     // #981.基于时间的键值存储
-    var TimeMap = function(){
+    const TimeMap = function(){
         this.store = new Map()
         return this
     }
@@ -456,4 +456,20 @@
     }
     const timemap = new TimeMap()
     console.log(timemap)
+}
+
+{
+    // # 274.H指数
+    const hIndex = citations => {
+        citations.sort((a,b) => b - a)
+        let h = 0
+        let i = 0
+        while(i<citations.length &&  citations[i] > h){
+            h++
+            i++ 
+        }
+        return h
+    }
+    const citations =  [3,0,6,1,5]
+    console.log(hIndex(citations))
 }
