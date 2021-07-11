@@ -470,6 +470,21 @@
         }
         return h
     }
-    const citations =  [3,0,6,1,5]
+    const citations =  [1,3,1]
+    console.log(hIndex(citations))
+}
+
+{
+    // #275.H指数2
+    const hIndex = citations => {
+        let h = 0;
+        let i = citations.length - 1;
+        while(i>=0 && citations[i] > h){
+            h++
+            i--
+        }
+        return h
+    }
+    const citations =  [0,1,3,5,6]
     console.log(hIndex(citations))
 }
