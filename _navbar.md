@@ -19,7 +19,7 @@
 * 写作
   * [日记](diary/index.md)
   * [小诗](poem/index.md)
-
+  * [写作](写作/index.md)
 * 其他
   * [正则](其他/正则/index.md)  
   * [Git](其他/Git/index.md)  

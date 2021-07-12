@@ -485,6 +485,6 @@
         }
         return h
     }
-    const citations =  [0,1,3,5,6]
+    const citations =  [1,1,3]
     console.log(hIndex(citations))
 }
