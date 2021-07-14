@@ -488,3 +488,22 @@
     const citations =  [1,1,3]
     console.log(hIndex(citations))
 }
+
+{
+    // #1846
+    const maximumElementAfterDecrementingAndRearranging = arr => {
+       arr.sort((a,b) => a - b)[0] = 1
+       let result = 1
+       for(let i = 1;i<arr.length;i++){
+           if(arr[i] - arr[i-1] > 1){
+               arr[i] = arr[i-1] + 1
+           }
+       }
+       return arr[arr.length - 1]
+    }
+    const maximumElementAfterDecrementingAndRearranging = arr => {
+        return arr.sort((a,b) => a - b).reduce((l,n) => Math.min(l + 1,n),0)
+    }
+    const arr = [2,2,1,2,1]
+    console.log(maximumElementAfterDecrementingAndRearranging(arr))
+}
