@@ -507,3 +507,26 @@
     const arr = [2,2,1,2,1]
     console.log(maximumElementAfterDecrementingAndRearranging(arr))
 }
+
+{
+    // #剑指Offer.53
+    const search = (nums,target) => {
+        let left = 0,right = nums.length - 1
+        while(left <= right){
+            const mid = Math.floor((left + right) / 2)
+            if(nums[mid] < target){
+                left = mid + 1
+            }else if(nums[mid] >= target){
+                right = mid - 1
+            }
+        }
+        let result = 0
+        while(left < nums.length && nums[left] === target){
+            left++
+            result++
+        }
+        return result
+    }
+    const nums = [1], target = 1
+    console.log(search(nums,target))
+}
