@@ -530,3 +530,20 @@
     const nums = [1], target = 1
     console.log(search(nums,target))
 }
+
+{
+    // 剑指Offer 42.
+    const maxSubArray = nums => {
+       const len = nums.length
+       if(len === 0) return 0
+       if(len === 1) return nums[0]
+       const dp = [0]
+       dp[0] = nums[0]
+       for(let i = 1;i<len;i++){
+           dp[i] = Math.max(dp[i-1] + nums[i],nums[i]) 
+       }
+       return  Math.max(...dp)
+    }
+    const nums = [-2,-1]
+    console.log(maxSubArray(nums))
+}
