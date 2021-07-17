@@ -547,3 +547,30 @@
     const nums = [-2,-1]
     console.log(maxSubArray(nums))
 }
+
+
+{
+    // #面试题 10.02
+    const groupAnagrams = strs => {
+        const sortStrs = strs.map(item => ({
+            sortStr:[...item].sort(),
+            str:item
+        }))
+        const map = new Map()
+        sortStrs.forEach(item => {
+            const key = item.sortStr.join('')
+            if(map.has(key)){
+                const val = map.get(key)
+                val.push(item.str)
+                map.set(key,val)
+            }else{
+                map.set(key,[item.str])
+            }
+        })
+        const result = []
+        map.forEach(val => result.push(val))
+        return result
+    }
+    const strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    console.log(groupAnagrams(strs))
+}
