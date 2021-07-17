@@ -559,17 +559,11 @@
         const map = new Map()
         sortStrs.forEach(item => {
             const key = item.sortStr.join('')
-            if(map.has(key)){
-                const val = map.get(key)
-                val.push(item.str)
-                map.set(key,val)
-            }else{
-                map.set(key,[item.str])
-            }
+            const val = map.has(key) ? map.get(key) : []
+            val.push(item.str)
+            map.set(key,val)
         })
-        const result = []
-        map.forEach(val => result.push(val))
-        return result
+        return Array.from(map.values())
     }
     const strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
     console.log(groupAnagrams(strs))
