@@ -568,3 +568,23 @@
     const strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
     console.log(groupAnagrams(strs))
 }
+
+{
+    // # 剑指Offer 52.
+    const getIntersectionNode = (headA,headB) => {
+        const setObj = new Set()
+        let tempNode = headA
+        while(tempNode){
+            setObj.add(tempNode)
+            tempNode = tempNode.next
+        }
+        tempNode = headB
+        while(tempNode){
+            if(setObj.has(tempNode)){
+                return tempNode
+            }
+            tempNode =  tempNode.next
+        }
+        return null
+    }
+}
