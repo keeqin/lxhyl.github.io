@@ -588,3 +588,47 @@
         return null
     }
 }
+
+{
+    const restoreArray = adjacentPairs => {
+        const nums = {}
+        for(let i = 0;i<adjacentPairs.length;i++){
+            const [num1,num2] = adjacentPairs[i]
+            const arr1 = nums[num1] || []
+            const arr2 = nums[num2] || []
+            arr1.push(num2)
+            arr2.push(num1)
+            nums[num1] = arr1
+            nums[num2] = arr2
+        }
+       
+        const res = []
+        const markObj = {}
+        for(let key in nums){
+            if(nums[key].length === 1){
+                res[0] = Number(key)
+                markObj[key] = true
+                break
+            }
+        }
+        console.log('nums',nums)
+        // 相邻的一个或两个数
+        let next = nums[res[res.length - 1]]
+        while(next !== undefined){
+            // n2 可能为undefined
+            const [n1,n2] = next
+            let n = markObj[n1] ? n2 : n1
+            if(n !== undefined){
+                res.push(n)
+                next = nums[n]
+                markObj[n] = true
+            }else{
+                break
+            }
+        }
+       
+        return res
+    }
+    const adjacentPairs = [[2,1],[3,4],[3,2]]
+    console.log(restoreArray(adjacentPairs))
+} 
