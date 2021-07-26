@@ -601,8 +601,9 @@
             nums[num1] = arr1
             nums[num2] = arr2
         }
-       
+        // 结果
         const res = []
+        // 标记已经push进结果的
         const markObj = {}
         for(let key in nums){
             if(nums[key].length === 1){
@@ -611,7 +612,7 @@
                 break
             }
         }
-        console.log('nums',nums)
+      
         // 相邻的一个或两个数
         let next = nums[res[res.length - 1]]
         while(next !== undefined){
@@ -632,3 +633,25 @@
     const adjacentPairs = [[2,1],[3,4],[3,2]]
     console.log(restoreArray(adjacentPairs))
 } 
+
+{
+    // #671.二叉树中第二小的节点
+    const findSecondMinimumValue = root => {
+        if(!root) return -1
+        const rootVal = root.val
+        let secondMin = null
+        const dfs = node => {
+            if(!node) return
+            if(node.val !== rootVal){
+                if(secondMin === null){
+                    secondMin = node.val
+                }else if(node.val < secondMin){
+                    secondMin = node.val
+                }
+            }
+            dfs(node.left)
+            dfs(node.right)
+        }
+        return secondMin
+    }
+}
