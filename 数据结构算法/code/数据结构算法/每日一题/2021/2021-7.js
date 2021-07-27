@@ -652,6 +652,48 @@
             dfs(node.left)
             dfs(node.right)
         }
-        return secondMin
+        dfs(root)
+        return secondMin === null ? -1 : secondMin
+    }
+}
+
+{
+    // # 863.二叉树中所有距离为k的节点
+    const distanceK = (root,target,k) => {
+        // 将所有节点加上parent指向其父节点，方便后面的深度优先搜索
+        const addParentsDFS = node => {
+            if(!node) return
+            if(node.left) node.left.parent = node
+            if(node.right) node.right.parent = node
+            addParentsDFS(node.left)
+            addParentsDFS(node.right)
+        }
+        addParentsDFS(root)
+        // 结果
+        const result = []
+        // 标记已经遍历过的节点，避免DFS时重复计算
+        const mark = new Map()
+        /**
+         * 
+         * @param {*} node 当前节点
+         * @param {*} d 距离target的距离
+         */
+        const findDistanceKDFS = (node,d) => {
+            if(!node) return
+            if(mark.has(node)) return
+            mark.set(node,true)
+            if(d === k){
+                result.push(node.val)
+                return
+            }
+            // 大于k的就不用再遍历了
+            if(d > k) return
+            findDistanceKDFS(node.left,d+1)
+            findDistanceKDFS(node.right,d+1)
+            findDistanceKDFS(node.parent,d+1)
+        }
+        // 从target处开始遍历
+        findDistanceKDFS(target,0)
+        return result
     }
 }
