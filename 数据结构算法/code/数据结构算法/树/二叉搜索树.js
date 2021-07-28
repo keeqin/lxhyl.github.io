@@ -291,3 +291,25 @@ myTree.insertMore([97,98,98,99,100,101,102]);
 // console.log(myTree.findFatherNode(98,myTree.tree));
 console.log(myTree.find(102,myTree.tree));
 // console.log(myTree.remove(98,myTree.tree));
+
+
+
+// 从数组生成树（前序遍历）
+const makeTreeByArr = nodes => {
+    function Node(val){
+       this.val = val
+       this.left = this.right = null
+    }
+    const df = arr => {
+        if(arr.length === 0) return null
+        const node = arr.shift()
+        if(!node) return null
+        const root = new Node(node)
+        root.left = df(arr)
+        root.right = df(arr)
+        return root
+    }
+    return df(nodes) 
+}
+const nodes = [3,5,1,6,2,0,8,null,null,7,4]
+const tree = makeTreeByArr(nodes)
