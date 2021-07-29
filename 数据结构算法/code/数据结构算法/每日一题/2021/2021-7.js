@@ -720,3 +720,27 @@
    }
    console.log(pathInZigZagTree(26))
 }
+
+{
+    // #171.Excel表列序号
+    const titleToNumber = columnTitle => {
+        // 获取字符对应的数字
+        const str2num = s => s.charCodeAt() - 'A'.charCodeAt() + 1
+        const titleArr = columnTitle.split('')
+        const len = titleArr.length
+        if(len === 0) return 0
+        let result = 0
+        let i = 0
+        while(titleArr.length > 0){
+           // 从个位数开始
+           const s = titleArr.pop()
+           // 26进制每一位对应的值为 x * 26^n (x为当前位的数字，n为第几位) 
+           result += (str2num(s) * Math.pow(26,i))
+           // 下一位
+           i++
+        }
+        return result
+    }
+    const columnTitle = "FXSHRXW"
+    console.log(titleToNumber(columnTitle))
+}
