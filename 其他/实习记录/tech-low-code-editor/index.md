@@ -37,7 +37,7 @@ directives: {
 最后发现原来是事件没有传播到input上，怪不得没反应。
 遂写做了个测试当作学习。
 
-[event.html](小米实习记录/tech-low-code-editor/event.html)
+[event.html](其他/实习记录/tech-low-code-editor/event.html)
 
 **冒泡的顺序(默认为冒泡)**  
 

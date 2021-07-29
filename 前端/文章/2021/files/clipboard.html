@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clipboard</title>
+    <style>
+        #container {
+            width: 400px;
+            height: 300px;
+            border: dashed 1px black;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="color: red;">
+        <span id="tip">
+        </span>
+        <span id="closeTip"></span>
+    </div>
+    <p id="textId">tesadat哈哈哈哈哈哈</p>
+    <div id="container"></div>
+    <button id="test">复制已有元素内容</button>
+    <button id="testText">仅复制文字</button>
+    <script>
+        const OPTIONS = {
+            type: 'text',
+            text: 'this is default copy text'
+        }
+        const TIP = document.querySelector('#tip')
+        const closeTip = document.querySelector('#closeTip')
+        closeTip.addEventListener('click', e => {
+            TIP.textContent = ''
+            closeTip.textContent = ''
+        })
+
+        function copyCore(node) {
+            // 所选择的对象
+            const selection = window.getSelection()
+            // 首先移除所有已选择的
+            selection.removeAllRanges()
+            // 创建选择区域
+            const range = document.createRange()
+            // 选择标签内容
+            range.selectNode(node)
+            // 把元素加入拖蓝
+            selection.addRange(range)
+            // 复制
+            document.execCommand('copy')
+            // 移除拖蓝
+            selection.removeAllRanges()
+        }
+
+
+        function copyText(options) {
+            const { id, text } = options
+            // 是复制已有节点的字符内容，还是只复制文字
+            const isNodeText = !!id
+            let node
+            if (isNodeText) {
+                node = document.querySelector(`#${id}`)
+            } else {
+                node = document.createElement('span')
+                node.textContent = text
+                document.body.appendChild(node)
+            }
+            copyCore(node)
+
+            if (!isNodeText) {
+                document.body.removeChild(node)
+            }
+            TIP.textContent = '已复制'
+            closeTip.textContent = 'X'
+        }
+
+        function pasteImg(options) {
+            TIP.textContent = '初始化成功，你可以在虚线框内粘贴图片了'
+            closeTip.textContent = 'X'
+            const { id } = options
+            const container = document.querySelector(`#${id}`)
+            function pasteToNode(f, n) {
+                // 文件转为url
+                const reader = new FileReader()
+                reader.readAsDataURL(f)
+                reader.onload = function (event) {
+                    const url = event.target.result
+                    const img = document.createElement('img')
+                    img.width = '400'
+                    img.height = '200'
+                    img.src = url
+                    n.appendChild(img)
+                }
+            }
+            // 舰艇粘贴事件，获取剪贴板内容
+            container.addEventListener('paste', function (e) {
+                const items = e.clipboardData.items
+                if (items && items.length) {
+                    for (let i = 0; i < items.length; i++) {
+                        if (items[i].type.includes("image")) {
+                            pasteToNode(items[i].getAsFile(), container)
+                            TIP.textContent = '粘贴成功'
+                            closeTip.textContent = 'X'
+                            return
+                        }
+                    }
+                    TIP.textContent = '您的剪贴板没有图片'
+                    closeTip.textContent = 'X'
+                }
+            })
+
+        }
+        const copyType = {
+            text: copyText,
+            psImg: pasteImg
+        }
+
+        function copy(options = {}) {
+            options = { ...OPTIONS, ...options }
+            const { type } = options
+            copyType[type](options)
+        }
+
+        document.getElementById('test').addEventListener('click', function test() {
+            console.log("Tip", TIP)
+            const options = {
+                id: 'textId',
+                type: 'text'
+            }
+            copy(options)
+        })
+        document.getElementById('testText').addEventListener('click', function testText() {
+            const options = {
+                type: 'text',
+            }
+            copy(options)
+        })
+        function testImg() {
+            const options = {
+                id: 'container',
+                type: 'psImg'
+            }
+            copy(options)
+        }
+        testImg()
+    </script>
+
+</body>
+
+</html>
