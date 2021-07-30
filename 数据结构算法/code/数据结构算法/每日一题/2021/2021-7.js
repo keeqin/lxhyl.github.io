@@ -744,3 +744,69 @@
     const columnTitle = "FXSHRXW"
     console.log(titleToNumber(columnTitle))
 }
+
+{
+    // #987.二叉树的垂序遍历
+    const verticalTraversal = root => {
+        // 存储每个坐标的值
+        const positionMap = new Map()
+        // 生成并缓存key，同一个坐标应该用同一个坐标对象
+        const keyCache = {}
+        const makeMapKey = (col,row) => {
+             const key = `${col}===${row}`
+             if(keyCache[key]){
+                 return keyCache[key]
+             }else{
+                 const keyObj = {col,row}
+                 keyCache[key] = keyObj
+                 return keyObj
+             }
+        }
+        /**
+         * 
+         * @param {object} node 节点
+         * @param {number} col  第几列
+         * @param {number} row  第几行
+         */
+        const dfs = (node,col,row) => {
+           if(!node) return
+           const key = makeMapKey(col,row)
+           // key为横纵坐标，横纵坐标相同时需要进行排序
+           const positionVal = positionMap.get(key) || []
+           positionVal.push(node.val)
+           positionMap.set(key,positionVal)
+           dfs(node.left,col - 1,row + 1)
+           dfs(node.right,col + 1,row + 1)
+        }
+        dfs(root,0,0)
+        const pstMap = new Map()
+        positionMap.forEach((item,key) => {
+            // 相同坐标的排序
+            if(item.length > 1){
+                item.sort((a,b) => a - b)
+            }
+            // 转为以列为索引的数据结构
+            const val = pstMap.get(key.col) || []
+            val.push({
+                col:key.col,
+                row:key.row,
+                val:item
+            })
+            pstMap.set(key.col,val)
+        })
+        const arr = []
+        pstMap.forEach(item => arr.push(item))
+        const colObj = []
+        arr.forEach(item => {
+            // 每一行，从小到大，也就是二叉树由上至下
+            item.sort((a,b) => a.row - b.row)
+            const allRow = []
+            // 排序后，就不需要行了，所以收集同一列的数据
+            item.forEach(json => allRow.push(...json.val))
+            colObj.push({col:item[0].col,val:allRow})
+        })
+        // 按列排序
+        return colObj.sort((a,b) => a.col - b.col).map(item => item.val)
+    }
+
+}
