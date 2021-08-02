@@ -63,12 +63,41 @@
             // 递归
             const keys = Object.keys(sideMap[node])
             keys.forEach(item => dfs(Number(item), t + sideMap[node][item]))
-          }
-          dfs(k, 0)
-          if (mark.size > 0) return -1
-          // 木桶理论，走完所有节点的最短时间为所有节点中的最大值
-          return Math.max(...result.values())
+        }
+        dfs(k, 0)
+        if (mark.size > 0) return -1
+        // 木桶理论，走完所有节点的最短时间为所有节点中的最大值
+        return Math.max(...result.values())
     }
     const times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
     console.log(networkDelayTime(times, n, k))
+}
+
+{
+    // #581.最短无序连续字数组
+    const findUnsortedSubarray = nums => {
+        const copyNums = [...nums].sort((a,b) => a - b)
+        const len = nums.length
+        let left = null
+        let right = null
+        for(let i = 0;i<len;i++){
+            if(copyNums[i] !== nums[i]){
+                left = i
+                break
+            }
+        }
+        for(let i = len - 1;i>=0;i--){
+            if(copyNums[i] !== nums[i]){
+                right = i
+                break
+            }
+        }
+        if(left === null){
+            return 0
+        }else{
+            return right - left + 1
+        }
+    }
+    const nums = [2,6,4,8,10,9,15]
+    console.log(findUnsortedSubarray(nums))
 }
