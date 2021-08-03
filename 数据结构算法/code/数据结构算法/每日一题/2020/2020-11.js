@@ -567,7 +567,7 @@
         }
         return compute(suffix)
     }
-    let input = "(1)"
+    let input = "3*2+100*(12+3)"
     console.log(calculate(input))
 }
 

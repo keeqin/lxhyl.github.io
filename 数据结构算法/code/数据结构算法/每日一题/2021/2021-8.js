@@ -98,6 +98,38 @@
             return right - left + 1
         }
     }
-    const nums = [2,6,4,8,10,9,15]
+    const nums = [1]
     console.log(findUnsortedSubarray(nums))
+}
+
+{
+    // #611.有效的三角形的个数
+    const triangleNumber = nums => {
+        nums.sort((a,b) => a - b)
+        const len = nums.length
+        if(len <= 2) return 0
+        let result = 0
+        for(let i = 0;i<len - 2;i++){
+            for(let j = i + 1;j<len - 1;j++){
+                const sideSum = nums[i] + nums[j]
+                let left = j + 1
+                let right = len -1
+                let k = j
+                while(left <= right){
+                   const mid = Math.floor((right + left) / 2)
+                   if(nums[mid] < sideSum){
+                       k = mid
+                       left = mid + 1
+                   }else{
+                       right = mid - 1
+                   }
+                }
+                result += k - j
+               
+            }
+        }
+        return result
+    }
+    const nums = [2,2,3,4]
+    console.log(triangleNumber(nums))
 }
