@@ -133,3 +133,35 @@
     const nums = [2,2,3,4]
     console.log(triangleNumber(nums))
 }
+
+{
+    // # 802.找到最终的安全状态
+   const eventualSafeNodes = graph => {
+       const len = graph.length
+       const result = []
+       // 标记节点
+       const mark = Array(len).fill('init')
+       const isSafeDfsHelper = index => {
+         if(mark[index] === 'ing') return false
+         if(mark[index] === 'safe') return true
+          // 打标记
+          mark[index] = 'ing'
+          for(let i = 0;i<graph[index].length;i++){
+            if(!isSafeDfsHelper(graph[index][i])){
+               return false
+            }
+          }
+          // 搜索完毕 是安全节点
+          mark[index] = 'safe'
+          return true
+       }
+       graph.forEach((_,index) => {
+          if(isSafeDfsHelper(index)){
+              result.push(index)
+          }
+       })
+       return result
+   }
+   const graph  = [[1,2],[2,3],[5],[0],[5],[],[]]
+   console.log(eventualSafeNodes(graph))
+}
