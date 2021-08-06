@@ -36,7 +36,7 @@
         })
         // 标记节点，如果遍历过就移除
         const mark = new Set()
-        for(let i=1;i<=n;i++){
+        for (let i = 1; i <= n; i++) {
             mark.add(i)
         }
         // 键为节点，值为k节点到此节点的最短时间
@@ -51,11 +51,11 @@
             // 遍历过了 移除此节点 
             mark.delete(node);
             // 找到到此节点的时间和最小值
-            if(!result.has(node)){
-                result.set(node,t)
-            }else if(result.get(node) > t){
-                result.set(node,t)
-            }else{
+            if (!result.has(node)) {
+                result.set(node, t)
+            } else if (result.get(node) > t) {
+                result.set(node, t)
+            } else {
                 return
             }
             // 下一个节点不存在
@@ -69,32 +69,32 @@
         // 木桶理论，走完所有节点的最短时间为所有节点中的最大值
         return Math.max(...result.values())
     }
-    const times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
+    const times = [[2, 1, 1], [2, 3, 1], [3, 4, 1]], n = 4, k = 2
     console.log(networkDelayTime(times, n, k))
 }
 
 {
     // #581.最短无序连续字数组
     const findUnsortedSubarray = nums => {
-        const copyNums = [...nums].sort((a,b) => a - b)
+        const copyNums = [...nums].sort((a, b) => a - b)
         const len = nums.length
         let left = null
         let right = null
-        for(let i = 0;i<len;i++){
-            if(copyNums[i] !== nums[i]){
+        for (let i = 0; i < len; i++) {
+            if (copyNums[i] !== nums[i]) {
                 left = i
                 break
             }
         }
-        for(let i = len - 1;i>=0;i--){
-            if(copyNums[i] !== nums[i]){
+        for (let i = len - 1; i >= 0; i--) {
+            if (copyNums[i] !== nums[i]) {
                 right = i
                 break
             }
         }
-        if(left === null){
+        if (left === null) {
             return 0
-        }else{
+        } else {
             return right - left + 1
         }
     }
@@ -105,63 +105,64 @@
 {
     // #611.有效的三角形的个数
     const triangleNumber = nums => {
-        nums.sort((a,b) => a - b)
+        nums.sort((a, b) => a - b)
         const len = nums.length
-        if(len <= 2) return 0
+        if (len <= 2) return 0
         let result = 0
-        for(let i = 0;i<len - 2;i++){
-            for(let j = i + 1;j<len - 1;j++){
+        for (let i = 0; i < len - 2; i++) {
+            for (let j = i + 1; j < len - 1; j++) {
                 const sideSum = nums[i] + nums[j]
                 let left = j + 1
-                let right = len -1
+                let right = len - 1
                 let k = j
-                while(left <= right){
-                   const mid = Math.floor((right + left) / 2)
-                   if(nums[mid] < sideSum){
-                       k = mid
-                       left = mid + 1
-                   }else{
-                       right = mid - 1
-                   }
+                while (left <= right) {
+                    const mid = Math.floor((right + left) / 2)
+                    if (nums[mid] < sideSum) {
+                        k = mid
+                        left = mid + 1
+                    } else {
+                        right = mid - 1
+                    }
                 }
                 result += k - j
-               
+
             }
         }
         return result
     }
-    const nums = [2,2,3,4]
+    const nums = [2, 2, 3, 4]
     console.log(triangleNumber(nums))
 }
 
 {
     // # 802.找到最终的安全状态
-   const eventualSafeNodes = graph => {
-       const len = graph.length
-       const result = []
-       // 标记节点
-       const mark = Array(len).fill('init')
-       const isSafeDfsHelper = index => {
-         if(mark[index] === 'ing') return false
-         if(mark[index] === 'safe') return true
-          // 打标记
-          mark[index] = 'ing'
-          for(let i = 0;i<graph[index].length;i++){
-            if(!isSafeDfsHelper(graph[index][i])){
-               return false
+    const eventualSafeNodes = graph => {
+        const len = graph.length
+        const result = []
+        // 标记节点
+        const mark = Array(len).fill('init')
+        const isSafeDfsHelper = index => {
+            if (mark[index] === 'ing') return false
+            if (mark[index] === 'safe') return true
+            // 打标记
+            mark[index] = 'ing'
+            for (let i = 0; i < graph[index].length; i++) {
+                if (!isSafeDfsHelper(graph[index][i])) {
+                    return false
+                }
             }
-          }
-          // 搜索完毕 是安全节点
-          mark[index] = 'safe'
-          return true
-       }
-       graph.forEach((_,index) => {
-          if(isSafeDfsHelper(index)){
-              result.push(index)
-          }
-       })
-       return result
-   }
-   const graph  = [[1,2],[2,3],[5],[0],[5],[],[]]
-   console.log(eventualSafeNodes(graph))
+            // 搜索完毕 是安全节点
+            mark[index] = 'safe'
+            return true
+        }
+        graph.forEach((_, index) => {
+            if (isSafeDfsHelper(index)) {
+                result.push(index)
+            }
+        })
+        return result
+    }
+    const graph = [[1, 2], [2, 3], [5], [0], [5], [], []]
+    console.log(eventualSafeNodes(graph))
 }
+
