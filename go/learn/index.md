@@ -120,3 +120,12 @@ func sumArray(arr []int) int {
 const arr1 = [5]int{0,1,2,3,4}
 sumArray(arr1[:])
 ```
+
+
+## 切片   
+**定义**   
+```go
+var s1 []int
+s2 := []int{}
+var s3 []int = make([]int,0)
+```

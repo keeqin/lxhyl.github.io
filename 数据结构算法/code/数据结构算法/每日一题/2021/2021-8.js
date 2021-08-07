@@ -226,3 +226,23 @@
     const nums =[-2,1,-1,-2,-2]
     console.log(circularArrayLoop(nums))
 }
+
+{
+    // #1137.第N个泰波那契数
+    const tribonacci = n => {
+        let a = 0,b=1,c=1
+        if(n === 0) return a
+        if(n === 1) return b
+        if(n === 2) return c
+        let i = 3
+        while(i <= n){
+          const temp = a + b + c
+          a = b
+          b = c
+          c = temp 
+          i++
+        }
+        return c
+    }
+    console.log(tribonacci(4))
+}
