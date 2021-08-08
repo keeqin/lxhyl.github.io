@@ -127,5 +127,5 @@ sumArray(arr1[:])
 ```go
 var s1 []int
 s2 := []int{}
-var s3 []int = make([]int,0)
+var s3 []int = make([]int,0) 
 ```

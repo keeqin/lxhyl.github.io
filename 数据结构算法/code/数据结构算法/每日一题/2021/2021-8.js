@@ -180,69 +180,95 @@
          * @param {Set} set 已经遍历过的节点
          * @returns {Boolean} 
          */
-        const dfs = (index,d,set) => {
+        const dfs = (index, d, set) => {
             // 再次遍历到说明有循环
-           if(set.has(index)) return true
-           set.add(index)
+            if (set.has(index)) return true
+            set.add(index)
             // 不同方向的相乘肯定为负数
-           if(d * nums[index] < 0) return false
-           const next = getNext(index)
-           // 环的长度为1
-           if(next === index) return false
-           return dfs(next,d,set)
+            if (d * nums[index] < 0) return false
+            const next = getNext(index)
+            // 环的长度为1
+            if (next === index) return false
+            return dfs(next, d, set)
         }
-        for(let i =0;i<len;i++){
-            const result = dfs(i,nums[i],new Set())
-            if(result) return true
+        for (let i = 0; i < len; i++) {
+            const result = dfs(i, nums[i], new Set())
+            if (result) return true
         }
         return false
     }
     // 快慢指针
     const circularArrayLoop = nums => {
         const len = nums.length
-        const getNext = index =>  ((index + nums[index]) % len + len) % len
-        for(let i = 0;i<len;i++){
+        const getNext = index => ((index + nums[index]) % len + len) % len
+        for (let i = 0; i < len; i++) {
             // 已经遍历过的跳过
-            if(nums[i] === 0) continue
-            let slow = i,fast = getNext(i)
+            if (nums[i] === 0) continue
+            let slow = i, fast = getNext(i)
             // 当方向相同，并且都不为0时
             // 注意：由于slow和fast是同步前进的，所以需要再错开相乘，才能保证方向相同。
-            while(nums[slow] * nums[fast] > 0 && nums[slow] * nums[getNext(fast)] > 0){
-                 // 遍历过的直接置0
-                 nums[slow] === 0
-                 nums[fast] === 0
-                 if(slow === fast){
-                     // 检查是否长度只有1
-                     if(slow === getNext(fast)) break
-                     return true
-                 }
-                 // 下一步
-                 slow = getNext(slow)
-                 fast = getNext(getNext(fast))
+            while (nums[slow] * nums[fast] > 0 && nums[slow] * nums[getNext(fast)] > 0) {
+                // 遍历过的直接置0
+                nums[slow] === 0
+                nums[fast] === 0
+                if (slow === fast) {
+                    // 检查是否长度只有1
+                    if (slow === getNext(fast)) break
+                    return true
+                }
+                // 下一步
+                slow = getNext(slow)
+                fast = getNext(getNext(fast))
             }
         }
         return false
     }
-    const nums =[-2,1,-1,-2,-2]
+    const nums = [-2, 1, -1, -2, -2]
     console.log(circularArrayLoop(nums))
 }
 
 {
     // #1137.第N个泰波那契数
     const tribonacci = n => {
-        let a = 0,b=1,c=1
-        if(n === 0) return a
-        if(n === 1) return b
-        if(n === 2) return c
+        let a = 0, b = 1, c = 1
+        if (n === 0) return a
+        if (n === 1) return b
+        if (n === 2) return c
         let i = 3
-        while(i <= n){
-          const temp = a + b + c
-          a = b
-          b = c
-          c = temp 
-          i++
+        while (i <= n) {
+            const temp = a + b + c
+            a = b
+            b = c
+            c = temp
+            i++
         }
         return c
     }
     console.log(tribonacci(4))
+}
+
+
+{
+    // #313.超级丑数
+    const nthSuperUglyNumber = (n,primes) => {
+        const dp = new Array(n + 1).fill(0)
+        dp[1] = 1
+        const len = primes.length
+        const markPointers = new Array(len).fill(1)
+        for(let i=2;i<=n; i++){
+            let minNum = Number.MAX_SAFE_INTEGER
+            for(let j = 0;j<len;j++){
+                minNum = Math.min(dp[markPointers[j]] * primes[j],minNum)
+            }
+            dp[i] = minNum
+            for(let j=0;j<len;j++){
+                if(minNum === dp[markPointers[j]] * primes[j]){
+                    markPointers[j]++
+                }
+            }
+        }
+        return dp[n]
+    }
+    const n = 12, primes = [2,7,13,19]
+    console.log(nthSuperUglyNumber(n,primes))
 }
