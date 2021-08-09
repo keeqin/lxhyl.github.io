@@ -1,6 +1,6 @@
 记录下工作中常用git命令
 
-# git state
+# git status
 查看工作区状态
 
 # git log  
