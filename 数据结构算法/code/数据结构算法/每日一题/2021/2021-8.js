@@ -254,6 +254,7 @@
         const dp = new Array(n + 1).fill(0)
         dp[1] = 1
         const len = primes.length
+        //标记质因数所指的指针,起初都指向dp[1]
         const markPointers = new Array(len).fill(1)
         for(let i=2;i<=n; i++){
             let minNum = Number.MAX_SAFE_INTEGER
@@ -271,4 +272,26 @@
     }
     const n = 12, primes = [2,7,13,19]
     console.log(nthSuperUglyNumber(n,primes))
+}
+
+{
+    // #等差数列划分
+    const numberOfArithmeticSlices = nums => {
+        const len = nums.length
+        // dp[i] 表示前nums[0:i]为等差数组的子数组的个数
+        const dp = new Array(len).fill(0)
+        let i = 2
+        let result = 0
+        while(i<=len){
+            if(nums[i] - nums[i-1] ===  nums[i-1] - nums[i-2]){
+                dp[i] = dp[i-1] + 1
+                result += dp[i]
+            }
+            i++
+        }
+        return result
+    }
+    const nums =[1,2,3,4]
+
+    console.log(numberOfArithmeticSlices(nums))
 }
